@@ -53,7 +53,7 @@ class InviteList extends Component {
     renderInvite = ({item}) => {
         return (
             <InviteListItems
-                source={item.image_id}
+                source={item.source}
                 nickname={item.nickname}
                 id={item.freinds_id}/>
         );
@@ -90,18 +90,26 @@ class InviteList extends Component {
                 <View
                     style={{
                         flexDirection: 'row',
-                        justifyContent: 'space-between'
+                        justifyContent: 'space-between',
+                        alignItems :'center',
+                        paddingHorizontal :20
+                        
+                        
                     }}>
-                    <Text style={styles.textname}>초대된 친구목록</Text>
+                    <View style ={{flexDirection :'row'}}>
+                        <Text style={styles.textname}>초대된 친구목록</Text>
+                        <View style ={{alignItems :'center',backgroundColor : '#000', width :36, height :22, borderRadius:6 ,marginLeft :5 ,paddingBottom :5 ,bottom : 2}}>
+                            <Text style={{color:'white' , top :3.5 ,fontSize :12, fontWeight :'400'}}>{this.props.invite.length}/8</Text>
+                        </View>
+                    </View>    
                     <TouchableWithoutFeedback onPress={this.show}>
                         <View
                             style={{
                                 flexDirection: 'row',
                                 alignItems : 'center',
-                                paddingRight: 20,
                             }}>
                             <Text style={styles.invitefriendlist}>초대</Text>
-                            <IonIcon name="add-outline" size={30}/>
+                            <IonIcon name="add-outline" size={20} color = '#5585E8'/>
                         </View>
                     </TouchableWithoutFeedback>
                 </View>
@@ -152,16 +160,14 @@ const styles = StyleSheet.create({
       },
     invitefriendlist: {
         
-        fontSize: 18,
-        color: '#000',
-        fontWeight: '700'
+        fontSize: 16,
+        color: '#5585E8',
+        fontWeight: '400'
     },
     textname: {
-        paddingLeft: 20,
-
-        fontSize: 18,
-        color: '#5585E8',
-        fontWeight: '700'
+        fontSize: 16,
+        color: '#000',
+        fontWeight: '400'
     }
 });
 

@@ -9,6 +9,7 @@ const initialState = [
         image_id: 'this is id',    
         freinds_id: 1,
         isSelected : false,
+        source : 'https://images.khan.co.kr/article/2021/01/08/l_2021010802000388200068931.jpg',
     }
 ]
 

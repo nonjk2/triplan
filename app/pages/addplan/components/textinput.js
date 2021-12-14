@@ -14,6 +14,7 @@ import Calendars from './datepicker';
 import Input from '../../../../util/forms/input';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import IonIcon from 'react-native-vector-icons/Ionicons';
 
 
 /////////////////// 날짜 포맷 ///////////////////////
@@ -52,11 +53,9 @@ class Textplanform extends Component {
         isDatePickerVisible : false,
         isModalVisible : false,
         isModalmapVisible : false,
+        firstday:'',
+        lastday: '',
         myTextInput: '',
-        myPlanName: '',
-        type: '',
-        action: '',
-        actionMode: '여행명을 작성해주세요',
         hasErrors: false,
         form: {
             planname: {
@@ -66,7 +65,7 @@ class Textplanform extends Component {
                 valid: false
             },
             planday: {
-                value: '',
+                value: [],
                 type: 'textinput',
                 date : '',
             },
@@ -102,15 +101,20 @@ class Textplanform extends Component {
         })
        
     }
-    closeOutside = () => {
+    closeOutside = (selectday) => {
 
-        this.setState({isModalVisible: false})
-       
-    }
-    datepick = () => {
+        this.setState({
+            isModalVisible: false,
+            firstday : selectday[0],
+            lastday : selectday [1]
+            
+        })
+        console.log(this.state.firstday)
+        console.log(this.state.lastday)
         
         
     }
+
 
     render() {
         const {isModalVisible,isModalmapVisible} = this.state
@@ -127,7 +131,12 @@ class Textplanform extends Component {
                         style={{
                             flexDirection: 'row',
                             justifyContent: 'space-between',
-                            alignItems: 'center'
+                            alignItems: 'center',
+                            borderWidth : 2,
+                            borderColor : '#C4C4C4',
+                            borderRadius : 4,
+                            height : 36
+                            
 
                         }}>
                         <Input
@@ -137,10 +146,19 @@ class Textplanform extends Component {
                             autoCapitalize={'none'}
                             keyboardType={'email-address'}
                             style={styles.input}
+                            fontSize={14}
                             placeholder="여행명을 입력해주세요"
                             placeholderTextColor='#767676'
+                            marginLeft={10}
+                            maxLength = {10}
                             onChangeText={value => this.updateInput("planname", value)}></Input>
-                        <Text style={styles.inputvalid}>{this.state.form.planname.value.length}/10</Text>
+                        <Text style={{
+                            alignItems: 'flex-end',
+                            fontSize: 15,
+                            justifyContent: 'center',
+                            color: this.state.form.planname.value.length === 0 ? 'gray':'#5585E8'  ,
+                            paddingRight : 2,
+                        }}>{this.state.form.planname.value.length}/10</Text>
                     </View>
                 </View>
 
@@ -148,10 +166,22 @@ class Textplanform extends Component {
                     <Text style={styles.textname}>여행기간/날짜
                     </Text>
                     <Pressable onPress={() => this.setState({isModalVisible: true})}>
-                        <View pointerEvents="none">
+                        <View style = {{
+                            borderWidth : 2,
+                            borderColor : '#C4C4C4',
+                            borderRadius : 4,
+                            height : 36,
+                            justifyContent : 'space-between',
+                            flexDirection : 'row',
+                            alignItems :'center'
+                            
+                            
+                        }} 
+                            pointerEvents="none">
                             <Input
                                 myPlanName="여행명"
-                                value={this.props.date[this.props.date.length-1].firstday + '  ~   ' + this.props.date[this.props.date.length-1].lastday}
+                                // value={this.props.date[this.props.date.length-1].firstday + '  ~   ' + this.props.date[this.props.date.length-1].lastday}
+                                value={this.state.firstday.length === 0 ? '' : this.state.firstday +'   ~   '+this.state.lastday} 
                                 color='#767676'
                                 type={this.state.form.planday.type}
                                 autoCapitalize={'none'}
@@ -160,7 +190,10 @@ class Textplanform extends Component {
                                 placeholder="여행 기간 및 날짜를 입력하세요"
                                 placeholderTextColor='#767676'
                                 onFocus={this.onFocus}
+                                fontSize={14}
+                                marginLeft={10}
                                 onChangeText={value => this.updateInput("planday", value)}/>
+                            <IonIcon name="calendar-outline" size={18} style={{  marginRight : 10,color: this.state.firstday.length ===0 ? 'gray' :'#5585E8' ,fontWeight : '400'}}/>
 
                         </View>
                     </Pressable>
@@ -170,7 +203,18 @@ class Textplanform extends Component {
                 <View style={styles.containertwo}>
                     <Text style={styles.textname}>출발 위치 등록</Text>
                     <Pressable onPress={() => this.setState({isModalmapVisible: true})}>
-                        <View pointerEvents ="none">
+                        <View 
+                        style ={{borderWidth : 2,
+                            borderColor : '#C4C4C4',
+                            borderRadius : 4,
+                            height : 36,
+                            justifyContent : 'space-between',
+                            flexDirection : 'row',
+                            alignItems :'center',
+                            
+                            
+                        }}
+                        pointerEvents ="none">
                             <Input
                                 myPlanName="여행명"
                                 value={this.state.myTextInput}
@@ -178,7 +222,14 @@ class Textplanform extends Component {
                                 keyboardType={'email-address'}
                                 style={styles.input}
                                 placeholder="여행을 시작하는 위치를 등록해주세요"
-                                placeholderTextColor='#767676'/>
+                                placeholderTextColor='#767676'
+                                fontSize={14}
+                                marginLeft={10}
+
+                                    
+                            />
+                                
+                            <IonIcon name="location-outline" size={18} style={{  marginRight : 10,color: 'gray' ,fontWeight : '400'}}/>
                         </View>
                     </Pressable>
                 </View>
@@ -206,8 +257,8 @@ class Textplanform extends Component {
                         >
                         <Calendars
                             title="asssdsdds"
-                            close = {this.close}
-                            onTouchOutside={this.closeOutside}
+                            close = {this.closeOutside}
+                            onTouchOutside={this.close}
                             />
                 </Modal>
             </View>
@@ -217,17 +268,15 @@ class Textplanform extends Component {
 
 const styles = StyleSheet.create({
     textname: {
-        paddingLeft: 7,
-        paddingBottom: 5,
-        fontSize: 18,
-        color: '#5585E8',
-        fontWeight: '700'
+        
+        paddingBottom: 8,
+        fontSize: 16,
+        color: '#000',
+        fontWeight: '400'
     },
 
     containertwo: {
         marginBottom: 48,
-        borderBottomColor: '#5585E8',
-        borderBottomWidth: 2,
         justifyContent: 'space-between'
     },
 
@@ -237,16 +286,11 @@ const styles = StyleSheet.create({
     },
     input: {
         width: '100%',
-        fontSize: 16,
-        padding: 5
+        fontSize: 12,
+        padding: 5,
+        borderWidth : 2,
     },
-    inputvalid: {
-        alignItems: 'flex-end',
-        fontSize: 15,
-        justifyContent: 'center',
-        color: '#5585E8'
-
-    },
+    
     modal: {
         margin: 0,
         alignItems: 'center',

@@ -23,14 +23,14 @@ class InviteListItems extends Component {
                     <TouchableOpacity>
                         <View style={styles.invitecontain}>
                             <Image
-                                source={require('../../../../src/assets/jenny.jpg')}
+                                source={{uri : this.props.source }}
                                 style={styles.invitelistimage}/>
                             <Text
                                 style={{
                                     position : 'absolute',
                                     fontSize : 18,
                                     color : '#fff'
-                                }}>{this.props.nickname}</Text>
+                                }}></Text>
                         </View>
                     </TouchableOpacity>
                 </View>

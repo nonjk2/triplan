@@ -151,7 +151,7 @@ class InviteModal extends React.Component {
                     <InviteFriendsItems
                         index={index}
                         item={item}
-                        source={item.image_id}
+                        source={item.source}
                         nickname={item.nickname}
                         isSelected= {item.isSelected}
                         id={item.freinds_id}

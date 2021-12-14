@@ -1,10 +1,13 @@
 import 'react-native-gesture-handler'; 
 import React, {useEffect, useState} from 'react'; 
 import NaverMapView, {Circle, Marker, Path, Polyline, Polygon, Align} from ".";
-import {PermissionsAndroid, Platform, Text, TouchableOpacity, View, Alert} from "react-native";
+import {PermissionsAndroid, Platform, Text, TouchableOpacity, View, Alert, FlatList} from "react-native";
+import Mapsearch from './search';
+
 
   const P0 = {latitude: 37.564362, longitude: 126.977011}; const P1 = {latitude: 37.565051, longitude: 126.978567};
   const P2 = {latitude: 37.565383, longitude: 126.976292}; const P4 = {latitude: 37.564834, longitude: 126.977218};
+
 
 
     
@@ -42,11 +45,19 @@ const MapViewScreen = (props) => {
         {/* <Polyline coordinates={[P1, P2]} onClick={() => console.warn('onClick! polyline')}/>  */}
         {/* <Circle coordinate={P0} color={"rgba(255,0,0,0.3)"} radius={200} onClick={() => console.warn('onClick! circle')}/>  */}
         {/* <Polygon coordinates={[P0, P1, P2]} color={`rgba(0, 0, 0, 0.5)`} onClick={() => console.warn('onClick! polygon')}/>  */}
-        </NaverMapView> 
+        </NaverMapView>
+        <View style ={{
+            width : 343,
+            height : 500,
+            position :'absolute',
+            top :'10%'}}>
+            <Mapsearch/>
+        </View>
+         
         <TouchableOpacity style={{position: 'absolute', bottom: '10%', right: 8}} onPress = {props.close}> 
-        <View style={{backgroundColor: 'gray', padding: 4}}> 
-            <Text style={{color: 'white'}}>뒤로가기</Text> 
-        </View> 
+            <View style={{backgroundColor: 'gray', padding: 4}}> 
+                <Text style={{color: 'white'}}>뒤로가기</Text> 
+            </View> 
         </TouchableOpacity>
         </> };
         

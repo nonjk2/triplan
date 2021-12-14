@@ -76,7 +76,7 @@ class Calendars extends Component {
                     alert('~날짜를 선택해주세요~')
                 }else{
                     this.props.dateInsert(this.state.selectday)
-                    this.props.close()
+                    this.props.close(this.state.selectday)
                 }
             }
 

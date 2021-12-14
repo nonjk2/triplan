@@ -28,10 +28,9 @@ const styles = StyleSheet.create({
   },
   input : {
 
-
+    
     borderBottomColor : '#5585E8',
     backgroundColor : '#fff',
-    color : '#fff',
     fontSize : 16,
 
     

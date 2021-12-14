@@ -16,16 +16,12 @@ class InviteFriendsItems extends Component {
             
         }
     }
-
-    borderWidth = () => {
-
-    }
-
+    
     render() {
         return (
             <View style={styles.invitebutton}>
                 <Image
-                    source={require('../../../../src/assets/jenny.jpg')}
+                    source={{uri : this.props.source}}
                     style={{width: 80,
                             height: 80,
                             borderRadius: 15,

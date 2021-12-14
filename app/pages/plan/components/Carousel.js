@@ -28,7 +28,7 @@ function infiniteScroll(dataList) {
       scrolled = 0;
     }
     this.flatlist.scrollToOffset({animated: true, offset: scrollValue});
-  }, 6000);
+  }, 20000);
 }
 
 const Carousel = ({data}) => {
@@ -54,7 +54,7 @@ const Carousel = ({data}) => {
           pagingEnabled
           scrollEnabled
           snapToAlignment="center"
-          scrollEventThrottle={16}
+          scrollEventThrottle={32}
           showsHorizontalScrollIndicator={false}
           renderItem={({item}) => {
             return <CarouselItem item={item} />;
