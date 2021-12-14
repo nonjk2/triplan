@@ -11,8 +11,8 @@ class Plantap extends Component {
   }
 
   getSerchLoc = async () =>{
-    const ID_KEY = '7STnsJpRKt8CRM73DPpt'
-    const SECRET_KEY = 'c1UCAZYQ3U'
+
+
     const search = this.state.value;
     try {
       if (search==="") {
