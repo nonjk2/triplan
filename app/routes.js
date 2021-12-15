@@ -9,6 +9,7 @@ import SettingScreen from './pages/setting';
 import ComplainScreen from './pages/complain';
 import Loading from './pages/auth/loading'
 import Tapmynavigation from './pages/customTabbar';
+import FirstOpen from './pages/firstopen';
 
 
 
@@ -44,6 +45,7 @@ export const AppNavigation = () => {
   return (
     <AuthStack.Navigator>
         <AuthStack.Screen name="Loading" component={Loading} options={{headerShown : false }}/>
+        <AuthStack.Screen name="Firstopen" component={FirstOpen} options={{headerShown : false }}/>
         <AuthStack.Screen name="TRIPIAN" component={HomeScreen} options={{headerShown : false }}/>
         {/* <AuthStack.Screen name="SignIn" component={SignIn}/> */}
         <AuthStack.Screen name="plan" component={Tapmynavigation} options={{headerShown : false }}/>

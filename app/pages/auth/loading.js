@@ -13,9 +13,14 @@ class Loading extends Component{
         }
     }
 
-
+//////// auth 설정 /////////
     onComplete = () =>{
-        this.props.navigation.navigate("TRIPIAN")
+        const Signin = false
+        if (Signin == true) {
+            this.props.navigation.navigate("TRIPIAN")    
+        }else{
+            this.props.navigation.navigate("Firstopen")
+        }
     }
 
     onLoad = () =>{

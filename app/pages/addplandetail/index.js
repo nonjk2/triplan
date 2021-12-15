@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, Button} from 'react-native';
 
-class Plantap extends Component {
+class AddplanSetting extends Component {
 
   
   render() {
@@ -14,7 +14,7 @@ class Plantap extends Component {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <Text>Plantap Screen</Text>
+        <Text>AddplanSetting Screen</Text>
         <Button
           title="To Home Screen"
           onPress={() => {
@@ -29,4 +29,4 @@ class Plantap extends Component {
 
 const styles = StyleSheet.create({});
 
-export default Plantap;
+export default AddplanSetting;

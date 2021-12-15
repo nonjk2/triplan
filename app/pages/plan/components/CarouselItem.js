@@ -34,9 +34,9 @@ const styles = StyleSheet.create({
     },
     textView : {
         position : 'absolute',
-        bottom : 30,
+        bottom : '5%',
         margin : 10,
-        left : 5,
+        left : '5%',
     },
     image : {
         width : width ,
