@@ -15,10 +15,10 @@ const HeaderRight = () => {
             }
           style = {{
             marginHorizontal : 20,
-            marginTop : 10,
+            marginv : 10,
 
           }}>
-            <IonIcon name="person-outline" size ={20} />
+            <IonIcon name="settings-outline" size ={25} />
         </TouchableOpacity>
     )
   }
@@ -36,6 +36,7 @@ export const Header = ({containerStyle, rightComponent}) => {
         <View
             style ={{
                 flexDirection :'row',
+                marginBottom : 10,
                 ...containerStyle,
                 
                 

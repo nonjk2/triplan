@@ -13,9 +13,8 @@ import CarouselItem from './CarouselItem';
 
 const {width, height} = Dimensions.get('window');
 
-let flatlist;
-
 function infiniteScroll(dataList) {
+  const flatlist = this.flatlist;
   const numberofata = dataList.length;
   let scrollValue = 0,
     scrolled = 0;
@@ -27,7 +26,7 @@ function infiniteScroll(dataList) {
       scrollValue = 0;
       scrolled = 0;
     }
-    this.flatlist.scrollToOffset({animated: true, offset: scrollValue});
+    flatlist.scrollToOffset({animated: true, offset: scrollValue});
   }, 20000);
 }
 
@@ -44,11 +43,20 @@ const Carousel = ({data}) => {
 
     return (
       <View>
+        <View style ={{width : 99, height : 24, position : 'absolute'  , top : -10, zIndex : 1 ,backgroundColor : '#5585E8', alignItems : 'center' , justifyContent : 'center'}}>
+          <Text style = {{fontSize : 12 ,fontWeight : '400', color : '#fff'}}>이달의 추천지</Text>
+        </View>
         <FlatList
           data={data}
-          ref={flatlist => {
-            this.flatlist = flatlist;
-          }}
+          ref={flatlist1 => {
+            try {
+              this.flatlist = flatlist1;  
+            } catch (error) {
+              flatlist1 = flatlist1;
+              console.log(error)
+            }
+            
+          }}  
           keyExtractor={(item, index) => 'key' + index}
           horizontal
           pagingEnabled

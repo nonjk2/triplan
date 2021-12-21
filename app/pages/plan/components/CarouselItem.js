@@ -6,7 +6,8 @@ const {width, height} = Dimensions.get('window')
 const CarouselItem = ({item}) =>{
     return(
         <View style = {styles.carView}>
-            <Image style = {styles.image} source = {require('../../../../src/assets/jenny.jpg')}/>
+            
+            <Image style = {styles.image} source = {{uri : item.source}}/>
             <View style = {styles.textView}>
                 <Text style = {styles.itemTitle}>{item.title}</Text>
                 <Text style = {styles.itemDescription}>{item.description}</Text>

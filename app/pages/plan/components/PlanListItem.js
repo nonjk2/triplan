@@ -28,12 +28,19 @@ class PlanListItems extends Component {
           }}
         >
             <View style = {styles.listbutton}>
-                <Image source = {require('../../../../src/assets/jenny.jpg')} style = {styles.planlistimage}/>
+                <Image source = {{uri : this.props.source}} style = {styles.planlistimage}/>
                 <View style = {styles.plancontain}>
                     <Dday tpye = {this.props.dday}/>
                     <View style = {styles.plantextView}>
                         <Text style = {styles.plannamestyle}>{this.props.planname}</Text>
-                        <Text style = {styles.daystyle}>{this.props.day}</Text>
+                        <Text style = {{
+                            padding : 2,
+                            fontSize : 14,
+                            fontWeight : '400',
+
+                            color : this.props.dday === '진행중' ? 'red' : this.props.dday < 40 ? '#5585E8' : '#000',
+                            
+                            }}>{this.props.day}</Text>
                     </View>
                 </View>
             </View>
@@ -72,6 +79,7 @@ class Dday extends Component {
                 height : 9,
                 width : bagroundWidth,
                 backgroundColor : bagroundColor,
+                
                 flex : 1,
                 marginBottom : 10,
                 borderRadius : 10,  
@@ -82,6 +90,7 @@ class Dday extends Component {
                     color : 'white',
                     fontSize : 15,
                     textAlign : 'center',
+                    fontWeight : '700',
                     justifyContent : 'center',
                 }}>{Ddayy}{this.props.tpye}</Text>
             </View>
@@ -114,14 +123,9 @@ const styles = StyleSheet.create({
     },
     plannamestyle : {
 
-        color : "#5585E8",
+
         fontSize : 15,
         padding : 2,
-
-    },
-    daystyle : {
-        padding : 2,
-        fontSize : 15
 
     },
     ddayTextView : {

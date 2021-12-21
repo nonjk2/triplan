@@ -16,7 +16,7 @@ class Mapsearch extends Component {
   }
 
   getSerchLoc = async () =>{
-
+    
 
     const search = this.state.value;
     try {
