@@ -1,44 +1,42 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, Button, FlatList} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import PlanListItems from './PlanListItem';
-import { PlanData } from '../../../../util/forms/data';
-const DATA = PlanData
-class Planlists extends Component {
+import ScheduleListitems from './scheduleListitem';
+import { Scheduledata } from '../../../../util/forms/data';
+const DATA = Scheduledata
+
+class ScheduleList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: this.planlist(DATA),
-
+      data: this.schedulelist(DATA),
     };
   }
 
-  renderPlan = ({item}) => {
-
+  renderSchedule = ({item}) => {
     return (
-      <PlanListItems
-        source={item.source}
-        title={item.plantitle}
+      <ScheduleListitems
+        schedule_id={item.schedule_id}
+        title={item.schedule_title}
+        price={item.price}
         startDatetime={item.startDatetime}
         endDatetime={item.endDatetime}
-        dday={item.dday}
+        memo={item.memo}
         navigation= {this.props.navigation}
       />
     );
   };
-  planlist = plans => {
-    return plans.map(plan => {
-      return Object.assign(plan, {key: plan.key});
+  schedulelist = plans => {
+    return plans.map(schedule => {
+      return Object.assign(schedule, {key: schedule.key});
     });
   };
 
-  
   render() {
     return (
 
         <FlatList
           data={this.state.data}
-          renderItem={this.renderPlan}
+          renderItem={this.renderSchedule}
           showsVerticalScrollIndicator={true}
         //   ListHeaderComponent={
         //     <View>
@@ -53,4 +51,4 @@ class Planlists extends Component {
 
 const styles = StyleSheet.create({});
 
-export default Planlists;
+export default ScheduleList;

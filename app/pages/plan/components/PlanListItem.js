@@ -3,11 +3,6 @@ import {StyleSheet, View, Text, Button, FlatList, TouchableOpacity, Image} from 
 
 
 
-
-
-
-
-
 class PlanListItems extends Component {
     constructor(props){
         super(props);
@@ -32,7 +27,7 @@ class PlanListItems extends Component {
                 <View style = {styles.plancontain}>
                     <Dday tpye = {this.props.dday}/>
                     <View style = {styles.plantextView}>
-                        <Text style = {styles.plannamestyle}>{this.props.planname}</Text>
+                        <Text style = {styles.plannamestyle}>{this.props.title}</Text>
                         <Text style = {{
                             padding : 2,
                             fontSize : 14,
@@ -40,7 +35,7 @@ class PlanListItems extends Component {
 
                             color : this.props.dday === '진행중' ? 'red' : this.props.dday < 40 ? '#5585E8' : '#000',
                             
-                            }}>{this.props.day}</Text>
+                            }}> {this.props.startDatetime}~ {this.props.endDatetime}</Text>
                     </View>
                 </View>
             </View>
