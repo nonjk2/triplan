@@ -17,6 +17,7 @@ class Planlists extends Component {
 
     return (
       <PlanListItems
+        plan_id = {item.plan_id}
         source={item.source}
         title={item.plantitle}
         startDatetime={item.startDatetime}

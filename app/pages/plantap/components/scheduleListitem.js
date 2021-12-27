@@ -9,16 +9,15 @@ class ScheduleListitems extends Component {
     constructor(props){
         super(props);
         this.state={
-            
+
         }
     }
-    // <Image source = {{uri : this.props.source}} style = {styles.planlistimage}/>
-    //         <Text style = {styles.plannamestyle}>{this.props.title}</Text>
-    //         <Text style = {styles.plannamestyle}>{this.props.startDatetime}</Text>
-    //         <Text style = {styles.plannamestyle}>{this.props.endDatetime}</Text>
+    componentDidMount(){
+        // console.warn(this.props.planday)
+    }
   
   render() {
-      console.log(this.props.dday)
+    //   console.log(this.props.dday)
       
       const statedate = new Date(this.props.startDatetime)
     return (
@@ -42,7 +41,11 @@ class ScheduleListitems extends Component {
             }}>
             <View style = {{  flex : 1,marginHorizontal : 20 , marginVertical : 12, flexDirection : 'row' ,}}>
                 <View style ={{ shadowOpacity: 0,flex : 1, justifyContent :'center',}}>
-                    <Text>{this.props.startDatetime}{`\n`}   -    {`\n`}{this.props.endDatetime}</Text>
+                    <Text>
+                        {+new Date(this.props.startDatetime).getHours()+"시"}{new Date(this.props.startDatetime).getMinutes()+"분"}{`\n`}
+                               {`\n`}
+                        {+new Date(this.props.endDatetime).getHours()+"시"}{new Date(this.props.endDatetime).getMinutes()+"분"}{`\n`}
+                    </Text>
                 </View>
                 <View style ={{flex : 3 ,  justifyContent : 'center'}}>
                     <Text style = {{fontWeight : '400' , fontSize : 16,}}>{this.props.title}</Text>

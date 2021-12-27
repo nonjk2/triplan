@@ -9,9 +9,12 @@ class ScheduleList extends Component {
     super(props);
     this.state = {
       data: this.schedulelist(DATA),
+
     };
   }
-
+  componentDidMount(){
+    
+  }
   renderSchedule = ({item}) => {
     return (
       <ScheduleListitems
@@ -26,7 +29,11 @@ class ScheduleList extends Component {
     );
   };
   schedulelist = plans => {
-    return plans.map(schedule => {
+    const startDate = this.props.startDate
+    const planschedule = plans.filter(e => new Date(e.startDatetime).getDate() == startDate)
+    console.log(plans.map(e=> new Date(e.startDatetime).getDate()))
+    console.log(planschedule)
+    return planschedule.map(schedule => {
       return Object.assign(schedule, {key: schedule.key});
     });
   };

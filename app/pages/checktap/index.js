@@ -4,13 +4,14 @@ import {StyleSheet, View, Text, Button} from 'react-native';
 class CheckTap extends Component {
 
   render() {
-
+    
     return (
       <View
         style={{
           flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
+          
         }}>
         <Text>CheckTap Screen</Text>
         <Button

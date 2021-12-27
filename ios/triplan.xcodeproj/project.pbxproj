@@ -41,6 +41,7 @@
 		822E33DE1A673FFDFE056ED7 /* libPods-triplan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-triplan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C082A44E50532E541A218B3 /* Pods-triplan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-triplan.debug.xcconfig"; path = "Target Support Files/Pods-triplan/Pods-triplan.debug.xcconfig"; sourceTree = "<group>"; };
 		A9231F8DCAEA1982C5A061D1 /* libPods-triplan-triplanTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-triplan-triplanTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B24E96CB27705FBC00B6164F /* triplan-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "triplan-Bridging-Header.h"; sourceTree = "<group>"; };
 		B27CCE6627613D7700D14CF2 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		B2AC4C30304DCC5EAB019ADC /* Pods-triplan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-triplan.release.xcconfig"; path = "Target Support Files/Pods-triplan/Pods-triplan.release.xcconfig"; sourceTree = "<group>"; };
 		DED21C768D5AFD604030732D /* Pods-triplan-triplanTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-triplan-triplanTests.release.xcconfig"; path = "Target Support Files/Pods-triplan-triplanTests/Pods-triplan-triplanTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -94,6 +95,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				B24E96CB27705FBC00B6164F /* triplan-Bridging-Header.h */,
 			);
 			name = triplan;
 			sourceTree = "<group>";
@@ -217,7 +219,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1310;
 					};
 				};
 			};
@@ -445,6 +447,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = triplanTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -469,6 +472,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = triplanTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -496,6 +500,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = T7A7ZP5774;
 				ENABLE_BITCODE = NO;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = triplan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -508,6 +513,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = triplan;
+				SWIFT_OBJC_BRIDGING_HEADER = "triplan-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -522,6 +528,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = T7A7ZP5774;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = triplan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -534,6 +541,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = triplan;
+				SWIFT_OBJC_BRIDGING_HEADER = "triplan-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

@@ -3,6 +3,7 @@ import {StyleSheet, View, Text, Button, FlatList, TouchableOpacity, Image} from 
 
 
 
+
 class PlanListItems extends Component {
     constructor(props){
         super(props);
@@ -11,6 +12,17 @@ class PlanListItems extends Component {
         }
     }
   
+    planday = () =>{
+      const start = new Date(this.props.startDatetime)
+      const end = new Date(this.props.endDatetime)
+      const startday = new Date(start.getFullYear(),start.getMonth()+1,start.getDate())
+      const endday = new Date(end.getFullYear(),end.getMonth()+1,end.getDate())
+
+      const btMs = endday.getTime() - startday.getTime()
+      const btDay = btMs / (1000*60*60*24);
+      return btDay;
+    }
+
   render() {
       console.log(this.props.dday)
       
@@ -18,8 +30,15 @@ class PlanListItems extends Component {
         <TouchableOpacity style ={{
             marginBottom : 8, 
         }}
+
         onPress={() => {
-            this.props.navigation.navigate('plan');
+            this.props.navigation.navigate('plan',{
+                key : this.props.key,
+                planday : this.planday(),
+                startDate : this.props.startDatetime,
+                name : this.props.title
+            }   
+            );
           }}
         >
             <View style = {styles.listbutton}>
@@ -35,7 +54,8 @@ class PlanListItems extends Component {
 
                             color : this.props.dday === '진행중' ? 'red' : this.props.dday < 40 ? '#5585E8' : '#000',
                             
-                            }}> {this.props.startDatetime}~ {this.props.endDatetime}</Text>
+                            }}> {new Date(this.props.startDatetime).getMonth()+1+"월"}-{new Date(this.props.startDatetime).getDate()+"일"}~
+                                {new Date(this.props.endDatetime).getMonth()+1+"월"}-{new Date(this.props.endDatetime).getDate()+"일"}</Text>
                     </View>
                 </View>
             </View>

@@ -48,7 +48,7 @@ export const AppNavigation = () => {
         <AuthStack.Screen name="Firstopen" component={FirstOpen} options={{headerShown : false }}/>
         <AuthStack.Screen name="TRIPIAN" component={HomeScreen} options={{headerShown : false }}/>
         {/* <AuthStack.Screen name="SignIn" component={SignIn}/> */}
-        <AuthStack.Screen name="plan" component={Tapmynavigation} options={{headerShown : false }}/>
+        <AuthStack.Screen name="plan" component={Tapmynavigation} options={({route}) => ({title : route.params.name , headerShadowVisible: false})}/>
         <AuthStack.Screen name="여행 추가" component={AddplanScreen} options = {{headerShadowVisible : false}}/>
         <AuthStack.Screen name="프로필" component={SettingScreen} options = {{headerShadowVisible : false}}/>
         <AuthStack.Screen name="문의하기" component={ComplainScreen} options = {{headerShadowVisible : false}}/>

@@ -75,7 +75,8 @@ const Taparr = [
   }
   
   
-  export default function Tapmynavigation(){
+  export default function Tapmynavigation({route}){
+    const {planday,startDate } = route.params
     const viewRef = useRef(null)
     return (
       <Tap.Navigator
@@ -107,9 +108,11 @@ const Taparr = [
           {Taparr.map((item,index) => {
             return(
               <Tap.Screen
+
                   key = {index}
                   name = {item.route}
                   component = {item.component}
+                  initialParams = {{planday : planday, startDate : startDate}}
                   options = {{
                     tabBarShowLabel : false,
                     // tabBarLabel : item.label,

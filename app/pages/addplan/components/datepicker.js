@@ -91,7 +91,7 @@ class Calendars extends Component {
                     () => {
                         let obj = this.state.selectday.reduce((c, v) => Object.assign(c, {
                             [v]: {
-                                // startingDay: true,
+                                // startingDay: true,{}
                                 marked : true,
                                 selected : true,
                                 color: '#5585E8',
