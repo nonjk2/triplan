@@ -55,7 +55,18 @@ class ScheduleListitems extends Component {
                 </View>
                 
                 <View style ={{flex : .5 , justifyContent : 'center' ,alignItems :'flex-end'}}>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => {
+                            this.props.navigation.navigate('일정 편집',{
+                                title : this.props.title,
+                                memo : this.props.memo,
+                                price : this.props.price,
+                                startDatetime : this.props.startDatetime,
+                                endDatetime : this.props.endDatetime
+                            } );
+                            
+                          }}
+                    >
                         <IonIcon name="ellipsis-vertical" size={20}/>
                     </TouchableOpacity>
                 </View>
