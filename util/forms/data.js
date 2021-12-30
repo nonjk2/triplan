@@ -1,3 +1,5 @@
+import NaverMapView from "../../app/pages/map";
+
 export const DummyDATA = [
     {
         nickname: '저녀니',
@@ -219,3 +221,15 @@ export const Scheduledata = [
   },
   
 ]
+
+export const User = 
+  {
+    member_id : 1,
+    nameTag : '안녕안녕',
+    email : 'trgf456@naver.com',
+    nickname : '최은돌',
+    password : 'dmstjr15',
+    aboutMe : '안녕하세요 최은돌입니다 ㅎㅎ',
+    memberImg_id : null,
+
+  }

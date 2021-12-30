@@ -6,35 +6,58 @@ import {
     Button,
     TextInput,
     Pressable,
+    TouchableOpacity,
 
 } from 'react-native';
 
 import Input from '../../../../util/forms/input';
 
 class Textsetting extends Component {
-
-    state = {
+    constructor(props) {
+        super(props);
+        this.state = {
         form: {
             nickname: {
-                value: '김쫀쀼',
+                value: this.props.user.nickname,
                 type: 'textinput',
                 rules: {},
                 valid: false
             },
             emailId: {
-                value: 'trgf456@naver.com',
+                value: this.props.user.email,
                 type: 'textinput',
                 rules: {},
                 valid: false
             },
 
             introduce: {
-                value: '나는 똥멍청이입니다!!',
+                value: this.props.user.aboutMe,
                 type: 'textinput',
                 date : '',
             },
         }
     }
+}
+    
+    headerRightbtn = () =>{
+        const navigation = this.props.navigation
+     
+     this.props.navigation.setOptions({
+        headerRight : () => {this.headerRightbtn()}
+        
+     }) 
+     return  
+        <TouchableOpacity 
+            disabled = {this.state.form.nickname.value = this.props.user.nickname ? false : true}
+            onPress={() => {
+                return alert('게시글이 등록 되었습니다.');
+            }}
+        >
+            <Text style ={{fontSize : 16 , fontWeight : '400' , color: this.state.form.nickname.value = this.props.user.nickname ? '#5585E8' : '#5585E8' }}>저장</Text>
+        </TouchableOpacity>
+        
+    }
+
 
     updateInput = (name, value) => {
         let formcopy = this.state.form;
@@ -65,11 +88,11 @@ class Textsetting extends Component {
                             myPlanName="닉네임"
                             value={this.state.form.nickname.value}
                             type={this.state.form.nickname.type}
-                            color='#767676'
+                            color='#C4C4C4'
                             autoCapitalize={'none'}
                             style={styles.input}
                             placeholder="닉네임을 입력해주세요"
-                            placeholderTextColor='#767676'
+                            placeholderTextColor='#C4C4C4'
                             onChangeText={value => this.updateInput("nickname", value)}></Input>
                         {/* <Text style={styles.inputvalid}>{this.state.form.planname.value.length}/10</Text> */}
                     </View>
@@ -90,7 +113,7 @@ class Textsetting extends Component {
                         <Input
                             myPlanName="이메일"
                             value={this.state.form.emailId.value}
-                            color='#767676'
+                            color='#C4C4C4'
                             type={this.state.form.emailId.type}
                             autoCapitalize={'none'}
                             style={styles.input}
@@ -116,7 +139,7 @@ class Textsetting extends Component {
                         <Input
                             myPlanName="닉네임"
                             value={this.state.form.introduce.value}
-                            color='#767676'
+                            color='#C4C4C4'
                             type={this.state.form.introduce.type}
                             autoCapitalize={'none'}
                             style={styles.input}

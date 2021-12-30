@@ -51,7 +51,7 @@ class HomeScreen extends Component {
             width: 60,
             height: 60,
             position: 'absolute',
-            bottom: 50,
+            bottom: 118,
             right: 20,
           }}>
           <View>

@@ -74,7 +74,7 @@ class NameModal extends Component {
                         </View>
                     </View>
                     <TouchableOpacity
-                        onPress = {()=> {this.props.closeandset(plantext)}}
+                        onPress = {()=> {this.props.closeandset("planname",plantext)}}
                         style={{position: 'absolute',bottom : 1, width: 343,height: 52, borderRadius :10, backgroundColor : '#fff' , shadowOffset:{ width :2, height : 4,} , shadowOpacity : 0.10 , shadowColor : '#000' , alignItems : 'center', justifyContent :'center'}}>
                            <Text style = {{color : this.props.namestate === plantext? '#C4C4C4': plantext.length < 2 ? '#C4C4C4': '#5585E8'}}>확인</Text>
                     </TouchableOpacity>

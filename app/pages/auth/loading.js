@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {Component} from 'react';
-import { Animated , View , Image, Dimensions, TouchableOpacity, Linking } from 'react-native';
+import { Animated , View , Image, Dimensions, TouchableOpacity, Linking, Alert } from 'react-native';
 import kakaoLogin, { getAccessToken, login } from '@react-native-seoul/kakao-login';
 
 const WIDTH = Dimensions.get("window").width
@@ -15,6 +15,8 @@ class Loading extends Component{
             data : [],
             isKakaoLogging: false,
             accesstoken: 'token has not fetched',
+            Signin : false,
+
         }
     }
 
@@ -22,22 +24,50 @@ class Loading extends Component{
 
     
     onComplete = () =>{
-        const Signin = false
+        const Signin = this.state.Signin
         if (Signin == true) {
             this.props.navigation.navigate("TRIPIAN")    
         }else{
-            this.props.navigation.navigate("Firstopen")
+            this.props.navigation.navigate("Loading")
 
         }
     }
     kakaoSignIn = () => {
         login()
         .then((result)=> {
-            console.log(JSON.stringify(result))
-            console.log(result)
-
+            console.log(result.accessToken)
+            this.logined(result.accessToken).then(this.props.navigation.navigate("TRIPIAN"))
+        })
+        .catch(err => {
+            Alert.alert("login 실패"+err)
         })
     }
+
+     logined = async (token) => {
+        try {
+            if (token==="") {
+              this.setState({
+                  locationsearch : [], Signin : false
+              })
+            }else{
+              await axios.post(`http://211.250.116.177:9090/social/login/kakao`,{
+                accessToken : token,
+            },      
+        )
+            .then((response) =>{
+                console.log(response)
+            });
+
+                this.setState({
+                    data : response,
+                    Signin : true,
+                  })
+                }//else문 끝
+
+              } catch (error) {
+                console.log(error)
+        }}
+    
     
       kakaoLogout() {
         console.log('   kakaoLogout   ');

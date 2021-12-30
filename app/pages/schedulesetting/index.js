@@ -7,6 +7,7 @@ import Modal from "react-native-modal";
 import NameModal from './components/namemodal';
 import Starttimemodal from './components/starttimemodal';
 import Endtimemodal from './components/endtimemodal';
+import Inputtwo from '../../../util/forms/inputtwo';
 const WIDTH = Dimensions.get("window").width
 const HEIGHT = Dimensions.get("window").height
 
@@ -35,17 +36,28 @@ class ScheduleSetting extends Component {
         }
     }
   }
-  closeandset = (planupdate) =>{
-    this.setState({
-        form : {
-            ...this.state.form,
-
-            planname : {
-            value : planupdate
-            },
-        }
-    },()=> this.close())
-  }
+  closeandset = (type , planupdate) =>{
+    if (type == 'planname') {
+        this.setState({
+            form : {
+                ...this.state.form,
+                planname : {
+                value : planupdate
+                },
+            }
+        },()=> this.close())
+      }else if(type == 'startdate'){
+          this.setState({
+              startdate : planupdate
+          },()=> this.close())
+      }else if (type == 'enddate') {
+          this.setState({
+              enddate : planupdate
+          },()=> this.close())
+      }
+    }
+    
+    
 
 
   updateInput = (name, value) => {
@@ -135,8 +147,9 @@ class ScheduleSetting extends Component {
                             
                         }}
                         pointerEvents ="none">
-                            <Input
-                                myPlanName="여행명"
+                            <Input  
+                                pointerEvents ="none"
+                                myPlanName="출발 시간"
                                 value={`${planstart}`}
                                 autoCapitalize={'none'}
                                 keyboardType={'email-address'}
@@ -147,7 +160,7 @@ class ScheduleSetting extends Component {
                                 marginLeft={10} 
                             />
                                 
-                            <IonIcon name="location-outline" size={18} style={{  marginRight : 10,color: 'gray' ,fontWeight : '400'}}/>
+
                         </View>
                     </Pressable>
                     <Modal
@@ -158,6 +171,7 @@ class ScheduleSetting extends Component {
                     onBackdropPress={this.close}
                         >
                         <Starttimemodal
+                            endDatetime = {this.state.enddate}
                             startDatetime = {this.state.startdate}
                             close = {this.close}
                             closeandset = {this.closeandset}
@@ -181,7 +195,9 @@ class ScheduleSetting extends Component {
                             
                         }}>
                             <Input
-                                myPlanName="여행명"
+
+                                pointerEvents ="none"
+                                myPlanName="도착시간"
                                 value={`${planend}`}
                                 autoCapitalize={'none'}
                                 keyboardType={'email-address'}
@@ -192,7 +208,7 @@ class ScheduleSetting extends Component {
                                 marginLeft={10} 
                             />
                                 
-                            <IonIcon name="location-outline" size={18} style={{  marginRight : 10,color: 'gray' ,fontWeight : '400'}}/>
+
                         </View>
                     </Pressable>
                     <Modal
@@ -203,6 +219,7 @@ class ScheduleSetting extends Component {
                     onBackdropPress={this.close}
                         >
                         <Endtimemodal
+                            startDatetime = {this.state.startdate}
                             endDatetime = {this.state.enddate}
                             close = {this.close}
                             closeandset = {this.closeandset}
@@ -219,24 +236,35 @@ class ScheduleSetting extends Component {
                             borderColor : '#C4C4C4',
                             borderRadius : 4,
                             height : 36,
-                            justifyContent : 'space-between',
+                            // justifyContent : 'space-between',
                             flexDirection : 'row',
                             alignItems :'center',
-                        }}
-                        pointerEvents ="none">
+                        }}>
                             <Input
+                                maxLength = {20}
+                                numberOfLines={4}
+                                multiline
                                 myPlanName="여행명"
                                 value={`${this.state.form.memo.value}`}
                                 autoCapitalize={'none'}
                                 keyboardType={'email-address'}
                                 style={styles.input}
-                                placeholder="시간 일정을 등록해주세요"
+                                placeholder="메모를 작성해주세요"
                                 placeholderTextColor='#767676'
                                 fontSize={14}
-                                marginLeft={10} 
+                                marginLeft={10}
+                                onChangeText={value => this.updateInput("memo", value)} 
                             />
-                                
-                            <IonIcon name="location-outline" size={18} style={{  marginRight : 10,color: 'gray' ,fontWeight : '400'}}/>
+                            <TouchableOpacity style={{position : 'absolute' ,right : 5,}} onPress = {()=> this.setState({
+                                form : {
+                                    ...this.state.form,
+                                    memo : {
+                                    value : ''
+                                    },
+                                }
+                            })}>    
+                                <IonIcon name="close-circle-outline" size={18} style={{color: 'gray' ,fontWeight : '400'}}/>
+                            </TouchableOpacity>
                         </View>
                     </Pressable>                    
                 </View>
@@ -265,8 +293,10 @@ class ScheduleSetting extends Component {
                                 fontSize={14}
                                 marginLeft={10} 
                             />
-                                
-                            <IonIcon name="location-outline" size={18} style={{  marginRight : 10,color: 'gray' ,fontWeight : '400'}}/>
+                            <TouchableOpacity style={{position : 'absolute' ,right : 5,}}>    
+                                <IonIcon name="close-circle-outline" size={18} style={{color: 'gray' ,fontWeight : '400'}}/>
+                            </TouchableOpacity>   
+                              
                         </View>
                     </Pressable>                    
                 </View>
@@ -297,9 +327,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     input: {
-        width: '100%',
+        width : 320,
+        height : 36,
         fontSize: 12,
-        padding: 5,
         borderWidth : 2,
     },
     

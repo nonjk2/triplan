@@ -24,7 +24,8 @@ class PlanListItems extends Component {
     }
 
   render() {
-      console.log(this.props.dday)
+      const { state, navigate } = this.props.navigation;
+
       
     return (
         <TouchableOpacity style ={{
@@ -36,7 +37,7 @@ class PlanListItems extends Component {
                 key : this.props.key,
                 planday : this.planday(),
                 startDate : this.props.startDatetime,
-                name : this.props.title
+                name : this.props.title,
             }   
             );
           }}
