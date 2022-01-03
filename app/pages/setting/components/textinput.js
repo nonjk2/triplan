@@ -13,7 +13,7 @@ import {
 import Input from '../../../../util/forms/input';
 
 class Textsetting extends Component {
-    constructor(props) {
+        constructor(props) {
         super(props);
         this.state = {
         form: {
