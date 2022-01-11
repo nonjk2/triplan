@@ -9,7 +9,7 @@ class Plantap extends Component {
     this.state = {
       isLoading : true ,
       location : [],
-      value : '문래자이'
+      value : ''
       
     }
   }

@@ -25,15 +25,13 @@ class PlanListItems extends Component {
 
   render() {
       const { state, navigate } = this.props.navigation;
-
-      
     return (
         <TouchableOpacity style ={{
             marginBottom : 8, 
         }}
 
         onPress={() => {
-            this.props.navigation.navigate('plan',{
+            navigate('plan',{
                 key : this.props.key,
                 planday : this.planday(),
                 startDate : this.props.startDatetime,

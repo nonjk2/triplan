@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, Button, FlatList, TouchableOpacity, Image, Dimensions} from 'react-native';
+import {StyleSheet, View, Text, Button, FlatList, TouchableOpacity, Image, Dimensions, TouchableWithoutFeedback} from 'react-native';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 
 const WIDTH = Dimensions.get("window").width
@@ -16,11 +16,27 @@ class ScheduleListitems extends Component {
         // console.warn(this.props.planday)
     }
   
+
+
+
   render() {
     //   console.log(this.props.dday)
       
       const statedate = new Date(this.props.startDatetime)
     return (
+        <TouchableWithoutFeedback
+            
+            onPress={() => {
+                this.props.navigation.navigate('일정 편집',{
+                    title : this.props.title,
+                    memo : this.props.memo,
+                    price : this.props.price,
+                    startDatetime : this.props.startDatetime,
+                    endDatetime : this.props.endDatetime
+                } );
+                
+            }}
+        >
         <View style ={{
             width : WIDTH -32 , 
             height : 84 ,
@@ -39,43 +55,35 @@ class ScheduleListitems extends Component {
             shadowOpacity : 0.25,
 
             }}>
-            <View style = {{  flex : 1,marginHorizontal : 20 , marginVertical : 12, flexDirection : 'row' ,}}>
-                <View style ={{ shadowOpacity: 0,flex : 1, justifyContent :'center',}}>
-                    <Text>
-                        {+new Date(this.props.startDatetime).getHours()+"시"}{new Date(this.props.startDatetime).getMinutes()+"분"}{`\n`}
-                               {`\n`}
-                        {+new Date(this.props.endDatetime).getHours()+"시"}{new Date(this.props.endDatetime).getMinutes()+"분"}{`\n`}
-                    </Text>
-                </View>
-                <View style ={{flex : 3 ,  justifyContent : 'center'}}>
-                    <Text style = {{fontWeight : '400' , fontSize : 16,}}>{this.props.title}</Text>
-                    <Text style = {{fontSize : 14, color : '#767676' ,marginVertical : 2,}}>{this.props.memo}</Text>
-                    <Text style = {{fontSize : 14, color : '#5585E8'}}>{this.props.price}원</Text>
+            
+                <View style = {{  flex : 1,marginHorizontal : 20 , marginVertical : 12, flexDirection : 'row' ,}}>
+                    <View style ={{ shadowOpacity: 0,flex : 1, justifyContent :'center',}}>
+                        <Text>
+                            {+new Date(this.props.startDatetime).getHours()+"시"}{new Date(this.props.startDatetime).getMinutes()+"분"}{`\n`}
+                                {`\n`}
+                            {+new Date(this.props.endDatetime).getHours()+"시"}{new Date(this.props.endDatetime).getMinutes()+"분"}{`\n`}
+                        </Text>
+                    </View>
+                    <View style ={{flex : 3 ,  justifyContent : 'center'}}>
+                        <Text style = {{fontWeight : '400' , fontSize : 16,}}>{this.props.title}</Text>
+                        <Text style = {{fontSize : 14, color : '#767676' ,marginVertical : 2,}}>{this.props.memo}</Text>
+                        <Text style = {{fontSize : 14, color : '#5585E8'}}>{this.props.price}원</Text>
 
-                </View>
-                
-                <View style ={{flex : .5 , justifyContent : 'center' ,alignItems :'flex-end'}}>
-                    <TouchableOpacity
-                        onPress={() => {
-                            this.props.navigation.navigate('일정 편집',{
-                                title : this.props.title,
-                                memo : this.props.memo,
-                                price : this.props.price,
-                                startDatetime : this.props.startDatetime,
-                                endDatetime : this.props.endDatetime
-                            } );
+                    </View>
+                    
+
+                        {/* <TouchableOpacity
                             
-                          }}
-                    >
-                        <IonIcon name="ellipsis-vertical" size={20}/>
-                    </TouchableOpacity>
-                </View>
+                        >
+                            <IonIcon name="ellipsis-vertical" size={20}/>
+                        </TouchableOpacity> */}
 
-                
-            </View>
+
+                    
+                </View>
 
         </View>
-       
+        </TouchableWithoutFeedback>
     );
   }
 }
