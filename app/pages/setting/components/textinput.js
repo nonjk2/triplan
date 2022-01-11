@@ -9,7 +9,7 @@ import {
     TouchableOpacity,
 
 } from 'react-native';
-
+import IonIcon from 'react-native-vector-icons/Ionicons';
 import Input from '../../../../util/forms/input';
 
 class Textsetting extends Component {
@@ -69,32 +69,43 @@ class Textsetting extends Component {
     render() {
         return (
             <View style={styles.containertwo}>
-                <View style = {{ marginTop :10 ,paddingBottom : 20 , paddingLeft : 16}}>
-                    <Text style = {{fontSize : 18, fontWeight : '500'}}>프로필 정보</Text>
+                <View style = {{ marginTop :37 ,paddingBottom : 20 , paddingLeft : 16}}>
+                    <Text style = {{fontSize : 18, fontWeight : '500' , color : '#5585E8'}}>프로필 정보</Text>
                 </View>
                 {/* 여기는 닉네임입니다  */}
                 <View style ={{paddingHorizontal : 16,}}>
                     <Text style={styles.textname}>닉네임</Text>
                     <View
                         style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            borderBottomWidth : 2,
-                            borderBottomColor : '#5585E8'
+                            borderWidth : 2,
+                            borderColor : '#C4C4C4',
+                            borderRadius : 4,
+                            height : 36,
+                            justifyContent : 'space-between',
+                            flexDirection : 'row',
+                            alignItems :'center'
 
                         }}>
                         <Input
                             myPlanName="닉네임"
                             value={this.state.form.nickname.value}
                             type={this.state.form.nickname.type}
-                            color='#C4C4C4'
                             autoCapitalize={'none'}
                             style={styles.input}
                             placeholder="닉네임을 입력해주세요"
                             placeholderTextColor='#C4C4C4'
                             onChangeText={value => this.updateInput("nickname", value)}></Input>
                         {/* <Text style={styles.inputvalid}>{this.state.form.planname.value.length}/10</Text> */}
+                        <TouchableOpacity style={{position : 'absolute' ,right : 5,}} onPress = {()=> this.setState({
+                                form : {
+                                    ...this.state.form,
+                                    nickname : {
+                                    value : ''
+                                    },
+                                }
+                            })}>    
+                                <IonIcon name="close-circle-outline" size={18} style={{color: 'gray' ,fontWeight : '400'}}/>
+                        </TouchableOpacity>
                     </View>
                 </View>
 
@@ -103,14 +114,19 @@ class Textsetting extends Component {
                     <Text style={styles.textname}>사용자 아이디</Text>
                     <View
                         style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            borderBottomWidth : 2,
-                            borderBottomColor : '#5585E8'
-
-                        }}>
+                            borderWidth : 2,
+                            borderColor : '#C4C4C4',
+                            borderRadius : 4,
+                            height : 36,
+                            justifyContent : 'space-between',
+                            flexDirection : 'row',
+                            alignItems :'center'
+                            
+                        }}
+                        pointerEvents='none'
+                        >
                         <Input
+                            editable ={false}
                             myPlanName="이메일"
                             value={this.state.form.emailId.value}
                             color='#C4C4C4'
@@ -129,17 +145,19 @@ class Textsetting extends Component {
                     <Text style={styles.textname}>소개</Text>
                     <View
                         style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            borderBottomWidth : 2,
-                            borderBottomColor : '#5585E8'
+                            borderWidth : 2,
+                            borderColor : '#C4C4C4',
+                            borderRadius : 4,
+                            height : 36,
+                            justifyContent : 'space-between',
+                            flexDirection : 'row',
+                            alignItems :'center'
 
                         }}>
                         <Input
+                            
                             myPlanName="닉네임"
                             value={this.state.form.introduce.value}
-                            color='#C4C4C4'
                             type={this.state.form.introduce.type}
                             autoCapitalize={'none'}
                             style={styles.input}
@@ -147,6 +165,16 @@ class Textsetting extends Component {
                             placeholderTextColor='#767676'
                             onChangeText={value => this.updateInput("introduce", value)}></Input>
                         {/* <Text style={styles.inputvalid}>{this.state.form.planname.value.length}/10</Text> */}
+                        <TouchableOpacity style={{position : 'absolute' ,right : 5,}} onPress = {()=> this.setState({
+                                form : {
+                                    ...this.state.form,
+                                    introduce : {
+                                    value : ''
+                                    },
+                                }
+                            })}>    
+                                <IonIcon name="close-circle-outline" size={18} style={{color: 'gray' ,fontWeight : '400'}}/>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
@@ -160,11 +188,11 @@ const styles = StyleSheet.create({
         
     },
     textname: {
-
-        paddingBottom: 3,
+        
+        paddingBottom: 8,
         fontSize: 16,
-        color: '#5585E8',
-        fontWeight: '500'
+        color: '#000',
+        fontWeight: '400'
     },
 
     containertwo: {        

@@ -19,7 +19,9 @@ class SettingScreen extends Component {
         return (
             <SafeAreaView style = {{ flex :1 ,backgroundColor : '#fff'}}>
                 <View style={{ flex : 1, backgroundColor : '#fff'}}>
-                    <Profile/>
+                    <Profile
+                        navigation = {this.props.navigation}
+                    />
                     <Textsetting
                         navigation = {this.props.navigation}
                         user={this.state.user}

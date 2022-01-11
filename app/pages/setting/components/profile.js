@@ -17,6 +17,9 @@ class Profile extends Component {
         myimage : 'https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/202109/11/bfbf9985-9838-4e27-9076-d4bfecbc88cc.jpg',
     }
 
+    componentDidMount(){
+        // this.props.navigation.setOption()
+    }
 
     show = () => {
         this.setState({isModalVisible: true})
@@ -43,13 +46,13 @@ class Profile extends Component {
             <View style={styles.container}>
                     <View
                         style={{
-                            paddingHorizontal : 16,
-                            paddingVertical : 10,
+                            height : 100 ,
+                            marginVertical : 13,
                             flexDirection: 'row',
                             alignItems : 'center',
-
+                            
                         }}>
-
+                            <View style ={{ flexDirection : 'row', marginVertical : 10, marginHorizontal : 16}}>
                             <Image
                                 style={{
                                     height: 80,
@@ -62,28 +65,30 @@ class Profile extends Component {
                             <View
                                 style={{
                                     paddingHorizontal :20,
+                                    justifyContent : 'center'
                                 }}>
                                 <View
                                     style={{
                                         flex: 1,
-                                        justifyContent: 'center'
+
                                     }}>
                                     <Text
                                         style={{
-                                            fontSize: 15,
+                                            fontSize: 20,
                                             fontWeight: "500",
-                                        }}>김쫀뷰</Text>
+                                            color : '#5585E8'
+                                        }}>트리플랜</Text>
                                 </View>
                                 <View
                                     style={{
                                         flex: 1,
-                                        marginBottom : 4,
-                                        justifyContent: 'center'
+
+
                                     }}>
                                     <Text
                                         style={{
                                             color : '#767676',
-                                            fontSize: 14,
+                                            fontSize: 16,
                                             fontWeight: "400",
                                         }}>여행성향 및 자기소개</Text>
                                 </View>
@@ -101,6 +106,7 @@ class Profile extends Component {
                                     >
                                     <Text style = {{ fontSize : 14, fontWeight : '400'}}>이미지 변경</Text>
                                 </TouchableOpacity>
+                            </View>
                                 <Modal
                                 style={styles.modal}
                                 transparent={true}
@@ -137,14 +143,15 @@ const styles = StyleSheet.create({
 
         margin: 0, // This is the important style you need to set
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-end',
       },
     container: {
 
-        height : 100,
+        height : 126,
         width : WIDTH,
-        backgroundColor : '#fff',
-        marginVertical : 48,
+        backgroundColor : '#F4F4F4',
+        justifyContent : 'center',
+        marginTop : 48,
 
     }
 });

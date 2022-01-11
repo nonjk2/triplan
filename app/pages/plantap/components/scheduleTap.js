@@ -115,8 +115,8 @@ export default class ScheduleTap extends Component {
   render() {
     return (
       <TabView
-        scrollEnabled={true}
-        swipeEnabled={true}
+        scrollEnabled={false}
+        swipeEnabled={false}
         navigationState={this.state}
         renderScene={this._renderScene}
         renderTabBar={this._renderTabBar}
