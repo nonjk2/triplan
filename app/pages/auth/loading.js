@@ -1,7 +1,11 @@
 import axios from 'axios';
 import React, {Component} from 'react';
 import { Animated , View , Image, Dimensions, TouchableOpacity, Linking, Alert } from 'react-native';
-import kakaoLogin, { getAccessToken, login } from '@react-native-seoul/kakao-login';
+import kakaoLogin, { getAccessToken, login, logout } from '@react-native-seoul/kakao-login';
+import { connect, useDispatch } from 'react-redux';
+import { signIn,signUp,autoSignIn } from '../../store/actions/user_action';
+import { bindActionCreators } from 'redux';
+import { setToken , getToken} from '../../../util/misc';
 
 const WIDTH = Dimensions.get("window").width
 const HEIGHT_MODAL = Dimensions.get("window").height
@@ -14,64 +18,88 @@ class Loading extends Component{
             opacity : new Animated.Value(0),
             data : [],
             isKakaoLogging: false,
-            accesstoken: 'token has not fetched',
-            Signin : false,
+
+            Signin : true,
 
         }
     }
 
 //////// auth 설정 /////////
-
-    
+///////////////자동로그인/////////////////////////
+    componentDidMount(){
+        getToken((value) =>{
+            if (value[1][1]===null) {
+                this.setState({
+                    Signin : false
+                })
+            }else{
+                this.props.autoSignIn(value[2][1]).then(()=>{
+                    if (!this.props.user.auth.token) {
+                        this.setState({Signin : false})    
+                    }else{
+                        setToken(this.props.user.auth, ()=> {
+                            this.props.navigation.navigate("Loading")
+                        })
+                    }
+                })
+            }
+        })
+    }
+///////////////자동로그인/////////////////////////
     onComplete = () =>{
         const Signin = this.state.Signin
         if (Signin == true) {
-            this.props.navigation.navigate("TRIPIAN")    
+            this.props.navigation.navigate("Firstopen")    
         }else{
             this.props.navigation.navigate("Loading")
 
         }
     }
+
+    manageAcceess = () => {
+        if (!this.props.user.auth.email) {
+            Alert.alert("실패")
+        }else{
+            console.log("asdfasdfasdf")
+            setToken(this.props.user.auth, ()=>{
+                this.props.navigation.navigate("Firstopen")    
+            })
+        }
+    }
+    // 카카오 로그인 ///
     kakaoSignIn = () => {
         login()
         .then((result)=> {
-            console.log(result.accessToken)
-            this.logined(result.accessToken).then(this.props.navigation.navigate("TRIPIAN"))
+
+            this.logined(result.accessToken).then(()=> this.manageAcceess())
         })
         .catch(err => {
             Alert.alert("login 실패"+err)
         })
     }
+    /// 구글 로그인 ///
+    /// 네이버 로그인 ///
 
+    ///서버 토큰 전달 ///
      logined = async (token) => {
         try {
-            if (token==="") {
-              this.setState({
-                  locationsearch : [], Signin : false
-              })
-            }else{
-              await axios.post(`http://211.250.116.177:9090/social/login/kakao`,{
-                accessToken : token,
-            },      
-        )
-            .then((response) =>{
-                console.log(response)
-            });
-
-                this.setState({
-                    data : response,
-                    Signin : true,
-                  })
-                }//else문 끝
-
-              } catch (error) {
+            await axios.post(`http://211.250.116.177:9090/social/login/kakao`,{
+            accessToken : token,
+                },      
+            )
+            .then((response)=>this.props.signIn(response.data.data))
+            // .then((response)=>console.log(response.data));        
+            .catch(err =>Alert.alert("회원가입 및 로그인 실패 : " + err));
+        } 
+        catch (error) {
                 console.log(error)
-        }}
+            }
+        }
     
     
       kakaoLogout() {
         console.log('   kakaoLogout   ');
-        loginWithKakaoAccount((err, result) => {
+        logout((err, result) => {
           if (err) {
             console.log(err.toString());
             return;
@@ -87,7 +115,7 @@ class Loading extends Component{
             duration : 1000,
             useNativeDriver: false
         }).start(()=>{
-            this.onComplete()
+
         })
     }
 
@@ -123,14 +151,15 @@ class Loading extends Component{
                     </View>
                     <View style = {{marginTop : 16}}>
                         <TouchableOpacity 
-                        // onPress = {() =>this.getProfile()}
+                        // onPress = {() => this.props.navigation.navigate("Firstopen")}
                         >
                             <Image style ={{}} source = {require('../../../src/assets/naver_loginBtn.png')}/>
                         </TouchableOpacity>
                     </View>
                     <View style = {{marginTop : 16}}>
                         <TouchableOpacity 
-                        // onPress = {() =>this.getProfile()}
+                        
+                        onPress = {() =>this.onComplete()}
                         >
                             <Image style ={{}} source = {require('../../../src/assets/google_loginBtn.png')}/>
                         </TouchableOpacity>
@@ -140,4 +169,13 @@ class Loading extends Component{
         )
     }
 }
-export default Loading;
+function mapStateToProps(state){
+    return{
+        user : state.user
+    }
+}
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({signIn,signUp,autoSignIn},dispatch);
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Loading);

@@ -21,11 +21,10 @@ const circle2 = {0 : {scale : 1} ,1: {scale : 1}}
 
 
 const Plantabs = ({route},props) => {
-  const {planday,startDate , name} = route.params
+  const {planday,startDate , name,navigation} = route.params
   return (
-    <Stack.Navigator>
-        <Stack.Screen name={name} component={Plantap} options = {{headerShadowVisible : false , headerShown : false}} initialParams = {{planday : planday, startDate : startDate}}/> 
-        <Stack.Screen name="일정 편집" component={ScheduleSetting} options = {{headerShadowVisible : false ,headerShown : false }}  initialParams = {{planday : planday, startDate : startDate}}/>
+    <Stack.Navigator screenOptions = {{headerShown : true }}>
+        <Stack.Screen name={name} component={Plantap} options = {{headerShadowVisible : false , headerShown : false }} initialParams = {{planday : planday, startDate : startDate}}/> 
     </Stack.Navigator>
 
   )
@@ -34,11 +33,11 @@ const Plantabs = ({route},props) => {
 
 
 const Taparr = [
-    {route : 'plantap' , component : Plantabs ,label : '플랜' ,activeIcon : 'calendar-outline', inactiveIcon : 'calendar',headershown : true , headerShadowVisible : false},
-    {route : 'maptap' , component : Maptap,label : '지도' ,activeIcon : 'map-outline', inactiveIcon : 'map',headershown : true},
-    {route : 'invitetap' , component : Invitetap,label : '친구목록' ,activeIcon : 'person-add-outline', inactiveIcon : 'person-add',headershown : true},
-    {route : 'checktap' , component : CheckTap,label : '체크리스트' ,activeIcon : 'checkbox-outline', inactiveIcon : 'checkbox',headershown : true},
-    {route : 'addplansetting' , component : AddplanSetting,label : '프로필' ,activeIcon : 'person-circle-outline', inactiveIcon : 'person-circle',headershown : true},
+  {route : '스케쥴' , component : Plantap ,label : '플랜' ,activeIcon : 'calendar-outline', inactiveIcon : 'calendar', headerShadowVisible : false},
+  {route : '지도' , component : Maptap,label : '지도' ,activeIcon : 'map-outline', inactiveIcon : 'map',headershown : true},
+    {route : '초대된 친구목록' , component : Invitetap,label : '친구목록' ,activeIcon : 'person-add-outline', inactiveIcon : 'person-add',headershown : true},
+    {route : '체크리스트' , component : CheckTap,label : '체크리스트' ,activeIcon : 'checkbox-outline', inactiveIcon : 'checkbox',headershown : true},
+    {route : '프로필' , component : AddplanSetting,label : '프로필' ,activeIcon : 'person-circle-outline', inactiveIcon : 'person-circle',headershown : true},
   
   ]
   const Stack = createNativeStackNavigator();
@@ -126,11 +125,12 @@ const Taparr = [
                   key = {index}
                   name = {item.route}
                   component = {item.component}
-                  initialParams = {{planday : planday, startDate : startDate, name : name , navigation : navigation}}
+                  initialParams = {{planday : planday, startDate : startDate, name : name }}
                   options = {{
-                    // headerLeft : (prors) => <Button title = {'메인'} onPress = {()=>{navigation.navigate("TRIPIAN")}}/>,
+                    headerLeft : (prors) => <Button title = {'메인'} onPress = {()=>{navigation.navigate("TRIPIAN")}}/>,
                     headerShown : item.headershown,
-                    title : name +item.route,
+                    // title : name +' - '+item.route,
+                    title : item.route,
                     headerShadowVisible :item.headerShadowVisible,
                     tabBarShowLabel : false,
                     // tabBarLabel : item.label,

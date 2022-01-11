@@ -72,7 +72,6 @@ class InviteList extends Component {
     close = (dataSelctture) => {
 
         this.setState({isModalVisible: false})
-        
         this.setState({
             data : dataSelctture
         })
@@ -134,14 +133,14 @@ class InviteList extends Component {
                     backdropOpacity={0.4}
                     animationInTiming={400}
                     >
-                        <InviteModal
-                            isModalVisible = {isModalVisible}
-                            title="asssdsdds"
-                            close = {this.close}
-                            onTouchOutside={this.closeOutside}
-                            data={this.state.data}
-                            />
-                    </Modal>
+                    <InviteModal
+                        isModalVisible = {isModalVisible}
+                        title="asssdsdds"
+                        close = {this.close}
+                        onTouchOutside={this.closeOutside}
+                        data={this.state.data}
+                        />
+                </Modal>
                 
             </View>
 

@@ -8,9 +8,9 @@ import {
     TouchableOpacity,
     Modal,
     TouchableWithoutFeedback,
-    FlatList
+    FlatList,
+    Image
 } from 'react-native';
-import InviteFriendsItems from './inviteModalItem';
 import SearchInput from '../../../../util/forms/input';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import CheckBox from '@react-native-community/checkbox';
@@ -18,17 +18,17 @@ import { connect, useDispatch } from 'react-redux';
 import { inviteInsert, inviteDelete } from '../../../store/actions/invite_action';
 import { bindActionCreators } from 'redux';
 
-
 const WIDTH = Dimensions.get("window").width
 const HEIGHT_MODAL = Dimensions.get("window").height
 class InviteModal extends React.Component {
         constructor(props) {
             super(props);
             this.state = {
+                borderColor : '#fff',
                 isModalVisible: this.props,
                 data : this.props.data,
+                data2 : this.props.data,
                 search : '',
-                filterdata : this.props.data,
             };
         }
         
@@ -37,6 +37,7 @@ class InviteModal extends React.Component {
         }
 
         checkboxtruefalse = () =>{
+
             const modalchecked = this.props.invite
             const {data} = this.state
             for (let i = 0; i < modalchecked.length; i++) {
@@ -53,6 +54,7 @@ class InviteModal extends React.Component {
             }
 
         }
+
         //검색창 입니다 ///
         searchFirends = (text) =>{
             const {data} = this.state
@@ -65,14 +67,15 @@ class InviteModal extends React.Component {
                     return itemData.indexOf(TextData) > -1;
                 })
                 this.setState({
-                    filterdata : newData
+                    data2 : newData
                 })
                 this.setState({
                     search : text
                 })
+
             }else{
                 this.setState({
-                    filterdata : data
+                    data : data
                 })
                 this.setState({
                     search : text
@@ -119,85 +122,19 @@ class InviteModal extends React.Component {
 
             )
         }
-        
-
-
-        checked = (item,index) =>{
-            const {data} = this.state
-            const newData = data.map(e=>{
-                if(e.nickname == item.nickname){
-                    return {
-                        ...e,
-                        isSelected : !e.isSelected,
-
-                    }}
-                return {
-                    ...e,
-                    isSelected : e.isSelected
-                }})
-
-                
-            this.setState({
-                data : newData
-            })
-
-        }
-            
-
-        renderInviteModal = ({item , index}) => {
-                
-            return (
-                <View style={{flexDirection : 'row',alignItems : 'center' }}>
-                    <InviteFriendsItems
-                        index={index}
-                        item={item}
-                        source={item.source}
-                        nickname={item.nickname}
-                        isSelected= {item.isSelected}
-                        id={item.freinds_id}
-                        introduce = {item.introduce}
-                        />
-                        
-                     <CheckBox
-                        style={styles.checkbox}
-                        value={item.isSelected}
-                        onValueChange={() => this.checked(item,index)}
-                        animationDuration={0.2}
-                        lineWidth={2}
-                        onCheckColor='#fff'
-                        onTintColor='#5585E8'
-                        onFillColor='#5585E8'
-                        offAnimationType='fill'
-                        onAnimationType='fill'
-                        tintColor='#5585E8'/>   
-                </View>
-            );
-        };
-
-        onClickInvite = () =>{
-            const {data} = this.state
-            const {close} = this.props
-            const listSelected =data.filter(e => e.isSelected == true);
-            this.props.inviteDelete()
-            for (let key in listSelected) {
-                this.props.inviteInsert(listSelected[key])    
-            }
-            close(data)
-        }
-
         renderContent = (item ,index) => {
 
             return (
                 <View style = {{marginTop : 10,}}>
                     <FlatList
-                        data={this.state.filterdata}
+                        data={this.state.data2}
                         renderItem={this.renderInviteModal}
                         showsVerticalScrollIndicator={true}
                         keyExtractor={item => `key-${item.freinds_id}`}
                         style={{
                             width : '100%',
                             height : 510,
-                            paddingHorizontal : 16,
+                            paddingHorizontal : 8,
                             backgroundColor: '#fff'
                         }}/>
                     <View style={styles.wrapButton}>
@@ -214,6 +151,82 @@ class InviteModal extends React.Component {
                 </View>
             )
         }
+        
+
+
+        checked = (item,index) =>{
+            
+            const {data} = this.state
+            const newData = data.map(e=>{
+                if(e.nickname == item.nickname){
+                    return {
+                        ...e,
+                        isSelected : !e.isSelected,
+                    }}
+                return {
+                    ...e,
+                    isSelected : e.isSelected
+                }})
+
+            this.setState({
+                data : newData,
+            })
+            console.log(this.state.data)
+        }
+        
+
+
+        renderInviteModal = ({item , index}) => {
+
+            return (
+                <View style ={{backgroundColor : item.isSelected ? 'rgba(85, 133, 232, 0.1)': '#fff' ,marginVertical : 1,width : '100%',borderRadius : 10, height : 90,alignItems : 'center',justifyContent : 'center'}}>
+                    <View style={{flexDirection : 'row',alignItems : 'center' ,width : '95%', height : 75}}>
+                        <View style={styles.invitebutton}>
+                            <Image
+                                source={{uri : item.source}}
+                                style={{
+                                        width: 80,
+                                        height: 80,
+                                        borderRadius: 15,
+                                        flexWrap: 'wrap',
+                                        borderColor : '#5585E8',
+                                        
+                                    }}/>
+                            <View style={styles.invitecontain}>
+                                <View style={styles.inviteView}>
+                                    <Text style={styles.friendsnamestyle}>{item.nickname}#{item.id}</Text>
+                                    <Text style={styles.friendsIntro}>{item.introduce}</Text>
+                                </View>
+                            </View>
+                        </View>   
+                        <CheckBox
+                            style={styles.checkbox}
+                            value={item.isSelected}
+                            onValueChange={() => this.checked(item,index)}
+                            animationDuration={0.2}
+                            lineWidth={2}
+                            onCheckColor='#fff'
+                            onTintColor='#5585E8'
+                            onFillColor='#5585E8'
+                            offAnimationType='fill'
+                            onAnimationType='fill'
+                            tintColor='#5585E8'/>   
+                    </View>
+                </View>
+            );
+        };
+
+        onClickInvite = () =>{
+            const {data} = this.state
+            const {close} = this.props
+            const listSelected =data.filter(e => e.isSelected == true);
+            this.props.inviteDelete()
+            for (let key in listSelected) {
+                this.props.inviteInsert(listSelected[key])    
+            }
+            close(data)
+        }
+
 
         render() {
             const {data} = this.state
@@ -246,8 +259,6 @@ class InviteModal extends React.Component {
             justifyContent : 'center',
             top : 378,
             left : 16,
-
-
         },
         compleatButton : {
             
@@ -311,7 +322,29 @@ class InviteModal extends React.Component {
             flex: 1,
             alignItems: 'center',
             justifyContent: 'center'
-        }
+        },
+        invitebutton: {
+            flexDirection: 'row',
+            flex : 1,
+            alignItems : 'center',
+            marginVertical: 5
+        },
+        invitelistimage: {
+            
+        },
+        invitecontain: {
+            flex: 2,
+            marginLeft: 10,
+            justifyContent: 'center'
+        },
+        ddaystyle: {
+    
+            backgroundColor: "#5585E8",
+            borderRadius: 30,
+            color: 'white'
+        },
+        
+    
     });
     function mapStateToProps(state){
         return{

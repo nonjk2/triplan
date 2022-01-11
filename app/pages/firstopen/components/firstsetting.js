@@ -4,16 +4,42 @@ import Input from '../../../../util/forms/input';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import IonIcon from 'react-native-vector-icons/Ionicons';
+import Modal from "react-native-modal";
+import CheckModal from '../../../../util/forms/checkProccess';
 class SettingContents extends Component {
     state={
-        nickname : '',
-        introduce : '',
+        // nickname : this.props.user.nickname,
+        nickname : "adfasdfasf",
+        // introduce : this.props.user.aboutme,
+        introduce :  " adfasddfasdfdsaf",
+        isAccessAleatOpen : false
     }
     updateInput = (name , value) =>{
         
         this.setState({
             [name] : value
         })
+    }
+    close = () => {
+        this.setState({
+            isAccessAleatOpen : false
+        },()=>{})
+    }
+    compleate = () => {
+        this.setState({
+            isAccessAleatOpen : true
+        })
+    }
+    // {닉네임 설정할때 정규화 valid!!!!!!!} ///
+
+
+    iconCheck = (name) => {
+        if (this.state[name] !== false && this.state[name].length > 2) {
+            return <IonIcon name="checkmark-circle" size={24} style={{  marginRight : 10, color: '#5585E8' ,fontWeight : '400'}}/>        
+        }else{
+            return <IonIcon name="ellipse-outline" size={24} style={{  marginRight : 10, color: '#5585E8' ,fontWeight : '400'}}/>    
+        }
+        
     }
   render() {
     
@@ -25,7 +51,7 @@ class SettingContents extends Component {
                 </View>
                 <View style = {{
                                 borderWidth : 1,
-                                borderColor : '#C4C4C4',
+                                borderColor : this.state.nickname !==false && this.state.nickname.length >2  ?   '#5585E8' : '#C4C4C4',
                                 borderRadius : 10,
                                 height : 50,
                                 justifyContent : 'space-between',
@@ -35,7 +61,7 @@ class SettingContents extends Component {
                             }}
                         >
                     <Input
-                        value={this.state.nickname}
+                        value={this.state.nickname ? this.state.nickname : ""}
                         autoCapitalize={'none'}
                         style={styles.input}
                         fontSize={14}
@@ -43,15 +69,18 @@ class SettingContents extends Component {
                         placeholderTextColor='#767676'
                         marginLeft={10}
                         maxLength = {10}
+                        color = {'#767676'}
                         onChangeText={value => this.updateInput("nickname",value)}
                         
                     />
-                    <IonIcon name="person-outline" size={18} style={{  marginRight : 10,color: this.state.nickname.length < 3 ? 'gray' :'#5585E8' ,fontWeight : '400'}}/>
+                    {this.iconCheck("nickname")}
+                    
+                    
                 </View>
 
                 <View style = {{
                                 borderWidth : 1,
-                                borderColor : '#C4C4C4',
+                                borderColor : this.state.introduce !==false && this.state.introduce.length >2  ?   '#5585E8' : '#C4C4C4',
                                 borderRadius : 10,
                                 height : 50,
                                 justifyContent : 'space-between',
@@ -59,7 +88,7 @@ class SettingContents extends Component {
                                 alignItems :'center'
                             }}>
                     <Input 
-                        value={this.state.introduce}
+                        value={this.state.introduce ? this.state.introduce : ""}
                         autoCapitalize={'none'}
                         style={styles.input}
                         fontSize={14}
@@ -70,7 +99,8 @@ class SettingContents extends Component {
                         onChangeText={value => this.updateInput("introduce",value)}
                         
                     />
-                    <IonIcon name="reader-outline" size={18} style={{  marginRight : 10,color: this.state.introduce.length < 10 ? 'gray' :'#5585E8' ,fontWeight : '400'}}/>
+                    {this.iconCheck("introduce")}
+                    {/* <IonIcon name="reader-outline" size={18} style={{  marginRight : 10,color: this.state.introduce.length < 10 ? 'gray' :'#5585E8' ,fontWeight : '400'}}/> */}
                 </View>
             </View>
 
@@ -89,7 +119,11 @@ class SettingContents extends Component {
                             <Text style ={{fontSize : 14 , fontWeight : '400' , color : '#767676'}}>건너뛰기</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress = {()=> {
+                            this.compleate()
+                        }}
+                    >
                         <View style ={{
                                 width : 343,
                                 height : 52,
@@ -103,23 +137,32 @@ class SettingContents extends Component {
                         </View>
                     </TouchableOpacity>        
                 </View>
+                <Modal
+                    style = {styles.modal}
+                    isVisible={this.state.isAccessAleatOpen}
+                    backdropColor={'#000000CC'}
+                    backdropOpacity={0.5}
+                    animationIn={'fadeIn'}
+                    animationOut={'fadeOut'}
+
+                        >
+                            <CheckModal
+                                close={this.close}
+                            />
+                </Modal>
         </View>
     )}
 }
 
 const styles = StyleSheet.create({
-    input : {
+    modal: {
+        margin: 0,
+        alignItems: 'center',
+        justifyContent : 'center',
         
-    }
-});
 
-function mapStateToProps(state){
-    return{
-        date : state.date
-    }
-}
-function mapDispatchToProps(dispatch){
-    return bindActionCreators({},dispatch);
-}
+        
+      },
+});
 
 export default SettingContents

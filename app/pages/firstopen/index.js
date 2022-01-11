@@ -4,10 +4,14 @@ import {StyleSheet, View,} from 'react-native';
 import { HeaderLogin } from './components/header';
 import SettingCarousel from './components/Caroucel';
 import SettingContents from './components/firstsetting';
+import { connect } from 'react-redux';
 class FirstOpen extends Component {
-
-  state = {
-  }
+  constructor(props) {
+    super(props);
+    this.state = {
+        user : this.props.user.auth
+    };
+}
 
   render() {
 
@@ -24,6 +28,7 @@ class FirstOpen extends Component {
           <View style ={{flex :1}}>
             <SettingContents
                 navigation = {this.props.navigation}
+                user ={this.state.user}
             />
           </View>
     
@@ -34,4 +39,10 @@ class FirstOpen extends Component {
 
 const styles = StyleSheet.create({});
 
-export default FirstOpen;
+function mapStateToProps(state){
+  return{
+      user : state.user
+  }
+}
+
+export default connect(mapStateToProps)(FirstOpen);

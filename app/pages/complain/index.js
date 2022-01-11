@@ -2,17 +2,32 @@ import React, {Component} from 'react';
 import {StyleSheet, View, Text, Button, ScrollView, SafeAreaView, TouchableOpacity,Dimensions} from 'react-native';
 import ComplainText from './components/complaintext';
 import ComplainImage from './components/complainimage';
+import Modal from "react-native-modal";
+import CheckModal from '../../../util/forms/checkProccess';
+CheckModal
 const WIDTH = Dimensions.get("window").width
 const HEIGHT_MODAL = Dimensions.get("window").height
 class ComplainScreen extends Component {
 
     state ={
-        isFilled : false
+        isFilled : false,
+        isAccessAleatOpen : false,
     }
 
     sendButton = (data) => {
             this.setState({isFilled : data})
 
+    }
+    close = () => {
+        this.setState({
+            isAccessAleatOpen : false
+        },()=>{})
+    }
+
+    sendComplete = () => {
+        this.setState({
+            isAccessAleatOpen : true
+        })
     }
 
     render() {
@@ -25,17 +40,41 @@ class ComplainScreen extends Component {
                 <ComplainText sendButton = {this.sendButton}/>
                 <ComplainImage/>
                 <View style ={{ alignItems : 'center' ,marginBottom : 30}}>
-                <TouchableOpacity onPress = {() => alert('asd')} disabled = {this.state.isFilled ? false : true} style = {{ backgroundColor : this.state.isFilled ? '#5585E8' : '#767676' , width : 343, height : 49, alignItems : 'center' ,justifyContent : 'center', borderRadius : 5,marginRight : 16}}>
+                <TouchableOpacity 
+                    onPress = {()=> {
+                        this.sendComplete()
+                    }}
+                    disabled = {this.state.isFilled ? false : true} 
+                    style = {{ backgroundColor : this.state.isFilled ? '#5585E8' : '#767676' , width : 343, height : 49, alignItems : 'center' ,justifyContent : 'center', borderRadius : 5,marginRight : 16}}
+                    >
                     <Text style = {{color : 'white', fontSize : 14,}}>보내기</Text>
                 </TouchableOpacity>
                 </View>
+                <Modal
+                    style = {styles.modal}
+                    isVisible={this.state.isAccessAleatOpen}
+                    backdropColor={'#000000CC'}
+                    backdropOpacity={0.5}
+                    animationIn={'fadeIn'}
+                        >
+                            <CheckModal
+                                close={this.close}
+                            />
+                </Modal>
             </SafeAreaView>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    
+    modal: {
+        margin: 0,
+        alignItems: 'center',
+        justifyContent : 'center',
+        
+
+        
+      },
 });
 
 export default ComplainScreen;
