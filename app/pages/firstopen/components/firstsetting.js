@@ -8,10 +8,10 @@ import Modal from "react-native-modal";
 import CheckModal from '../../../../util/forms/checkProccess';
 class SettingContents extends Component {
     state={
-        // nickname : this.props.user.nickname,
-        nickname : "adfasdfasf",
-        // introduce : this.props.user.aboutme,
-        introduce :  " adfasddfasdfdsaf",
+        nickname : this.props.user.nickname,
+        // nickname : "adfasdfasf",
+        introduce : this.props.user.aboutme,
+        // introduce :  " adfasddfasdfdsaf",
         isAccessAleatOpen : false
     }
     updateInput = (name , value) =>{
