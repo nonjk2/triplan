@@ -34,7 +34,7 @@ const Plantabs = ({route},props) => {
 
 const Taparr = [
   {route : '스케쥴' , component : Plantap ,label : '플랜' ,activeIcon : 'calendar-outline', inactiveIcon : 'calendar', headerShadowVisible : false},
-  {route : '지도' , component : Maptap,label : '지도' ,activeIcon : 'map-outline', inactiveIcon : 'map',headershown : true},
+  {route : '지도' , component : Maptap,label : '지도' ,activeIcon : 'map-outline', inactiveIcon : 'map',headershown : false},
     {route : '초대된 친구목록' , component : Invitetap,label : '친구목록' ,activeIcon : 'person-add-outline', inactiveIcon : 'person-add',headershown : true},
     {route : '체크리스트' , component : CheckTap,label : '체크리스트' ,activeIcon : 'checkbox-outline', inactiveIcon : 'checkbox',headershown : true},
     {route : '프로필' , component : AddplanSetting,label : '프로필' ,activeIcon : 'person-circle-outline', inactiveIcon : 'person-circle',headershown : true},
@@ -127,6 +127,8 @@ const Taparr = [
                   component = {item.component}
                   initialParams = {{planday : planday, startDate : startDate, name : name }}
                   options = {{
+                    headerTintColor : 'black',
+                    
                     headerLeft : (prors) => <Button title = {'메인'} onPress = {()=>{navigation.navigate("TRIPIAN")}}/>,
                     headerShown : item.headershown,
                     // title : name +' - '+item.route,
