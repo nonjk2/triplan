@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import { SwipeListView } from 'react-native-swipe-list-view';
-import { HiddenItemWithAction } from '../plantap/components/scheduleSwipe';
+import { HiddenItemWithAction } from './components/inviteSwipe';
 import { useDispatch, useSelector } from "react-redux";
 import { DummyDATA } from '../../../util/forms/data';
 import InviteModal from '../addplan/components/invitemodal'
@@ -45,14 +45,14 @@ export default function Invitetap(props) {
 
     const renderHiddenItem = (data,rowMap) => (
         <HiddenItemWithAction
-        data={data}
-        rowMap={rowMap}
-        onClose={()=>this.closeRow(rowMap, data.item.schedule_id)}
-        onDelete = {()=> deleterow(rowMap, data.schedule_id )}
-        // onLeftAction = {()=>this.onLeftAction(rowMap)}
-        // leftActionActivated
+            data={data}
+            rowMap={rowMap}
+            onClose={()=>this.closeRow(rowMap, data.item.schedule_id)}
+            onDelete = {()=> deleterow(rowMap, data.schedule_id )}
+            // onLeftAction = {()=>this.onLeftAction(rowMap)}
+            // leftActionActivated
 
-      />
+         />
     );
     const closeModal = () => {
         setisinvitevisible(false)
@@ -61,25 +61,24 @@ export default function Invitetap(props) {
     const renderInviteFriends = ({item , index}) => {
       return (
           <View style ={{
+            backgroundColor :'#fff' ,
+            marginTop : 10,
+            marginLeft : 20,
+            borderRadius : 10, 
+            height : 100,
+            width: 343,
+            alignItems : 'center',
+            justifyContent : 'center',
+            shadowOffset : {
+            width: 0,
+            height : 1,
             
-              backgroundColor :'#fff' ,
-              marginVertical : 5,
-              marginLeft : 20,
-              borderRadius : 10, 
-              height : 100,
-              width: 343,
-              alignItems : 'center',
-              justifyContent : 'center',
-              shadowOffset : {
-                width: 0,
-                height : 1,
-                
-              },
-              shadowRadius: 5,
-              shadowColor : '#000000',
-              shadowOpacity : 0.10,
-              }}>
-              <View style={{flexDirection : 'row',alignItems : 'center' ,width : '95%', height : 75}}>
+            },
+            shadowRadius: 5,
+            shadowColor : '#000000',
+            shadowOpacity : 0.10,
+            }}>
+              <View style={{flexDirection : 'row',alignItems : 'center' ,width : 343, height : 75}}>
                   <View style={styles.invitebutton}>
                         <IonIcon name="bookmark" size={24} style={{position:'absolute' ,right : 5,top : 5}}/>
 
@@ -91,6 +90,7 @@ export default function Invitetap(props) {
                                   borderRadius: 15,
                                   flexWrap: 'wrap',
                                   borderColor : '#5585E8',
+                                  marginLeft : 16,
                               }}/>
                       <View style={styles.invitecontain}>
                           <View style={styles.inviteView}>
@@ -112,7 +112,7 @@ export default function Invitetap(props) {
                 data={listData}
                 renderItem={renderInviteFriends}
                 renderHiddenItem={renderHiddenItem}
-                rightOpenValue={-80}
+                rightOpenValue={-100}
                 previewRowKey={'0'}
                 // previewOpenValue={-40}
                 // previewOpenDelay={3000}
@@ -241,7 +241,8 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       flex : 1,
       alignItems : 'center',
-      marginVertical: 5
+      marginVertical: 5,
+      
     },
     modal: {
 
