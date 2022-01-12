@@ -40,12 +40,11 @@ export default function(state = {} , action) {
                 ...state,
                 auth : {
                     refreshToken:action.payload.refreshToken || false, 
-                    userId:action.payload.userId || false,
-                    token:action.payload.token || false,
+                    token:action.payload.accessToken || false,
                     email:action.payload.email || false,
                     nickname:action.payload.nickname || false,
-                    aboutme:action.payload.aboutme || false,
-                    nametag:action.payload.nametag || false,
+                    aboutme:action.payload.aboutMe || false,
+                    nametag:action.payload.nameTag || false,
 
                 }
             }

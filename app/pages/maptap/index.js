@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, Button} from 'react-native';
+import MapViewScreen from '../map/map';
 
 class Maptap extends Component {
 
@@ -12,13 +13,7 @@ class Maptap extends Component {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <Text>Maptap Screen</Text>
-        <Button
-          title="To Home Screen"
-          onPress={() => {
-            this.props.navigation.navigate('TRIPIAN');
-          }}
-        />
+          <MapViewScreen/>
       </View>
     );
   }

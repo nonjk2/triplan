@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
     SIGN_UP,
     SIGN_IN,
@@ -5,22 +6,26 @@ import {
 } from '../types';
 
 export const autoSignIn = (refToken) =>{
-
-    const request = axios.post(`http://211.250.116.177:9090/`,{
-    refreshToken : refToken,
-    grantType : 'refresh_Token'
-        },      
-    )
+    
+    const request = axios({
+        method:'post',
+        url:`http://211.250.116.177:9090/social/autologin/kakao`,
+        data :{
+            refreshToken : refToken
+        }
+        
+    })
     .then(response=>{
-        return response.data
+        console.log(response.data.data)
+        return response.data.data
     })
     .catch(err => {console.log(err)
         return false
     })
-
+    console.log(request)
     return{
         type : AUTO_SIGN_IN,
-        payload : request,
+        payload : request
     }
 } 
 

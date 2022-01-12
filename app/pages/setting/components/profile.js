@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity, Dimensions} from 'react-native';
 import jenny from '../../../../src/assets/jenny.jpg';
 import Modal from "react-native-modal";
@@ -10,38 +10,37 @@ const HEIGHT= Dimensions.get("window").height
 
 const defaultImg = 'https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/202109/11/bfbf9985-9838-4e27-9076-d4bfecbc88cc.jpg';
 
-class Profile extends Component {
+function Profile(props,{navigation}) {
+    const [isModalVisible,setisModalvisible]=useState(false)
+    const [myimage,setmyimage]=useState(defaultImg)
 
-    state = {
-        isModalVisible: false,
-        myimage : 'https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/202109/11/bfbf9985-9838-4e27-9076-d4bfecbc88cc.jpg',
+    
+    // useEffect(()=>{
+    //     navigation.setOptions({
+    //         headerRight: () => (
+    //             <TouchableOpacity onPress={() => navigation.goBack()}>
+    //               <Text>취소</Text>
+    //             </TouchableOpacity>
+    //           ),
+    //     })},[]
+    // )
+    const show = () => {
+        setisModalvisible(true)
+    }
+    const closeOutside = () => {
+        setisModalvisible(false)
     }
 
-    componentDidMount(){
-        // this.props.navigation.setOption()
+    const cameraselect = (Image) => {
+        setmyimage(Image)
+        closeOutside();
     }
-
-    show = () => {
-        this.setState({isModalVisible: true})
-    }
-    closeOutside = () => {
-        this.setState({isModalVisible: false})
-    }
-
-    cameraselect = (Image) => {
-        this.setState({
-            myimage : Image
-        })
-        this.closeOutside();
-    }
-    defaultimgset = () => {
-        this.setState({
-            myimage : defaultImg
-        })
+    const defaultimgset = () => {
+       setmyimage(defaultImg)
     }
 
     
-    render() {
+
         return (
             <View style={styles.container}>
                     <View
@@ -49,8 +48,7 @@ class Profile extends Component {
                             height : 100 ,
                             marginVertical : 13,
                             flexDirection: 'row',
-                            alignItems : 'center',
-                            
+                            alignItems : 'center', 
                         }}>
                             <View style ={{ flexDirection : 'row', marginVertical : 10, marginHorizontal : 16}}>
                             <Image
@@ -60,7 +58,7 @@ class Profile extends Component {
                                     borderRadius: 40,
                                 }}
                                 source={{
-                                    uri : this.state.myimage
+                                    uri : myimage
                                 }}/>
                             <View
                                 style={{
@@ -102,7 +100,7 @@ class Profile extends Component {
                                         justifyContent: 'center',
                                         borderRadius: 4,
                                     }}
-                                    onPress={() => {this.show()}}
+                                    onPress={() => show()}
                                     >
                                     <Text style = {{ fontSize : 14, fontWeight : '400'}}>이미지 변경</Text>
                                 </TouchableOpacity>
@@ -110,20 +108,20 @@ class Profile extends Component {
                                 <Modal
                                 style={styles.modal}
                                 transparent={true}
-                                isVisible={this.state.isModalVisible}
-                                onRequestClose={this.closeOutside}
+                                isVisible={isModalVisible}
+                                onRequestClose={closeOutside}
                                 animationIn={'slideInUp'}
                                 animationOut={'slideOutDown'}
-                                onBackdropPress={this.closeOutside}
+                                onBackdropPress={closeOutside}
                                 useNativeDriver={false}
                                 backdropColor={'#fff'}
                                 backdropOpacity={0.4}
                                 animationInTiming={400}
                                 >
                                     <Imagemodal
-                                        close = {this.closeOutside}
-                                        cameraselect = {this.cameraselect}
-                                        defaultimgset = {this.defaultimgset}
+                                        close = {closeOutside}
+                                        cameraselect = {cameraselect}
+                                        defaultimgset = {defaultimgset}
                                     />
                                 </Modal>
                             </View>
@@ -136,7 +134,7 @@ class Profile extends Component {
             </View>
         );
     }
-}
+
 
 const styles = StyleSheet.create({
     modal: {

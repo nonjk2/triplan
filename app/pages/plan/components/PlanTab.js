@@ -18,6 +18,7 @@ export default class PlanTabView extends Component {
     ],
   };
 }
+
  _renderScene = ({ route }) => {
   switch (route.key) {
     case 'planlists':
@@ -81,7 +82,6 @@ export default class PlanTabView extends Component {
   render() {
     return (
       <TabView
-
         navigationState={this.state}
         renderScene={this._renderScene}
         renderTabBar={this._renderTabBar}
