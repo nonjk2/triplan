@@ -29,20 +29,25 @@ class Loading extends Component{
     componentDidMount(){
         getToken((value) =>{
             if (value[1][1]===null) {
+                console.log("1단계 실패")
                 this.setState({
                     Signin : false
                 })
+                Alert.alert("다시로그인을해주세요!")
             }else{
                 this.props.autoSignIn(value[2][1]).then(()=>{
                     if (!this.props.user.auth.token) {
+                        Alert.alert("다시로그인을해주세요!")
                         this.setState({Signin : false})    
                     }else{
+                        console.log("3단계성공")
                         setToken(this.props.user.auth, ()=> {
-                            this.props.navigation.navigate("Loading")
+                            this.props.navigation.navigate("Firstopen")
                         })
                     }
                 })
             }
+            console.log("getToken:",value)
         })
     }
 ///////////////자동로그인/////////////////////////
@@ -101,7 +106,7 @@ class Loading extends Component{
         console.log('   kakaoLogout   ');
         logout((err, result) => {
           if (err) {
-            console.log(err.toString());
+            console.log("ㅁㅁㅁㅁㅁㅁ",err.toString());
             return;
           }
           alert('result', result);
