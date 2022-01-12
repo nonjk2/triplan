@@ -16,7 +16,7 @@ export const setToken = async (value , callback) => {
   }
   
 
-  export const getToken = async () => {
+  export const getToken = async (callback) => {
 
   let values
   try {
@@ -24,13 +24,14 @@ export const setToken = async (value , callback) => {
       '@triplan_app@email',
       '@triplan_app@token',
       '@triplan_app@refToken',
-    ])
+    ]).then(values=>{
+      callback(values)
+    })
 
   } catch(e) {
     // read error
   }
-  console.log("Get tokens",values);
-
+  console.log(values)
   // example console.log output:
   // [ ['@MyApp_user', 'myUserValue'], ['@MyApp_key', 'myKeyValue'] ]
 }

@@ -1,3 +1,4 @@
+import { Value } from "react-native-reanimated";
 import NaverMapView from "../../app/pages/map";
 
 export const DummyDATA = [
@@ -40,6 +41,45 @@ export const DummyDATA = [
         source : 'https://w.namu.la/s/f21af41d2334b16f5da4c187b6f38ee910673da611ac33ec15be826208cdce02afcb2cd7096414957ef6be53537b75547e8e279ad3400029da948e04b955fd33c7a382087a9a6e265553a7eb4e992dc8b11d3007a678a2d90cdf991e057c57e3'
     }
 ];
+
+export const checkList = [
+  {
+    item_id : 1,
+    item_name : '지갑',
+    isSelected : true,
+  },
+  {
+    item_id : 2,
+    item_name : '수건',
+    isSelected : false,
+  },
+
+  {
+    item_id : 3,
+    item_name : '장갑',
+    isSelected : false,
+  },
+  {
+    item_id : 4,
+    item_name : '면허증',
+    isSelected : false,
+  },
+  {
+    item_id : 5,
+    item_name : '주민등록증',
+    isSelected : false,
+  },
+  {
+    item_id : 6,
+    item_name : '아몰랑',
+    isSelected : false,
+  },
+  {
+    item_id : 7,
+    item_name : '현금',
+    isSelected : false,
+  },
+]
 
 export const PlanData = [
     {
@@ -233,3 +273,8 @@ export const User =
     memberImg_id : null,
 
   }
+
+
+
+
+
