@@ -1,9 +1,9 @@
 import React, {Component, useEffect, useRef} from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Plantap from '../plantap'
-import CheckTap from '../checktap';
-import Invitetap from '../invitetap';
-import Maptap from '../maptap';
+import Plantap from './plantap';
+import CheckTap from './checktap';
+import Invitetap from './invitetap';
+import Maptap from './maptap';
 import AddplanSetting from '../addplandetail';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import ScheduleSetting from '../schedulesetting';

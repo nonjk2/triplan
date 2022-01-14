@@ -12,8 +12,8 @@ import {
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { HiddenItemWithAction } from './components/inviteSwipe';
 import { useDispatch, useSelector } from "react-redux";
-import { DummyDATA } from '../../../util/forms/data';
-import InviteModal from '../addplan/components/invitemodal'
+import { DummyDATA } from '../../../../util/forms/data';
+import InviteModal from '../../addplan/components/invitemodal';
 import Modal from "react-native-modal";
 import IonIcon from 'react-native-vector-icons/Ionicons';
 
@@ -130,7 +130,7 @@ export default function Invitetap(props) {
                 right: 20,
             }}>
             <View>
-                <Image source={require('../../../src/assets/Button.jpg')} />
+                <Image source={require('../../../../src/assets/Button.jpg')} />
             </View>
             </TouchableOpacity>
             <Modal

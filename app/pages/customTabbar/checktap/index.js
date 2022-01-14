@@ -1,7 +1,7 @@
 import React, {Component, useState} from 'react';
 import {StyleSheet, View, Text, Button, TouchableOpacity, Animated, SafeAreaView, FlatList} from 'react-native';
 import { TabView } from 'react-native-tab-view';
-import { checkList } from '../../../util/forms/data';
+import { checkList } from '../../../../util/forms/data';
 import CheckBox from '@react-native-community/checkbox';
 
 const DATA= checkList

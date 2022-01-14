@@ -66,6 +66,8 @@ export default function ImageCarousel(props) {
         minScrollDistance = {10}
         inActiveScale = {0.8}
         initialIndex = {2}
+      
+        
       />
 
     </View>

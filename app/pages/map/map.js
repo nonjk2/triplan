@@ -6,65 +6,31 @@ import Mapsearch from './search';
 import { LayerGroup } from '.';
 
 
-  const P0 = {latitude: 37.564362, longitude: 126.977011}; const P1 = {latitude: 37.565051, longitude: 126.978567};
-  const P2 = {latitude: 37.565383, longitude: 126.976292}; const P4 = {latitude: 37.564834, longitude: 126.977218};
-  const P5 = {latitude: 37.562834, longitude: 126.976218};
+  const P0 = {latitude: 37.59229660205149,longitude: 126.97558048678314, index: 0}; const P1 = {latitude: 37.821181701506276,longitude: 127.54229189686288,index: 1};
+  const P2 = {latitude: 37.67639982426067,longitude: 127.86638861746769, index: 2}; const P4 = {latitude: 37.368526562915974,longitude: 127.92040466073564, index: 3};
+  const P5 = {latitude: 37.255661731852015,longitude: 127.665888045982, index: 5};
+  const MyArray = [P0,P1,P2,P4,P5]
 
 
     
-// const MapViewScreen = (props) => {
-     
-    // useEffect(() => { requestLocationPermission(); }, []);
-    
-    
 
-//         return <> 
-//         <NaverMapView style={{
-//                     width: '100%',
-//                     height: '100%'}} 
-//                     showsMyLocationButton={true} 
-//                     center={{...currentLocation, zoom: 16}} 
-//                     onTouch={e => console.log('onTouch', JSON.stringify(e.nativeEvent))} 
-//                     onCameraChange={e => console.log('onCameraChange', JSON.stringify(e))} 
-//                     onMapClick={e => console.log('onMapClick', JSON.stringify(e))}
-//                     onMapClick = {e => locationHandler(e)} 
-//                     useTextureView
-//         > 
-//         <Marker coordinate={currentLocation} onClick={() => console.log('onClick! p0')} caption={{text: "위치", align: Align.Left}}/>
-//         <Marker coordinate={P1} pinColor="blue" onClick={() => console.log('onClick! p1')}/> 
-//         {/* <Marker coordinate={P2} pinColor="red" onClick={() => console.log('onClick! p2')}/>  */}
-//         {/* <Marker coordinate={P4} onClick={() => console.log('onClick! p4')} image={require("../../../src/assets/jenny.jpg")} width={48} height={48}/> */}
-//         {/* <Path coordinates={[P0, P1]} onClick={() => console.log('onClick! path')} width={10}/>  */}
-//         {/* <Polyline coordinates={[P1, P2]} onClick={() => console.log('onClick! polyline')}/>  */}
-//         {/* <Circle coordinate={P0} color={"rgba(255,0,0,0.3)"} radius={200} onClick={() => console.log('onClick! circle')}/>  */}
-//         {/* <Polygon coordinates={[P0, P1, P2]} color={`rgba(0, 0, 0, 0.5)`} onClick={() => console.log('onClick! polygon')}/>  */}
-//         </NaverMapView>
-//         <View style ={{
-//             width : 343,
-//             height : 500,
-//             position :'absolute',
-//             top :'10%'}}>
-//             <Mapsearch/>
-//         </View>
-         
-//         <TouchableOpacity style={{position: 'absolute', bottom: '10%', right: 8}} onPress = {props.close}> 
-//             <View style={{backgroundColor: 'gray', padding: 4}}> 
-//                 <Text style={{color: 'white'}}>뒤로가기</Text> 
-//             </View> 
-//         </TouchableOpacity>
-//         </> };
-    const MapViewScreen = ({navigation}) => {
+    const MapViewScreen = (props) => {
         const mapView = useRef(null);
-        
+        // const LocatinIndex = props.
+        const {caroucelIndex} = props;
         useEffect(() => {
-            requestLocationPermission();
-        }, []);
-        const [currentLocation, setCurrentLocation] = useState({latitude: 37.565051, longitude: 126.978567});
-        const [enableLayerGroup, setEnableLayerGroup] = useState(true);
+            // requestLocationPermission(),
+            setCurrentLocation(MyArray[caroucelIndex])
+        });
+        const [currentLocation, setCurrentLocation] = useState(MyArray[caroucelIndex]);
+        const [enableLayerGroup, setEnableLayerGroup] = useState(false);
         const locationHandler = (e) => { 
             Alert.alert( "", "Marker?", [ 
                     { text: 'Cancel'},
-                    { text: 'OK', onPress: () => { setCurrentLocation(e);  }}
+                    { text: 'OK', onPress: () =>
+                    {console.log('onMapClick', e)} 
+                    // { setCurrentLocation(e);  }
+                }
                     // console.log('onMapClick', JSON.stringify(e));
                 ],
                 { cancelable: false } 
@@ -74,28 +40,38 @@ import { LayerGroup } from '.';
             <NaverMapView ref={mapView}
                           style={{width: '100%', height: '100%'}}
                           showsMyLocationButton={true}
-                          center={{...P0, zoom: 16}}
+                          center={{...currentLocation, zoom: 12}}
                         //   onTouch={e => console.warn('onTouch', JSON.stringify(e.nativeEvent))}
-                          onCameraChange={e => console.log('onCameraChange', JSON.stringify(e))}
-                          onMapClick={e => locationHandler(e)}
+                        //   onCameraChange={e => console.log('onCameraChange',e)}
+                        //   onMapClick={e => locationHandler(e)}
+                        // buildingHeight={0}
+                          nightMode={false}
+                          mapType={0}
                           useTextureView>
                 <Marker coordinate={P0}
-                    onClick={() => {
-                        console.log('onClick! p0')
-                        mapView.current.setLayerGroupEnabled(LayerGroup.LAYER_GROUP_BICYCLE, enableLayerGroup);
-                        mapView.current.setLayerGroupEnabled(LayerGroup.LAYER_GROUP_TRANSIT, enableLayerGroup);
-                        setEnableLayerGroup(!enableLayerGroup)
-                    }}
+                    
                     caption={{ text: "test caption", align: Align.Left }}
                 />
-                <Marker coordinate={currentLocation} pinColor="blue" zIndex={1000} onClick={() => console.warn('onClick! p1')}/>
-                <Marker coordinate={P2} pinColor="red" zIndex={100} alpha={0.5} onClick={() => console.log('onClick! p2')}/>
-                <Marker coordinate={P4} onClick={() => console.log('onClick! p4')} image={require("../../../src/assets/jenny.jpg")} width={48} height={48}/>
-                <Path coordinates={[P0, P1]} onClick={() => console.log('onClick! path')} width={10}/>
-                <Polyline coordinates={[P1, P2]} onClick={() => console.log('onClick! polyline')}/>
-                <Circle coordinate={P0} color={"rgba(255,0,0,0.3)"} radius={200} onClick={() => console.log('onClick! circle')}/>
-                <Polygon coordinates={[P0, P1, P2]} color={`rgba(0, 0, 0, 0.5)`} onClick={() => console.log('onClick! polygon')}/>
-                <Marker coordinate={P5} onClick={() => console.log('onClick! p0')} width={96} height={96}>
+                {MyArray.map(e=>
+                <Marker coordinate={e} pinColor="blue"
+                 zIndex={1000} key={e.index}
+                 animated={true}
+                 onClick={() => {
+                    mapView.current.setLayerGroupEnabled(LayerGroup.LAYER_GROUP_BICYCLE, enableLayerGroup);
+                    mapView.current.setLayerGroupEnabled(LayerGroup.LAYER_GROUP_TRANSIT, enableLayerGroup);
+                    mapView.current.setLayerGroupEnabled(LayerGroup.LAYER_GROUP_BUILDING, enableLayerGroup);
+                    mapView.current.setLayerGroupEnabled(LayerGroup.LAYER_GROUP_CADASTRAL, enableLayerGroup);
+                    setEnableLayerGroup(!enableLayerGroup)
+                }}
+                 />
+                )}
+                {/* <Path coordinates={MyArray} width={5}/> */}
+                <Polyline coordinates={MyArray} />
+                {/* <Marker coordinate={P2} pinColor="red" zIndex={100} alpha={0.5} />
+                <Marker coordinate={P4} image={require("../../../src/assets/jenny.jpg")} width={48} height={48}/>
+                <Circle coordinate={P0} color={"rgba(255,0,0,0.3)"} radius={200}/>
+                <Polygon coordinates={[P0, P1, P2]} color={`rgba(0, 0, 0, 0.5)`} />
+                <Marker coordinate={P5} width={96} height={96}>
                     <View style={{backgroundColor: 'rgba(255,0,0,0.2)', borderRadius: 80}}>
                         <View style={{backgroundColor: 'rgba(0,0,255,0.3)', borderWidth: 2, borderColor: 'black', flexDirection: 'row'}}>
                             <Image source={require("../../../src/assets/jenny.jpg")} style={{
@@ -109,7 +85,7 @@ import { LayerGroup } from '.';
                             <Text>image background</Text>
                         </ImageBackground>
                     </View>
-                </Marker>
+                </Marker> */}
             </NaverMapView>
             <TouchableOpacity style={{position: 'absolute', bottom: '10%', right: 8}} onPress={() => navigation.navigate('stack')}>
                 <View style={{backgroundColor: 'gray', padding: 4}}>
