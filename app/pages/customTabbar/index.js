@@ -10,14 +10,21 @@ import ScheduleSetting from '../schedulesetting';
 import * as Animatable from 'react-native-animatable';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { Scheduledata } from '../../../util/forms/data';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import Sidebar from '../customDrawer';
 
-
+const DATA = Scheduledata
 const animate1 = {0 : {scale : .5, translateY : 0}, 1: {scale : 1.2, translateY : -8}}
 const animate2 = {0 : {scale : 1.2, translateY : -8}, 1: {scale : 1, translateY : 0}}
 const plusanimate1 = {0 : {scale : .5, translateY : 0}, 1: {scale : 1.7, translateY : -10}}
 const plusanimate2 = {0 : {scale : .5, translateY : -10}, 1: {scale : 1.7, translateY : 0}}
 const circle = {0 : {scale : 1}, 0.3: {scale : .5}, 0.5: {scale : .7}, 0.8: {scale : .9}, 1: {scale : 1}}
 const circle2 = {0 : {scale : 1} ,1: {scale : 1}}
+
+const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator();
+  const Tap = createBottomTabNavigator();
 
 
 const Plantabs = ({route},props) => {
@@ -29,19 +36,38 @@ const Plantabs = ({route},props) => {
 
   )
 }
-
+const OptionmyDrawer = ({route}) => {
+  const {planday,startDate , name,navigation,DATA} = route.params
+  return (
+      <Drawer.Navigator
+        drawerContent = {props => <Sidebar {...props}/>}
+      >
+        <Drawer.Screen 
+        name = '스케쥴'
+        component={Maptap}
+        options = {{
+          headerShown : false,
+          drawerType : 'front',
+          drawerPosition : "left",
+          drawerStyle : {
+            width : 301,
+          }
+        }}
+        initialParams = {{planday : planday, startDate : startDate, name : name , DATA:DATA }}/>
+      </Drawer.Navigator>
+  );
+}
 
 
 const Taparr = [
   {route : '스케쥴' , component : Plantap ,label : '플랜' ,activeIcon : 'calendar-outline', inactiveIcon : 'calendar', headerShadowVisible : false},
-  {route : '지도' , component : Maptap,label : '지도' ,activeIcon : 'map-outline', inactiveIcon : 'map',headershown : false},
+  {route : '지도' , component : OptionmyDrawer,label : '지도' ,activeIcon : 'map-outline', inactiveIcon : 'map',headershown : false},
     {route : '초대된 친구목록' , component : Invitetap,label : '친구목록' ,activeIcon : 'person-add-outline', inactiveIcon : 'person-add',headershown : true},
     {route : '체크리스트' , component : CheckTap,label : '체크리스트' ,activeIcon : 'checkbox-outline', inactiveIcon : 'checkbox',headershown : true},
     {route : '프로필' , component : AddplanSetting,label : '프로필' ,activeIcon : 'person-circle-outline', inactiveIcon : 'person-circle',headershown : true},
   
   ]
-  const Stack = createNativeStackNavigator();
-  const Tap = createBottomTabNavigator();
+  
   
   const TapButton = (props) => {
     
@@ -125,7 +151,7 @@ const Taparr = [
                   key = {index}
                   name = {item.route}
                   component = {item.component}
-                  initialParams = {{planday : planday, startDate : startDate, name : name }}
+                  initialParams = {{planday : planday, startDate : startDate, name : name , DATA:DATA }}
                   options = {{
                     headerTintColor : 'black',
                     
