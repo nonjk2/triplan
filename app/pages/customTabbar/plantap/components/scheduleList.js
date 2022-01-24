@@ -15,11 +15,7 @@ import { HiddenItemWithAction } from './scheduleSwipe';
 
 const DATA = Scheduledata
 export default function ScheduleList(props) {
-    useEffect(()=>
-      console.log(listData),
-
-
-    )
+    
     const {startDate,navigation} = props
     const [listData] = useState(
       DATA

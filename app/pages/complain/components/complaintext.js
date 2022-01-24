@@ -12,43 +12,12 @@ import {
 import Input from '../../../../util/forms/input';
 import Inputtwo from '../../../../util/forms/inputtwo';
 
-class ComplainText extends Component {
+function ComplainText(props) {
+    
+    const {complain,setcomplain,complainName,setcomplainName}=props;
 
-    state = {
-        form: {
-            complainname: {
-                value: '',
-                type: 'textinput',
-                rules: {},
-                valid: false
-            },
-            complain: {
-                value: '',
-                type: 'textinput',
-                rules: {},
-                valid: false
-            },
-
-            introduce: {
-                value: '',
-                type: 'textinput',
-                date : '',
-            },
-        }
-    }
-
-    updateInput = (name, value) => {
-        
-        let formcopy = this.state.form;
-        formcopy[name].value = value;
-        this.setState({form: formcopy})
-        if (this.state.form.complain.value.length > 0  && this.state.form.complainname.value.length > 0) {
-            this.props.sendButton(true)
-        }else if(this.state.form.complain.value.length == 0  || this.state.form.complainname.value.length == 0){
-            this.props.sendButton(false)
-        }
-    }
-    render() {
+    
+    
         return (
             <View style={styles.containertwo}>
                 <View style = {{ marginTop :24 ,paddingBottom : 4 , paddingLeft : 16}}>
@@ -70,14 +39,13 @@ class ComplainText extends Component {
                         <Input
                             maxLength = {20}
                             myPlanName="컴플레인"
-                            value={this.state.form.complainname.value}
-                            type={this.state.form.complainname.type}
+                            value={complainName}
                             color='#767676'
                             autoCapitalize={'none'}
                             style={styles.input}
                             placeholder="제목을 입력하세요.(최대 80자)"
                             placeholderTextColor='#767676'
-                            onChangeText={value => this.updateInput("complainname", value)}></Input>
+                            onChangeText={value => setcomplainName(value)}></Input>
                         {/* <Text style={styles.inputvalid}>{this.state.form.planname.value.length}/10</Text> */}
                     </View>
                     
@@ -85,14 +53,16 @@ class ComplainText extends Component {
                             multiline
                             numberOfLines={4}
                             myPlanName="컴플레인이름"
-                            value={this.state.form.complain.value}
-                            type={this.state.form.complain.type}
+                            value={complain}
                             color='#767676'
                             autoCapitalize={'none'}
                             style={styles.input}
                             placeholder=" 문의하실내용을 입력하세요."
                             placeholderTextColor='#767676'
-                            onChangeText={value => this.updateInput("complain", value)}></Inputtwo>
+                            onChangeText={value => setcomplain(value)}
+                        >
+
+                        </Inputtwo>
                         {/* <Text style={styles.inputvalid}>{this.state.form.planname.value.length}/10</Text> */}
 
                 </View>
@@ -100,7 +70,7 @@ class ComplainText extends Component {
 
             </View>
 
-        )}}
+        )}
 const styles = StyleSheet.create({
     input: {
         fontSize: 16,

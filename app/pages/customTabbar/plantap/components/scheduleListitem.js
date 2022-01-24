@@ -32,7 +32,7 @@ class ScheduleListitems extends Component {
                     memo : this.props.memo,
                     price : this.props.price,
                     startDatetime : this.props.startDatetime,
-                    endDatetime : this.props.endDatetime
+                    endDatetime : this.props.endDatetime,
                 } );
                 
             }}
