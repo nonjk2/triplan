@@ -1,0 +1,47 @@
+import React, {Component, useEffect, useRef, useState} from 'react';
+import { Dimensions, StyleSheet, View } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
+import IonIcon from 'react-native-vector-icons/Ionicons';
+import Inputtwo from '../../../../../../util/forms/inputtwo';
+
+const WIDTH = Dimensions.get("window").width
+const HEIGHT = Dimensions.get("window").height
+export default function SearchScreen({navigation}) {
+    
+    return(
+        <SafeAreaView style ={{flex :1 ,backgroundColor : '#fff',alignItems :'center'}}>
+
+            <View style ={{
+                position : 'absolute' , 
+                top:'10%',
+                alignItems :'center',
+                justifyContent :'center' , 
+                flexDirection :'row', 
+                width : WIDTH-32,
+                height : 50,
+                borderRadius : 10,
+                borderWidth : 0.2,
+                }}>
+                <IonIcon name="menu-outline" onPress={()=>navigation.goBack()} size={24} style={{color: '#000' , position : 'relative' , right : 5}}/>
+                <Inputtwo
+                style={styles.input}
+                placeholder ={'일정 또는 핀 번호 검색'}
+                returnKeyType={'google'}
+                />
+                <IonIcon name="mic-outline" size={24} style={{color: '#000' ,fontWeight : '400' , position : 'relative' , left : 5}}/>
+                
+            </View>
+        </SafeAreaView>
+    )
+}
+
+const styles = StyleSheet.create({
+    input:{
+
+        width : WIDTH * 0.7,
+        height : 50
+        
+      }
+  
+});
+

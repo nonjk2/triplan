@@ -37,10 +37,19 @@ const Plantabs = ({route},props) => {
   )
 }
 const OptionmyDrawer = ({route}) => {
-  const {planday,startDate , name,navigation,DATA} = route.params
+  const {planday,startDate,endDate , name,navigation,source} = route.params
+
   return (
       <Drawer.Navigator
-        drawerContent = {props => <Sidebar {...props}/>}
+        drawerContent = {props => <Sidebar
+          source = {source}
+          endDate = {endDate}
+          startDate = {startDate}
+          name = {name}
+          DATA ={DATA}
+          planday = {planday} 
+          {...props}/>
+        }
       >
         <Drawer.Screen 
         name = '스케쥴'
@@ -50,10 +59,10 @@ const OptionmyDrawer = ({route}) => {
           drawerType : 'front',
           drawerPosition : "left",
           drawerStyle : {
-            width : 301,
+            width : 267,
           }
         }}
-        initialParams = {{planday : planday, startDate : startDate, name : name , DATA:DATA }}/>
+        initialParams = {{planday : planday, startDate : startDate, name : name , DATA:DATA , source:source  }}/>
       </Drawer.Navigator>
   );
 }
@@ -116,8 +125,9 @@ const Taparr = [
   
   
   export default function Tapmynavigation({route,navigation}){
-    const {planday,startDate,name} = route.params
+    const {planday,startDate,name,source,endDate} = route.params
     const viewRef = useRef(null)
+    
     return (
       <Tap.Navigator
         
@@ -151,7 +161,7 @@ const Taparr = [
                   key = {index}
                   name = {item.route}
                   component = {item.component}
-                  initialParams = {{planday : planday, startDate : startDate, name : name , DATA:DATA }}
+                  initialParams = {{planday : planday, startDate : startDate, name : name , DATA:DATA,endDate: endDate  , source : source}}
                   options = {{
                     headerTintColor : 'black',
                     

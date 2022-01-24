@@ -54,11 +54,16 @@ export default function Maptap(props) {
           borderRadius : 10,
           }}>
         <IonIcon name="menu-outline" onPress={()=>navigation.openDrawer()} size={24} style={{color: '#000' , position : 'relative' , right : 5}}/>
-        
+        {/* <TouchableWithoutFeedback onPress={()=>navigation.navigate("지도핀검색")}> */}
         <Inputtwo
           style={styles.input}
+          placeholder ={'핀 검색을 하려면 터치해 주세요'}
+          returnKeyType={'google'}
+          editable={false}
+
         />
-        <IonIcon name="mic-outline" size={24} style={{color: '#000' ,fontWeight : '400' , position : 'relative' , left : 5}}/>
+        {/* </TouchableWithoutFeedback> */}
+        <IonIcon name="mic-outline" onPress={()=>navigation.navigate("지도핀검색")} size={24} style={{color: '#000' ,fontWeight : '400' , position : 'relative' , left : 5}}/>
         
         </View>
         
