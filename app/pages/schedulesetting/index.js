@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, {Component, memo} from 'react';
+import React, {Component, memo, useEffect, useState} from 'react';
 import {StyleSheet, View, Text, Button, SafeAreaView, TouchableOpacity, Image, Dimensions, Pressable, Platform} from 'react-native';
 import Input from '../../../util/forms/input';
 import IonIcon from 'react-native-vector-icons/Ionicons';
@@ -11,85 +11,53 @@ import Inputtwo from '../../../util/forms/inputtwo';
 const WIDTH = Dimensions.get("window").width
 const HEIGHT = Dimensions.get("window").height
 
-class ScheduleSetting extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-        value : '',
-        isNameModalvisible : false , 
-        isstartModalvisible : false,
-        isendModalvisible : false,
-        show : false,
-        startdate : this.props.route.params.startDatetime,
-        enddate : this.props.route.params.endDatetime,
-        form : {
-            planname :{
-                value :this.props.route.params.title,
-                type : '',
-            },
-            memo : {
-                value : this.props.route.params.memo
-            },
-            price : {
-                value : this.props.route.params.price
-            }
-        }
-    }
-  }
-  closeandset = (type , planupdate) =>{
-    if (type == 'planname') {
-        this.setState({
-            form : {
-                ...this.state.form,
-                planname : {
-                value : planupdate
-                },
-            }
-        },()=> this.close())
-      }else if(type == 'startdate'){
-          this.setState({
-              startdate : planupdate
-          },()=> this.close())
-      }else if (type == 'enddate') {
-          this.setState({
-              enddate : planupdate
-          },()=> this.close())
-      }
-    }
+function ScheduleSetting(props) {
     
+    const [isNameModalvisible,setisNameModalvisible] = useState(false)
+    const [isstartModalvisible,setisstartModalvisible] = useState(false)
+    const [isendModalvisible,setisendModalvisible] = useState(false)
+    const [show,setshow]=useState(false)
+    const [startdate,setstartdate]=useState(props.route.params.startDatetime)
+    const [enddate,setenddate]=useState(props.route.params.endDatetime)
+    const [planname,setplanname]=useState(props.route.params.title)
+    const [memo,setmemo]=useState(props.route.params.memo)
+    const [price,setprice]=useState(props.route.params.price)
+
     
+    const onChange = (event, selectedDate) => {
+        const selectday = new Date(selectedDate)
+        setstartdate(selectday)
+    };
+
+    const close = () => {
+        setisNameModalvisible(false)
+        setisendModalvisible(false)
+        setisstartModalvisible(false)
+    }
+
+    useEffect(() => {
+        props.navigation.setOptions({ 
+            // 
+          headerRight: () => (
+            <TouchableOpacity
+                onPress = {()=>{}}
+                disabled = {price != props.route.params.price || memo !=props.route.params.memo || planname !=props.route.params.title
+                     
+
+                    ?planname.length > 2 && memo.length > 4 ? false : true : true }
+            >
+                <Text style={{color : price != props.route.params.price || memo !=props.route.params.memo || planname !=props.route.params.title 
+                    ?planname.length > 2 && memo.length > 4 ? '#5585E8':'#000'  : '#000'}}>
+                    저장
+                </Text>
+            </TouchableOpacity>
+          ),
+        });
+      }, [props.navigation,price,memo,planname]);
 
 
-  updateInput = (name, value) => {
-    this.setState({hasErrors: false})
-    let formcopy = this.state.form;
-    formcopy[name].value = value;
-
-    this.setState({form: formcopy})
-}
-
- onChange = (event, selectedDate) => {
-    const selectday = new Date(selectedDate)
-    this.setState({
-        startdate : selectday
-    })
-    console.log(new Date(selectedDate).getHours())
-  };
-
-  close = () => {
-    this.setState({
-        isNameModalvisible: false,
-        isstartModalvisible : false,
-        isendModalvisible : false
-
-    })
-   
-}
-
-  render() {
-    const {params} = this.props.route
-    const planstart = new Date(this.state.startdate).toLocaleString('en-US', { hour: '2-digit', hour12: true ,minute :'2-digit'})
-    const planend = new Date(this.state.enddate).toLocaleString('en-US', { hour: '2-digit', hour12: true ,minute :'2-digit'})
+const planstart = new Date(startdate).toLocaleString('en-US', { hour: '2-digit', hour12: true ,minute :'2-digit'})
+const planend = new Date(enddate).toLocaleString('en-US', { hour: '2-digit', hour12: true ,minute :'2-digit'})
     return (    
       <SafeAreaView
         style={{
@@ -101,8 +69,7 @@ class ScheduleSetting extends Component {
                 <Input
                     myPlanName="여행명"
                     pointerEvents ="none"
-                    value={this.state.form.planname.value}
-                    type={this.state.form.planname.type}
+                    value={planname}
                     autoCapitalize={'none'}
                     keyboardType={'email-address'}
                     style={{}}
@@ -110,36 +77,36 @@ class ScheduleSetting extends Component {
                     placeholderTextColor='#767676'
                     marginLeft={10}
                     maxLength = {15}
-                    onChangeText={value => this.updateInput("planname", value)}>
+                    onChangeText={value => setplanname(value)}>
                 </Input>
-                <TouchableOpacity onPress={() => this.setState({isNameModalvisible: true})} >
+                <TouchableOpacity onPress={() => setisNameModalvisible(true)} >
                     <Text style = {{color : '#5585E8'}}>편집</Text>
                 </TouchableOpacity>    
             </View>
             <Modal
                 style = {styles.modal}
-                isVisible={this.state.isNameModalvisible}
+                isVisible={isNameModalvisible}
                 backdropColor={'#000000CC'}
                 backdropOpacity={0.5}
-                onBackdropPress={this.close}
+                onBackdropPress={close}
             >
                 <NameModal
-                    namestate = {this.state.form.planname.value}
-                    close = {this.close}
-                    closeandset = {this.closeandset}
+                    setisNameModalvisible = {setisNameModalvisible}
+                    planname = {planname}
+                    setplanname={setplanname}
                 />
             </Modal>
             <View style ={{marginHorizontal : 16 , marginTop : 24}}>
 
-                {/* 출발시간 */}{/* 출발시간 */}{/* 출발시간 */}{/* 출발시간 */}{/* 출발시간 */}{/* 출발시간 */}
+                {/* 출발시간 */}{/* 출발시간 */}{/* 출발시간 */}{/* 출발시간 */}{/* 출발시간 */}
                 <View style={styles.containertwo}>
                     <Text style={styles.textname}>출발 시간</Text>
-                    <Pressable onPress = {() => this.setState({isstartModalvisible : true})}>
+                    <Pressable onPress = {() => {setisstartModalvisible(true)}}>
                         <View 
                         style ={{borderWidth : 2,
                             borderColor : '#C4C4C4',
                             borderRadius : 4,
-                            height : 36,
+                            height : 50,
                             justifyContent : 'space-between',
                             flexDirection : 'row',
                             alignItems :'center',
@@ -147,7 +114,8 @@ class ScheduleSetting extends Component {
                             
                         }}
                         pointerEvents ="none">
-                            <Input  
+                            <Input
+                                editable={false}  
                                 pointerEvents ="none"
                                 myPlanName="출발 시간"
                                 value={`${planstart}`}
@@ -156,7 +124,7 @@ class ScheduleSetting extends Component {
                                 style={styles.input}
                                 placeholder="시간 일정을 등록해주세요"
                                 placeholderTextColor='#767676'
-                                fontSize={14}
+                                fontSize={16}
                                 marginLeft={10} 
                             />
                                 
@@ -165,16 +133,17 @@ class ScheduleSetting extends Component {
                     </Pressable>
                     <Modal
                     style = {styles.modal}
-                    isVisible={this.state.isstartModalvisible}
+                    isVisible={isstartModalvisible}
                     backdropColor={'#000000CC'}
                     backdropOpacity={0.5}
-                    onBackdropPress={this.close}
+                    onBackdropPress={close}
                         >
                         <Starttimemodal
-                            endDatetime = {this.state.enddate}
-                            startDatetime = {this.state.startdate}
-                            close = {this.close}
-                            closeandset = {this.closeandset}
+                            endDatetime = {enddate}
+                            startDatetime = {startdate}
+                            close = {close}
+                            setstartdate = {setstartdate}
+                            setisstartModalvisible={setisstartModalvisible}
                         />
                     </Modal>
                     
@@ -182,20 +151,19 @@ class ScheduleSetting extends Component {
                 {/* 도착시간 */}{/* 도착시간 */}{/* 도착시간 */}{/* 도착시간 */}{/* 도착시간 */}{/* 도착시간 */}
                 <View style={styles.containertwo}>
                     <Text style={styles.textname}>도착 시간</Text>
-                    <Pressable onPress = {() => this.setState({isendModalvisible : true})}>
+                    <Pressable onPress = {() => {setisendModalvisible(true)}}>
                         <View 
-                        style ={{borderWidth : 2,
+                        style ={{
+                            borderWidth : 2,
                             borderColor : '#C4C4C4',
                             borderRadius : 4,
-                            height : 36,
+                            height : 50,
                             justifyContent : 'space-between',
                             flexDirection : 'row',
                             alignItems :'center',
-                            
-                            
                         }}>
                             <Input
-
+                                editable={false}
                                 pointerEvents ="none"
                                 myPlanName="도착시간"
                                 value={`${planend}`}
@@ -204,7 +172,7 @@ class ScheduleSetting extends Component {
                                 style={styles.input}
                                 placeholder="시간 일정을 등록해주세요"
                                 placeholderTextColor='#767676'
-                                fontSize={14}
+                                fontSize={16}
                                 marginLeft={10} 
                             />
                                 
@@ -212,17 +180,18 @@ class ScheduleSetting extends Component {
                         </View>
                     </Pressable>
                     <Modal
-                    style = {styles.modal}
-                    isVisible={this.state.isendModalvisible}
-                    backdropColor={'#000000CC'}
-                    backdropOpacity={0.5}
-                    onBackdropPress={this.close}
+                        style = {styles.modal}
+                        isVisible={isendModalvisible}
+                        backdropColor={'#000000CC'}
+                        backdropOpacity={0.5}
+                        onBackdropPress={close}
                         >
                         <Endtimemodal
-                            startDatetime = {this.state.startdate}
-                            endDatetime = {this.state.enddate}
-                            close = {this.close}
-                            closeandset = {this.closeandset}
+                            startDatetime = {startdate}
+                            endDatetime = {enddate}
+                            close = {close}
+                            setenddate={setenddate}
+                            setisendModalvisible={setisendModalvisible}
                         />
                     </Modal>
                     
@@ -230,12 +199,12 @@ class ScheduleSetting extends Component {
                 {/* 메모 */}{/* 메모 */}{/* 메모 */}{/* 메모 */}{/* 메모 */}{/* 메모 */}{/* 메모 */}{/* 메모 */}
                 <View style={styles.containertwo}>
                     <Text style={styles.textname}>메모</Text>
-                    <Pressable onPress = {() => this.setState({show : true})}>
+                    <Pressable onPress = {() => {setshow(true)}}>
                         <View 
                         style ={{borderWidth : 2,
                             borderColor : '#C4C4C4',
                             borderRadius : 4,
-                            height : 36,
+                            height : 50,
                             // justifyContent : 'space-between',
                             flexDirection : 'row',
                             alignItems :'center',
@@ -245,24 +214,17 @@ class ScheduleSetting extends Component {
                                 numberOfLines={4}
                                 multiline
                                 myPlanName="여행명"
-                                value={`${this.state.form.memo.value}`}
+                                value={`${memo}`}
                                 autoCapitalize={'none'}
                                 keyboardType={'email-address'}
                                 style={styles.input}
                                 placeholder="메모를 작성해주세요"
                                 placeholderTextColor='#767676'
-                                fontSize={14}
+                                fontSize={16}
                                 marginLeft={10}
-                                onChangeText={value => this.updateInput("memo", value)} 
+                                onChangeText={value => setmemo(value)} 
                             />
-                            <TouchableOpacity style={{position : 'absolute' ,right : 5,}} onPress = {()=> this.setState({
-                                form : {
-                                    ...this.state.form,
-                                    memo : {
-                                    value : ''
-                                    },
-                                }
-                            })}>    
+                            <TouchableOpacity style={{position : 'absolute' ,right : 5,}} onPress = {()=> setmemo("")}>    
                                 <IonIcon name="close-circle-outline" size={18} style={{color: 'gray' ,fontWeight : '400'}}/>
                             </TouchableOpacity>
                         </View>
@@ -271,12 +233,12 @@ class ScheduleSetting extends Component {
                 {/* 가격책정 */}{/* 가격책정 */}{/* 가격책정 */}{/* 가격책정 */}{/* 가격책정 */}{/* 가격책정 */}
                 <View style={styles.containertwo}>
                     <Text style={styles.textname}>가격책정</Text>
-                    <Pressable onPress = {() => this.setState({show : true})}>
+                    <Pressable onPress = {() => setshow(true)}>
                         <View 
                         style ={{borderWidth : 2,
                             borderColor : '#C4C4C4',
                             borderRadius : 4,
-                            height : 36,
+                            height : 50,
                             justifyContent : 'space-between',
                             flexDirection : 'row',
                             alignItems :'center',
@@ -284,13 +246,13 @@ class ScheduleSetting extends Component {
                         pointerEvents ="none">
                             <Input
                                 myPlanName="여행명"
-                                value={`${this.state.form.price.value}`}
+                                value={`${price}`}
                                 autoCapitalize={'none'}
                                 keyboardType={'email-address'}
                                 style={styles.input}
                                 placeholder="시간 일정을 등록해주세요"
                                 placeholderTextColor='#767676'
-                                fontSize={14}
+                                fontSize={16}
                                 marginLeft={10} 
                             />
                             <TouchableOpacity style={{position : 'absolute' ,right : 5,}}>    
@@ -306,7 +268,7 @@ class ScheduleSetting extends Component {
       </SafeAreaView>
     );
   }
-}
+
 
 const styles = StyleSheet.create({
     textname: {
