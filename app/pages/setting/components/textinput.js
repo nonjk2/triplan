@@ -12,61 +12,9 @@ import {
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import Input from '../../../../util/forms/input';
 
-class Textsetting extends Component {
-        constructor(props) {
-        super(props);
-        this.state = {
-        form: {
-            nickname: {
-                value: this.props.user.nickname,
-                type: 'textinput',
-                rules: {},
-                valid: false
-            },
-            emailId: {
-                value: this.props.user.email,
-                type: 'textinput',
-                rules: {},
-                valid: false
-            },
-
-            introduce: {
-                value: this.props.user.aboutMe,
-                type: 'textinput',
-                date : '',
-            },
-        }
-    }
-}
+function Textsetting(props) {
     
-    headerRightbtn = () =>{
-        const navigation = this.props.navigation
-     
-     this.props.navigation.setOptions({
-        headerRight : () => {this.headerRightbtn()}
-        
-     }) 
-     return  
-        <TouchableOpacity 
-            disabled = {this.state.form.nickname.value = this.props.user.nickname ? false : true}
-            onPress={() => {
-                return alert('게시글이 등록 되었습니다.');
-            }}
-        >
-            <Text style ={{fontSize : 16 , fontWeight : '400' , color: this.state.form.nickname.value = this.props.user.nickname ? '#5585E8' : '#5585E8' }}>저장</Text>
-        </TouchableOpacity>
-        
-    }
 
-
-    updateInput = (name, value) => {
-        let formcopy = this.state.form;
-        formcopy[name].value = value;
-
-        this.setState({form: formcopy})
-    }
-
-    render() {
         return (
             <View style={styles.containertwo}>
                 <View style = {{ marginTop :37 ,paddingBottom : 20 , paddingLeft : 16}}>
@@ -88,22 +36,14 @@ class Textsetting extends Component {
                         }}>
                         <Input
                             myPlanName="닉네임"
-                            value={this.state.form.nickname.value}
-                            type={this.state.form.nickname.type}
+                            value={props.nickname}
                             autoCapitalize={'none'}
                             style={styles.input}
                             placeholder="닉네임을 입력해주세요"
                             placeholderTextColor='#C4C4C4'
-                            onChangeText={value => this.updateInput("nickname", value)}></Input>
+                            onChangeText={value => props.setnickname(value)}></Input>
                         {/* <Text style={styles.inputvalid}>{this.state.form.planname.value.length}/10</Text> */}
-                        <TouchableOpacity style={{position : 'absolute' ,right : 5,}} onPress = {()=> this.setState({
-                                form : {
-                                    ...this.state.form,
-                                    nickname : {
-                                    value : ''
-                                    },
-                                }
-                            })}>    
+                        <TouchableOpacity style={{position : 'absolute' ,right : 5,}} onPress = {()=> {props.setnickname("")}}>    
                                 <IonIcon name="close-circle-outline" size={18} style={{color: 'gray' ,fontWeight : '400'}}/>
                         </TouchableOpacity>
                     </View>
@@ -128,14 +68,13 @@ class Textsetting extends Component {
                         <Input
                             editable ={false}
                             myPlanName="이메일"
-                            value={this.state.form.emailId.value}
+                            value={props.email}
                             color='#C4C4C4'
-                            type={this.state.form.emailId.type}
                             autoCapitalize={'none'}
                             style={styles.input}
                             placeholder=""
                             placeholderTextColor='#767676'
-                            onChangeText={value => this.updateInput("emailId", value)}></Input>
+                            onChangeText={value =>  props.setemail(value)}></Input>
                         {/* <Text style={styles.inputvalid}>{this.state.form.planname.value.length}/10</Text> */}
                     </View>
                 </View>
@@ -156,30 +95,23 @@ class Textsetting extends Component {
                         }}>
                         <Input
                             
-                            myPlanName="닉네임"
-                            value={this.state.form.introduce.value}
-                            type={this.state.form.introduce.type}
+                            myPlanName="자기소개"
+                            value={props.aboutMe}
+
                             autoCapitalize={'none'}
                             style={styles.input}
                             placeholder="자기소개를 써넣어주세요"
                             placeholderTextColor='#767676'
-                            onChangeText={value => this.updateInput("introduce", value)}></Input>
+                            onChangeText={value => props.setabuoutMe(value)}></Input>
                         {/* <Text style={styles.inputvalid}>{this.state.form.planname.value.length}/10</Text> */}
-                        <TouchableOpacity style={{position : 'absolute' ,right : 5,}} onPress = {()=> this.setState({
-                                form : {
-                                    ...this.state.form,
-                                    introduce : {
-                                    value : ''
-                                    },
-                                }
-                            })}>    
+                        <TouchableOpacity style={{position : 'absolute' ,right : 5,}} onPress = {()=> {props.setabuoutMe("")} }>    
                                 <IonIcon name="close-circle-outline" size={18} style={{color: 'gray' ,fontWeight : '400'}}/>
                         </TouchableOpacity>
                     </View>
                 </View>
             </View>
 
-        )}}
+        )}
 const styles = StyleSheet.create({
     input: {
         width: '100%',

@@ -145,7 +145,7 @@ export const Scheduledata = [
     startDatetime: 1639958400000,
     endDatetime: 1639274400000,
     memo : '오늘은 여기 꼭 등산하고 간다',
-    map_id : 10,
+    map_id : {latitude: 37.59229660205149,longitude: 126.97558048678314, index: 0},
     plan_id : 1, 
 
   },
@@ -156,7 +156,7 @@ export const Scheduledata = [
     startDatetime: 1639958400000,
     endDatetime: 1639281600000,
     memo : '오늘은 여기 꼭 등산하고 간다1',
-    map_id : 10,
+    map_id :{latitude: 37.821181701506276,longitude: 127.54229189686288,index: 1},
     plan_id : 1, 
 
   },
@@ -167,7 +167,7 @@ export const Scheduledata = [
     startDatetime: 1639958400000,
     endDatetime: 1639285200000,
     memo : '오늘은 여기 꼭 등산하고 간다2',
-    map_id : 10,
+    map_id : {latitude: 37.67639982426067,longitude: 127.86638861746769, index: 2},
     plan_id : 1, 
 
   },
@@ -178,7 +178,7 @@ export const Scheduledata = [
     startDatetime: 1639958400000,
     endDatetime: 1639288800000,
     memo : '오늘은 여기 꼭 등산하고 간다3',
-    map_id : 10,
+    map_id : {latitude: 37.368526562915974,longitude: 127.92040466073564, index: 3},
     plan_id : 1, 
 
   },
@@ -189,7 +189,7 @@ export const Scheduledata = [
     startDatetime: 1640044800000,
     endDatetime: 1639303200000,
     memo : '오늘은 여기 꼭 등산하고 간다4',
-    map_id : 10,
+    map_id : {latitude: 37.17327282290745 ,longitude: 127.49743107112641, index: 5},
     plan_id : 1, 
 
   },
@@ -200,7 +200,8 @@ export const Scheduledata = [
     startDatetime: 1640044800000,
     endDatetime: 1639303200000,
     memo : '오늘은 여기 꼭 등산하고 간다4',
-    map_id : 10,
+    map_id : {latitude: 37.34815065899781,
+      longitude: 127.00487724993849, index: 7},
     plan_id : 1, 
 
   },
@@ -211,7 +212,8 @@ export const Scheduledata = [
     startDatetime: 1640044800000,
     endDatetime: 1639303200000,
     memo : '오늘은 여기 꼭 등산하고 간다4',
-    map_id : 10,
+    map_id : {latitude: 37.371436916673076,
+      longitude: 128.34154722360404, index: 8},
     plan_id : 1, 
 
   },
@@ -222,7 +224,8 @@ export const Scheduledata = [
     startDatetime: 1640044800000,
     endDatetime: 1639303200000,
     memo : '오늘은 여기 꼭 등산하고 간다4',
-    map_id : 10,
+    map_id : {latitude: 36.945325316608645,
+      longitude: 127.46264097629029, index: 9},
     plan_id : 1, 
 
   },
@@ -233,32 +236,12 @@ export const Scheduledata = [
     startDatetime: 1640044800000,
     endDatetime: 1639303200000,
     memo : '오늘은 여기 꼭 adf 간다4',
-    map_id : 10,
+    map_id :{latitude: 37.20536411615794,
+      longitude: 127.66405701924003,index: 10},
     plan_id : 1, 
 
   },
-  {
-    schedule_id : 10,
-    schedule_title : 'jj 자자',
-    price : 10000,
-    startDatetime: 1640044800000,
-    endDatetime: 1639303200000,
-    memo : '오늘은 여기 꼭 adsf 간다4',
-    map_id : 10,
-    plan_id : 1, 
-
-  },
-  {
-    schedule_id : 11,
-    schedule_title : '저녁먹고 자자',
-    price : 10000,
-    startDatetime: 1640044800000,
-    endDatetime: 1639303200000,
-    memo : '오늘은 여기 꼭 등산하고 간다4',
-    map_id : 10,
-    plan_id : 1, 
-
-  },
+  
   
 ]
 

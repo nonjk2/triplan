@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {
     StyleSheet,
     View,
@@ -18,6 +18,7 @@ import { connect, useDispatch } from 'react-redux';
 import { inviteInsert, inviteDelete } from '../../../store/actions/invite_action';
 import { bindActionCreators } from 'redux';
 import { DummyDATA } from '../../../../util/forms/data';
+import Highlighter from 'react-native-highlight-words';
 
 const WIDTH = Dimensions.get("window").width
 const HEIGHT_MODAL = Dimensions.get("window").height
@@ -27,7 +28,8 @@ function InviteModal(props) {
     const [borderColor,setbordercolor]=useState("#fff")
     const [search,setsearch]=useState("")
     const [data,setdata]=useState(props.data)
-    
+
+
     //검색창 입니다 ///
     const searchFirends = (text) =>{
 
@@ -39,12 +41,22 @@ function InviteModal(props) {
                 const TextData = text.toUpperCase();
                 return itemData.indexOf(TextData) > -1;
             })
-            setdata(newData)
-            setsearch(text)
-
+            if (newData[0]) {
+                setdata(props.data)
+                setdata(newData)
+                setsearch(text)
+                console.log(search) 
+            }else{
+                setsearch(text)
+                
+                console.log(search) 
+                
+            }
         }else{
-            setdata(data)
+            setdata(props.data)
             setsearch(text)
+            console.log(search) 
+
         }
     }
 
@@ -145,7 +157,21 @@ function InviteModal(props) {
                                 }}/>
                         <View style={styles.invitecontain}>
                             <View style={styles.inviteView}>
-                                <Text style={styles.friendsnamestyle}>{item.nickname}#{item.id}</Text>
+                                <Highlighter
+                                    autoEscape = {true}
+                                    highlightStyle={{
+                                        fontSize : 15 , 
+                                        fontWeight :'400', 
+                                        lineHeight : 20, 
+                                        letterSpacing : 1 ,
+                                        color : '#5585E8'}}
+                                        
+                                    searchWords={[search]}
+                                    
+                                    textToHighlight={item.nickname}
+                                />
+
+                                {/* <Text style={{fontSize : 15 , fontWeight :'400', lineHeight : 20, letterSpacing : 1 , }}>{item.nickname}#{item.id}</Text> */}
                                 <Text style={styles.friendsIntro}>{item.introduce}</Text>
                             </View>
                         </View>

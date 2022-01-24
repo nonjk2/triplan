@@ -26,30 +26,30 @@ class Loading extends Component{
 
 //////// auth 설정 /////////
 ///////////////자동로그인/////////////////////////
-    componentDidMount(){
-        // getToken((value) =>{
-        //     if (value[1][1]===null) {
-        //         console.log("1단계 실패")
-        //         this.setState({
-        //             Signin : false
-        //         })
-        //         Alert.alert("다시로그인을해주세요!")
-        //     }else{
-        //         this.props.autoSignIn(value[2][1]).then(()=>{
-        //             if (!this.props.user.auth.token) {
-        //                 Alert.alert("다시로그인을해주세요!")
-        //                 this.setState({Signin : false})    
-        //             }else{
-        //                 console.log("3단계성공")
-        //                 setToken(this.props.user.auth, ()=> {
-        //                     this.props.navigation.navigate("Firstopen")
-        //                 })
-        //             }
-        //         })
-        //     }
-        //     console.log("getToken:",value)
-        // })
-    }
+    // componentDidMount(){
+    //     getToken((value) =>{
+    //         if (value[1][1]===null) {
+    //             console.log("1단계 실패")
+    //             this.setState({
+    //                 Signin : false
+    //             })
+    //             Alert.alert("다시로그인을해주세요!")
+    //         }else{
+    //             this.props.autoSignIn(value[2][1]).then(()=>{
+    //                 if (!this.props.user.auth.token) {
+    //                     Alert.alert("다시로그인을해주세요!")
+    //                     this.setState({Signin : false})    
+    //                 }else{
+    //                     console.log("3단계성공")
+    //                     setToken(this.props.user.auth, ()=> {
+    //                         this.props.navigation.navigate("Firstopen")
+    //                     })
+    //                 }
+    //             })
+    //         }
+    //         console.log("getToken:",value)
+    //     })
+    // }
 ///////////////자동로그인/////////////////////////
     onComplete = () =>{
         const Signin = this.state.Signin
@@ -75,8 +75,8 @@ class Loading extends Component{
     kakaoSignIn = () => {
         login()
         .then((result)=> {
-
-            this.logined(result.accessToken).then(()=> this.manageAcceess())
+            console.log(result)
+            // this.logined(result.accessToken).then(()=> this.manageAcceess())
         })
         .catch(err => {
             Alert.alert("login 실패"+err)
