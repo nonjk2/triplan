@@ -70,10 +70,10 @@ const OptionmyDrawer = ({route}) => {
 
 const Taparr = [
   {route : '스케쥴' , component : Plantap ,label : '플랜' ,activeIcon : 'calendar-outline', inactiveIcon : 'calendar', headerShadowVisible : false},
-  {route : '지도' , component : OptionmyDrawer,label : '지도' ,activeIcon : 'map-outline', inactiveIcon : 'map',headershown : false},
-    {route : '초대된 친구목록' , component : Invitetap,label : '친구목록' ,activeIcon : 'person-add-outline', inactiveIcon : 'person-add',headershown : true},
-    {route : '체크리스트' , component : CheckTap,label : '체크리스트' ,activeIcon : 'checkbox-outline', inactiveIcon : 'checkbox',headershown : true},
-    {route : '프로필' , component : AddplanSetting,label : '프로필' ,activeIcon : 'person-circle-outline', inactiveIcon : 'person-circle',headershown : true},
+  {route : '지도' , component : OptionmyDrawer,label : '지도' ,activeIcon : 'map-outline', inactiveIcon : 'map',headershown : false,headerShadowVisible : false},
+    {route : '초대된 친구목록' , component : Invitetap,label : '친구목록' ,activeIcon : 'person-add-outline', inactiveIcon : 'person-add',headershown : true,headerShadowVisible : false},
+    {route : '체크리스트' , component : CheckTap,label : '체크리스트' ,activeIcon : 'checkbox-outline', inactiveIcon : 'checkbox',headershown : true,headerShadowVisible : false},
+    {route : '프로필' , component : AddplanSetting,label : '프로필' ,activeIcon : 'person-circle-outline', inactiveIcon : 'person-circle',headershown : true,headerShadowVisible : false},
   
   ]
   
@@ -106,7 +106,7 @@ const Taparr = [
       >
         <Animatable.View
           style = {
-            {width: 50, height : 50, borderRadius: 25, backgroundColor: '#fff', alignItems: 'center',justifyContent : 'center'}}
+            {width: 50, height : 50, borderRadius: 25, backgroundColor: '#000', alignItems: 'center',justifyContent : 'center'}}
           ref = {viewRef}
           duration ={300}
         >
@@ -115,7 +115,7 @@ const Taparr = [
                 ref = {circleRef}
                 duration ={300}
                 >   */}
-                <IonIcon name={focused ? item.inactiveIcon : item.activeIcon} size= {25} color = {focused ? '#5585E8' : '#5585E8'} style ={{}}/>
+                <IonIcon name={focused ? item.inactiveIcon : item.activeIcon} size= {28} color = {focused ? '#5585E8' : '#fff'} style ={{}}/>
                 <Text style ={{fontSize : 8 ,color : focused ? '#5585E8' : '#000', marginTop : focused ? 1.5 : 4,}} >{item.label}</Text>
             {/* </Animatable.View> */}
         </Animatable.View>
@@ -134,12 +134,13 @@ const Taparr = [
         screenOptions = {{
 
           tabBarStyle : {
-            position : 'absolute',
-            height : 70,
-            bottom : 32,
-            right : 16,
-            left :16,
-            borderRadius : 15,
+            // position : 'absolute',
+            height : 100,
+            // bottom : 32,
+            // right : 16,
+            // left :16,
+            // borderRadius : 15,
+            backgroundColor : '#000',
             shadowOffset : {
               width : 0,
               height : 10,
@@ -164,7 +165,6 @@ const Taparr = [
                   initialParams = {{planday : planday, startDate : startDate, name : name , DATA:DATA,endDate: endDate  , source : source}}
                   options = {{
                     headerTintColor : 'black',
-                    
                     headerLeft : (prors) => <Button title = {'메인'} onPress = {()=>{navigation.navigate("TRIPIAN")}}/>,
                     headerShown : item.headershown,
                     // title : name +' - '+item.route,

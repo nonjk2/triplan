@@ -7,6 +7,7 @@ import Inputtwo from '../../../../util/forms/inputtwo';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
+
 const WIDTH = Dimensions.get("window").width
 const HEIGHT = Dimensions.get("window").height
 
@@ -18,7 +19,7 @@ export default function Maptap(props) {
   const [dayindex,setdayindex]=useState(0)
   const [MarkerDATA,setMarkerDATA]=useState(DATA.filter(e=>new Date(e.startDatetime).getDate()===new Date(startDate).getDate()))
   const Markerview = useRef(null)
-
+  
     return (
     <View
       style={{

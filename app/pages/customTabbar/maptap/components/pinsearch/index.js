@@ -1,8 +1,9 @@
 import React, {Component, useEffect, useRef, useState} from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { Dimensions, LogBox, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import Inputtwo from '../../../../../../util/forms/inputtwo';
+LogBox.ignoreLogs(["EventEmitter.removeListener"]);
 
 const WIDTH = Dimensions.get("window").width
 const HEIGHT = Dimensions.get("window").height
@@ -22,7 +23,7 @@ export default function SearchScreen({navigation}) {
                 borderRadius : 10,
                 borderWidth : 0.2,
                 }}>
-                <IonIcon name="menu-outline" onPress={()=>navigation.goBack()} size={24} style={{color: '#000' , position : 'relative' , right : 5}}/>
+                <IonIcon name="menu-outline" onPress={()=>navigation.goBack('지도')} size={24} style={{color: '#000' , position : 'relative' , right : 5}}/>
                 <Inputtwo
                 style={styles.input}
                 placeholder ={'일정 또는 핀 번호 검색'}

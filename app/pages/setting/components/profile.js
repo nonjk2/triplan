@@ -15,15 +15,7 @@ function Profile(props,{navigation}) {
     const [myimage,setmyimage]=useState(defaultImg)
 
     
-    // useEffect(()=>{
-    //     navigation.setOptions({
-    //         headerRight: () => (
-    //             <TouchableOpacity onPress={() => navigation.goBack()}>
-    //               <Text>취소</Text>
-    //             </TouchableOpacity>
-    //           ),
-    //     })},[]
-    // )
+
     const show = () => {
         setisModalvisible(true)
     }
@@ -75,7 +67,7 @@ function Profile(props,{navigation}) {
                                             fontSize: 20,
                                             fontWeight: "500",
                                             color : '#5585E8'
-                                        }}>트리플랜</Text>
+                                        }}>{props.user.nickname}</Text>
                                 </View>
                                 <View
                                     style={{
@@ -88,10 +80,12 @@ function Profile(props,{navigation}) {
                                             color : '#767676',
                                             fontSize: 16,
                                             fontWeight: "400",
-                                        }}>여행성향 및 자기소개</Text>
+                                        }}>{props.user.aboutme||""}</Text>
                                 </View>
                                 <TouchableOpacity
                                     style={{
+                                        height : 28,
+                                        width : 120,
                                         flex: 1,
                                         borderColor: '#fff',
                                         borderWidth: 1,

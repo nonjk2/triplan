@@ -167,10 +167,8 @@ function InviteModal(props) {
                                         color : '#5585E8'}}
                                         
                                     searchWords={[search]}
-                                    
                                     textToHighlight={item.nickname}
                                 />
-
                                 {/* <Text style={{fontSize : 15 , fontWeight :'400', lineHeight : 20, letterSpacing : 1 , }}>{item.nickname}#{item.id}</Text> */}
                                 <Text style={styles.friendsIntro}>{item.introduce}</Text>
                             </View>

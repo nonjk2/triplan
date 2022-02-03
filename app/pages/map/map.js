@@ -22,10 +22,11 @@ const MyArray = [P0,P1,P2,P4,P5]
         const Markerview = useRef(null)
         // const LocatinIndex = props.
         const {caroucelIndex,MarkerDATA,startDate,DATA,setdayindex,planday,dayindex} = props;
+        const [MARKER,setMARKER]=useState(Object.assign(MarkerDATA))
         useEffect(() => {
 
-
-            // requestLocationPermission()
+            
+            requestLocationPermission()
             setCurrentLocation(MyArray[caroucelIndex])
         });
         const [currentLocation, setCurrentLocation] = useState(MyArray[caroucelIndex]);
@@ -54,30 +55,34 @@ const MyArray = [P0,P1,P2,P4,P5]
             <NaverMapView ref={mapView}
                           style={{width: '100%', height: '100%'}}
                           showsMyLocationButton={true}
-                          center={{...currentLocation, zoom: 7}}
+                          center={{...currentLocation, zoom: 16}}
+                          
+                          
+                          
                         //   onTouch={e => console.warn('onTouch', JSON.stringify(e.nativeEvent))}
                         //   onCameraChange={e => console.log('onCameraChange',e)}
                         //   onMapClick={e => locationHandler(e)}
                         // buildingHeight={0}
                           nightMode={false}
-                          mapType={1}
+                          mapType={0}
                           useTextureView>
                 {/* <Marker coordinate={P0}
                     
                     caption={{ text: "test caption", align: Align.Left }}
                 /> */}
 
-                        {myMarker.map((e,index)=>{
+                        {myMarker.map(e=>{
                         return(
                         <Marker
+                            
                             width ={24}
-                            height = {42}
+                            height = {24}
                             // pinColor={'#5585E8'}
                             coordinate={e.map_id} 
                             zIndex={1000} 
                             key={e.schedule_id}
                             animated={true}
-                            image={require(`../../../src/assets/pin.png`)}
+                            image={require(`../../../src/assets/Vector1.png`)}
                             onClick={() => {
                             mapView.current.setLayerGroupEnabled(LayerGroup.LAYER_GROUP_BICYCLE, enableLayerGroup);
                             mapView.current.setLayerGroupEnabled(LayerGroup.LAYER_GROUP_TRANSIT, enableLayerGroup);

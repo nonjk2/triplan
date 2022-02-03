@@ -17,7 +17,7 @@ import IonIcon from 'react-native-vector-icons/Ionicons';
 import { connect, useSelector } from 'react-redux';
 
 const WIDTH = Dimensions.get("window").width
-const HEIGHT_MODAL = Dimensions.get("window").height
+const HEIGHT = Dimensions.get("window").height
 
 class InviteList extends Component {
     constructor(props) {

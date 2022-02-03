@@ -136,8 +136,9 @@ class Calendars extends Component {
                 this.state.marked.forEach(e => Object.assign(this.state.a,e))
                 const day = this.state.marked.length
               return(
-                <View style={{ backgroundColor : 'white' , width : 343, height : 532 , borderRadius : 15,}}>
-                    <View style = {{width : 343 , height : 80 ,backgroundColor : '#5585E8'  , borderRadius : 15 , alignItems : 'center'}}>
+
+                <View style={{  width : 343, height : 538 , borderRadius : 15,shadowOffset:{ width :2, height : 4,} , shadowOpacity : 0.28 , shadowColor : '#000'}}>
+                    <View style = {{width : 343 , height : 80 ,backgroundColor : '#5585E8'  , borderRadius : 15 , alignItems : 'center', bottom :7}}>
                         <Text style = {{color : 'white' , paddingHorizontal : 16,paddingTop : 16, fontWeight : '500' , fontSize : 18,}}>여행 기간 및 날짜 선택</Text>
                         <View style = {{paddingHorizontal : 16,paddingTop : 8 ,flexDirection : 'row' ,alignContent :'center'}}>
                             <View style = {{flex : 4 ,alignItems : 'flex-end'}}>
@@ -154,7 +155,8 @@ class Calendars extends Component {
                             </View>
                         </View>
                     </View>
-                    <View style = {{ width : 343,height : 370 }}>
+                    <View style = {{ width : 343,height : 388 ,backgroundColor : '#fff' ,borderRadius : 10  ,shadowOffset:{ width :2, height : 4,} , shadowOpacity : 0.28 , shadowColor : '#000'}}>
+                        <View style ={{marginTop : 10}}>
                         <Calendar
                             markingType={'period'}
                             onDayPress={(day) => {this.daypicked(day.year + "-" + day.dateString.split('-')[1] + "-" + day.dateString.split('-')[2])}}
@@ -187,16 +189,21 @@ class Calendars extends Component {
                                 
                             }}
                         />
+                        </View>
                     </View>
-                    <View style = {{flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
-                            
-                            <TouchableOpacity onPress ={this.props.close} style = {{backgroundColor : '#000',alignItems : 'center', justifyContent : 'center' ,borderRadius : 15 , flex : 1, padding : 15 ,marginHorizontal : 15,}}>
+                    <TouchableOpacity
+                            onPress = {()=> {this.complete()}}
+                            style={{position: 'absolute',bottom : 10, width: 343,height: 52, borderRadius :10, backgroundColor : '#fff' , shadowOffset:{ width :2, height : 4,} , shadowOpacity : 0.28 , shadowColor : '#000' , alignItems : 'center', justifyContent :'center'}}>
+                            <Text style = {{color : 'red'}}>완료</Text>
+                    </TouchableOpacity>
+                    {/* <View style = {{flexDirection : 'row', alignItems : 'center', justifyContent : 'center' ,position :'absolute' , bottom : 1 , width : 343 , height : 52 , backgroundColor : 'green'}}>
+                            <TouchableOpacity onPress ={this.props.onTouchOutside} style = {{backgroundColor : '#000',alignItems : 'center', justifyContent : 'center' ,borderRadius : 15 , flex : 1, padding : 15 ,marginHorizontal : 15,}}>
                                 <Text style = {{color : '#fff'}}>취소</Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress = {this.complete} style = {{ backgroundColor : '#5585E8' ,alignItems : 'center', justifyContent : 'center' , borderRadius : 15, flex : 1, padding : 15,marginHorizontal : 15,}}>
                                 <Text style = {{color : '#fff'}}>완료</Text>
                             </TouchableOpacity>
-                    </View>
+                    </View> */}
                 </View>
               )
             }

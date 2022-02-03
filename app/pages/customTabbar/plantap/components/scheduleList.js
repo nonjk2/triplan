@@ -62,6 +62,7 @@ export default function ScheduleList(props) {
     );
 
     return (
+        listData.length != 0 ? 
         <View style={styles.container}>
             <SwipeListView
                 data={listData}
@@ -75,10 +76,12 @@ export default function ScheduleList(props) {
                 previewOpenDelay={3000}
                 onRowDidOpen={onRowDidOpen}
             />
-            {/* <TouchableOpacity onPress={closeOpenRow} style={styles.closeButton}>
+    {/* <TouchableOpacity onPress={closeOpenRow} style={styles.closeButton}>
                 <Text>Close Open Row</Text>
             </TouchableOpacity> */}
-        </View>
+        </View> : <View style={{flex :1 , alignItems :'center', justifyContent : 'center'}}>
+            <Text>추가된 일정이 없습니다 일정을 추가해주세요 !</Text>
+            </View>
     );
 }
 

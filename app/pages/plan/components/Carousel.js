@@ -13,22 +13,22 @@ import CarouselItem from './CarouselItem';
 
 const {width, height} = Dimensions.get('window');
 
-function infiniteScroll(dataList) {
-  const flatlist = this.flatlist;
-  const numberofata = dataList.length;
-  let scrollValue = 0,
-    scrolled = 0;
+// function infiniteScroll(dataList) {
+//   const flatlist = this.flatlist;
+//   const numberofata = dataList.length;
+//   let scrollValue = 0,
+//     scrolled = 0;
 
-  setInterval(function (params) {
-    scrolled++;
-    if (scrolled < numberofata) scrollValue = scrollValue + width;
-    else {
-      scrollValue = 0;
-      scrolled = 0;
-    }
-    flatlist.scrollToOffset({animated: true, offset: scrollValue});
-  }, 20000);
-}
+//   setInterval(function (params) {
+//     scrolled++;
+//     if (scrolled < numberofata) scrollValue = scrollValue + width;
+//     else {
+//       scrollValue = 0;
+//       scrolled = 0;
+//     }
+//     flatlist.scrollToOffset({animated: true, offset: scrollValue});
+//   }, 20000);
+// }
 
 const Carousel = ({data}) => {
   if (data && data.length) {
@@ -36,10 +36,10 @@ const Carousel = ({data}) => {
     let position = Animated.divide(scrollX, width);
     const [dataList, setDataList] = useState(data);
 
-    useEffect(() => {
-      setDataList(data);
-      infiniteScroll(dataList);
-    });
+    // useEffect(() => {
+    //   // setDataList(data);
+    //   // infiniteScroll(dataList);
+    // });
 
     return (
       <View>
@@ -98,7 +98,6 @@ const Carousel = ({data}) => {
       </View>
     );
   }
-  console.log('please provide image');
   return null;
 };
 

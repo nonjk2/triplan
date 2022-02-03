@@ -1,19 +1,19 @@
 
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {StyleSheet, View,} from 'react-native';
 import { HeaderLogin } from './components/header';
 import SettingCarousel from './components/Caroucel';
 import SettingContents from './components/firstsetting';
-import { connect } from 'react-redux';
-class FirstOpen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        user : this.props.user.auth
-    };
-}
+import { connect  } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+function FirstOpen(props) {
+  
 
-  render() {
+
+const user = useSelector((state)=>state.user.auth)
+const dispatch = useDispatch();
+const [USERDATA,setuser]=useState(user)
+
 
     return (
       <View style ={{ flex :1 , backgroundColor : '#fff'}}>
@@ -27,22 +27,19 @@ class FirstOpen extends Component {
           <SettingCarousel/>
           <View style ={{flex :1}}>
             <SettingContents
-                navigation = {this.props.navigation}
-                user ={this.state.user}
+                dispatch = {dispatch}
+                navigation = {props.navigation}
+                user ={USERDATA}
             />
           </View>
     
       </View>
     );
   }
-}
+
 
 const styles = StyleSheet.create({});
 
-function mapStateToProps(state){
-  return{
-      user : state.user
-  }
-}
 
-export default connect(mapStateToProps)(FirstOpen);
+
+export default FirstOpen;

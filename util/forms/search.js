@@ -23,14 +23,13 @@ const styles = StyleSheet.create({
   container : {
     flex: 1,
     backgroundColor : '#fff',
+    paddingHorizontal: 30,
 
 
   },
   input : {
 
-    
-    borderBottomColor : '#5585E8',
-    backgroundColor : '#fff',
+    // paddingHorizontal : 30,
     fontSize : 16,
 
     

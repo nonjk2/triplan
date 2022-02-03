@@ -36,12 +36,12 @@ export function signIn(data){
     return{
         type:SIGN_IN,
         payload : {
-            token:data.accessToken,
-            refreshToken:data.refreshToken,
-            email:data.email,
-            nickname:data.nickname,
-            aboutme:data.aboutMe,
-            nametag:data.nametag,
+            accessToken:data.accessToken ||false,
+            refreshToken:data.refreshToken || false,
+            email:data.email || false,
+            nickname:data.nickname || false,
+            aboutMe:data.aboutMe || false,
+            nametag:data.nametag || false,
         }
     }
 }

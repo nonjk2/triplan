@@ -39,7 +39,8 @@ export const DummyDATA = [
         freinds_id: "0006",
         introduce : "i don't know who i Am",
         source : 'https://w.namu.la/s/f21af41d2334b16f5da4c187b6f38ee910673da611ac33ec15be826208cdce02afcb2cd7096414957ef6be53537b75547e8e279ad3400029da948e04b955fd33c7a382087a9a6e265553a7eb4e992dc8b11d3007a678a2d90cdf991e057c57e3'
-    }
+    },
+    
 ];
 
 export const checkList = [
@@ -88,7 +89,7 @@ export const PlanData = [
       plantitle: '가족여행',
       startDatetime: 1639958400000,
       endDatetime: 1640304000000,
-      source: '/Users/eun/triplan/src/assets/dummyImage/cloud.jpeg',
+      source: 'https://mblogthumb-phinf.pstatic.net/20130508_178/ichufs_1367997175282LLvRG_JPEG/IMG_3337s.jpg?type=w2',
       id : 1,
     },
     {
@@ -97,7 +98,7 @@ export const PlanData = [
       plantitle: '제주도 뿌시기!',
       startDatetime : 1639267200000,
       endDatetime: 1640304000000,
-      source: '/Users/eun/triplan/src/assets/dummyImage/fall.jpeg',
+      source: 'https://mblogthumb-phinf.pstatic.net/MjAxNzAxMDdfMTE2/MDAxNDgzNzU1MDMyNTc0.hx5KAnplO4tzx7gyHo0OXzPvyCH5h7gfLjMf-S5qamAg.oUP8V58A0P0ZybvJw_-Dq57FbxOxV9o1MU4tRdnbORwg.JPEG.candle_yt/4.jpg?type=w800',
       id : 2,
     },
     {
@@ -106,7 +107,34 @@ export const PlanData = [
       plantitle: '친구들이랑~',
       startDatetime: 1639267200000,
       endDatetime: 1640304000000,
-      source: '/Users/eun/triplan/src/assets/dummyImage/flower.jpeg',
+      source: 'https://og-data.s3.amazonaws.com/media/artworks/half/A0880/A0880-0016.jpg',
+      id : 3,
+    },
+    {
+      plan_id: 4,
+      dday: '67',
+      plantitle: '뿌셔뿌셔',
+      startDatetime: 1639267200000,
+      endDatetime: 1640304000000,
+      source: 'https://t1.daumcdn.net/cfile/tistory/9919334E5B28A1E331',
+      id : 4,
+    },
+    {
+      plan_id: 5,
+      dday: '39',
+      plantitle: '안뇨옹',
+      startDatetime: 1640304000000,
+      endDatetime: 1640304000000,
+      source: 'https://i.imgur.com/mWaI9fw.jpg',
+      id : 5,
+    },
+    {
+      plan_id: 3,
+      dday: '7',
+      plantitle: '스스스스키키~',
+      startDatetime: 1639267200000,
+      endDatetime: 1640304000000,
+      source: 'https://i.pinimg.com/550x/fe/75/ab/fe75ab4eae996ab38de17273165f8ae0.jpg',
       id : 3,
     },
     {
@@ -115,16 +143,43 @@ export const PlanData = [
       plantitle: '목동친구들',
       startDatetime: 1639267200000,
       endDatetime: 1640304000000,
-      source: '/Users/eun/triplan/src/assets/dummyImage/spring.jpeg',
+      source: 'https://www.adobe.com/content/dam/cc/us/en/creative-cloud/photography/discover/landscape-photography/CODERED_B1_landscape_P2d_714x348.jpg.img.jpg',
       id : 4,
     },
     {
       plan_id: 5,
       dday: '39',
-      plantitle: '애인이랑',
+      plantitle: '후훗',
       startDatetime: 1640304000000,
       endDatetime: 1640304000000,
-      source: '/Users/eun/triplan/src/assets/dummyImage/water.jpeg',
+      source: 'https://previews.123rf.com/images/xzyt/xzyt1608/xzyt160800056/61293767-%ED%95%B4%EB%B0%94%EB%9D%BC%EA%B8%B0-%ED%92%8D%EA%B2%BD.jpg',
+      id : 5,
+    },
+    {
+      plan_id: 3,
+      dday: '7',
+      plantitle: '애기들이랑~',
+      startDatetime: 1639267200000,
+      endDatetime: 1640304000000,
+      source: 'https://previews.123rf.com/images/lilkar/lilkar1503/lilkar150300004/38783597-%EB%B4%84-%ED%92%8D%EA%B2%BD.jpg',
+      id : 3,
+    },
+    {
+      plan_id: 4,
+      dday: '67',
+      plantitle: '서울대',
+      startDatetime: 1639267200000,
+      endDatetime: 1640304000000,
+      source: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNA3jHaTnGUzO7weeF_R2ZR7Q1hK2U758B1g&usqp=CAU',
+      id : 4,
+    },
+    {
+      plan_id: 5,
+      dday: '39',
+      plantitle: '아니아니아니',
+      startDatetime: 1640304000000,
+      endDatetime: 1640304000000,
+      source: 'https://static.hubzum.zumst.com/hubzum/2017/09/21/11/dd29e404d6364575a51def62d7ee0a69.jpg',
       id : 5,
     },
     // {

@@ -26,7 +26,7 @@ function Textsetting(props) {
                     <View
                         style={{
                             borderWidth : 2,
-                            borderColor : '#C4C4C4',
+                            borderColor : props.nickname != props.user.nickname && props.nickname.length > 2 ? '#5585E8':'#C4C4C4',
                             borderRadius : 4,
                             height : 36,
                             justifyContent : 'space-between',
@@ -85,7 +85,7 @@ function Textsetting(props) {
                     <View
                         style={{
                             borderWidth : 2,
-                            borderColor : '#C4C4C4',
+                            borderColor : props.aboutMe != props.user.aboutme && props.aboutMe.length != 0 ? '#5585E8':'#C4C4C4',
                             borderRadius : 4,
                             height : 36,
                             justifyContent : 'space-between',

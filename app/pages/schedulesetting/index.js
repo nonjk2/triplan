@@ -56,8 +56,8 @@ function ScheduleSetting(props) {
       }, [props.navigation,price,memo,planname]);
 
 
-const planstart = new Date(startdate).toLocaleString('en-US', { hour: '2-digit', hour12: true ,minute :'2-digit'})
-const planend = new Date(enddate).toLocaleString('en-US', { hour: '2-digit', hour12: true ,minute :'2-digit'})
+    const planstart = new Date(startdate).toLocaleString('en-US', { hour: '2-digit', hour12: true ,minute :'2-digit'})
+    const planend = new Date(enddate).toLocaleString('en-US', { hour: '2-digit', hour12: true ,minute :'2-digit'})
     return (    
       <SafeAreaView
         style={{

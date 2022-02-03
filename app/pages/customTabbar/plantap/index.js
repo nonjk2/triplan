@@ -41,7 +41,7 @@ class Plantap extends Component {
             right: 20,
           }}>
           <View>
-            {/* <Image source={require('/../../../src/assets/Button.jpg')} /> */}
+            <Image source={require('../../../../src/assets/Button.jpg')} />
           </View>
         </TouchableOpacity>
         

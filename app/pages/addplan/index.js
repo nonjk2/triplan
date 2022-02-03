@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {
     StyleSheet,
     View,
@@ -13,29 +13,30 @@ import { DummyDATA } from '../../../util/forms/data';
 
 const DATA = DummyDATA
 
-class AddplanScreen extends Component {
+function AddplanScreen(props) {
+    
+    const [data,setdata]=useState(DATA)
+    const [myTextInput,setmyTextInput]=useState('')
 
-    state = {
-        myTextInput: '',
-        data : DATA,
-    }
-    render() {
-
+    
         return (
             <View style={{
                     flex: 1,
 
                 }}>
                 <ScrollView style={styles.container}>
-                    <Textplanform/>
+                    <Textplanform
+                        {...props}
+                        myTextInput={myTextInput}
+                    />
                 </ScrollView>
                 <View style ={styles.invitelist}>
-                    <InviteList data = {this.state.data}/>
+                    <InviteList data = {data}/>
                 </View>
             </View>
         );
     }
-}
+
 
 const styles = StyleSheet.create({
     invitelist: {

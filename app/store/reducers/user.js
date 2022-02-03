@@ -13,12 +13,12 @@ export default function(state = {} , action) {
             return {
                 ...state,
                 auth : {
+                    accessToken:action.payload.accessToken || false,
                     refreshToken:action.payload.refreshToken || false, 
                     email:action.payload.email || false,
                     nickname:action.payload.nickname || false,
-                    aboutme:action.payload.aboutme || false,
+                    aboutme:action.payload.aboutMe || false,
                     nametag:action.payload.nametag || false,
-                    token:action.payload.token || false,
 
                 }
             }
