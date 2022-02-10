@@ -3,12 +3,13 @@ import { TextInput , StyleSheet , Text, View} from 'react-native';
 
 
 const SearchInput = (props) => (
-    <View>
+    // <View style = {{justifyContent : 'center'}}>
     <TextInput
         {...props}
         style = {styles.input}
+        // textAlignVertical = {'center'}
     />
-    </View>
+    // </View>
 )
 
 const styles = StyleSheet.create({
@@ -28,9 +29,12 @@ const styles = StyleSheet.create({
 
   },
   input : {
-
+    top : 2.5,
+    textAlignVertical : 'center',
     // paddingHorizontal : 30,
     fontSize : 16,
+    justifyContent : 'center',
+    alignItems :'center',
 
     
   }

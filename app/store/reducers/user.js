@@ -19,6 +19,7 @@ export default function(state = {} , action) {
                     nickname:action.payload.nickname || false,
                     aboutme:action.payload.aboutMe || false,
                     nametag:action.payload.nametag || false,
+                    // memberId:action.payload.memberId || false
 
                 }
             }
@@ -40,11 +41,12 @@ export default function(state = {} , action) {
                 ...state,
                 auth : {
                     refreshToken:action.payload.refreshToken || false, 
-                    token:action.payload.accessToken || false,
+                    accessToken:action.payload.accessToken || false,
                     email:action.payload.email || false,
                     nickname:action.payload.nickname || false,
                     aboutme:action.payload.aboutMe || false,
                     nametag:action.payload.nameTag || false,
+                    // memberId:action.payload.memberId || false
 
                 }
             }

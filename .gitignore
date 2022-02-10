@@ -67,3 +67,4 @@ package.json
 .gitignore
 ios/triplan/AppDelegate.m
 ios/triplan/Info.plist
+util/forms/data.js

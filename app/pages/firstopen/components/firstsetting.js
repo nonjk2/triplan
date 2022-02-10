@@ -8,37 +8,40 @@ import Modal from "react-native-modal";
 import CheckModal from '../../../../util/forms/checkProccess';
 import { FirstSetting } from '../../../../util/misc';
 import { signIn } from '../../../store/actions/user_action';
+import axios from 'axios';
 function SettingContents(props) {
     const {dispatch,navigation}=props;
     const [nickname,setnickname]=useState(props.user.nickname)
     const [introduce,setintroduce]=useState(props.user.aboutme)
     const [isAccessAleatOpen,setisAccessAleatOpen]=useState(false)
 
-
+    const introduceUpdate = () => {
+            axios.put("http://172.30.1.56:9090/members", {
+                    nickname : nickname,
+                    aboutMe : introduce,
+                    email : props.user.email
+                })
+                .then(function (response) {
+                    compleate()
+                }).catch(function (error) {
+                    // 오류발생시 실행
+                }).then(function() {
+                    // 항상 실행
+                });
+                
+            // async await 함수를 사용할 때, 
+        }
 
     const close = () => {
         setisAccessAleatOpen(false)
     }
     const compleate = () => {
 
-        dispatch(signIn({...props.user,aboutMe : introduce}))
+        dispatch(signIn({...props.user,aboutMe : introduce,nickname : nickname}))
         setisAccessAleatOpen(true)
         setTimeout(setisAccessAleatOpen,1500,false)
         navigation.navigate("TRIPIAN")
     }
-
-    // {닉네임 설정할때 정규화 valid!!!!!!!} ///
-
-
-    // iconCheck = (name) => {
-    //     if (this.state[name] !== false && this.state[name].length > 2) {
-    //         return <IonIcon name="checkmark-circle" size={24} style={{  marginRight : 10, color: '#5585E8' ,fontWeight : '400'}}/>        
-    //     }else{
-    //         return <IonIcon name="ellipse-outline" size={24} style={{  marginRight : 10, color: '#5585E8' ,fontWeight : '400'}}/>    
-    //     }
-        
-    // }
-
     
     return (
         <View style = {{flex : 1}}>
@@ -102,27 +105,15 @@ function SettingContents(props) {
             </View>
 
             <View style = {{flex : 1 , alignItems : 'center'}}>
-                    <TouchableOpacity onPress = {()=>props.navigation.navigate("TRIPIAN")}>
-                        <View style ={{
-                                width : 343,
-                                height : 52,
-                                borderWidth : 1,
-                                borderColor : '#C4C4C4',
-                                borderRadius : 5,
-                                justifyContent : 'center',
-                                alignItems :'center',
-                                marginBottom : 16 }}
-                        >
-                            <Text style ={{fontSize : 14 , fontWeight : '400' , color : '#767676'}}>건너뛰기</Text>
-                        </View>
-                    </TouchableOpacity>
+
                     <TouchableOpacity
-                        onPress = {()=> compleate()}
+                        // onPress = {()=> compleate()}
+                        onPress = {()=>introduceUpdate()}
                     >
                         <View style ={{
                                 width : 343,
                                 height : 52,
-                                backgroundColor : '#5585E8',
+                                backgroundColor : introduce.length >1 ? '#5585E8' : '#c4c4c4',
                                 borderRadius : 5,
                                 height : 50,
                                 justifyContent : 'center',

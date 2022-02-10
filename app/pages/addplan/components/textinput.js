@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useRef, useState} from 'react';
+import React, {Component, useEffect, useLayoutEffect, useRef, useState} from 'react';
 import {
     StyleSheet,
     View,
@@ -16,11 +16,14 @@ import Modal from "react-native-modal";
 import MapViewScreen from '../../map/map';
 import Calendars from './datepicker';
 import { connect } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import Input from '../../../../util/forms/input';
 import * as Animatable from 'react-native-animatable';
 import MapModal from './mapmodal';
+import { panGestureHandlerCustomNativeProps, panGestureHandlerProps } from 'react-native-gesture-handler/lib/typescript/handlers/PanGestureHandler';
+import axios from 'axios';
 
 
 
@@ -57,9 +60,11 @@ Number.prototype.zf = function(len){return this.toString().zf(len);};
 /////////////////// 날짜 포맷 ///////////////////////
 
 function Textplanform(props) {
+    const user= useSelector((state)=>state.user.auth)
     const {myTextInput,navigation}= props;
     const [toggleon,settoggleon]=useState(false)
-    const [search,setsearch]=useState({})
+    
+    const [search,setsearch]=useState(false)
     const [isDatePickerVisible,setisDatePickerVisible]=useState(false)
     const [isModalVisible,setisModalVisible]=useState(false)
     // const [isModalmapVisible,setisModalmapVisible]=useState(false)
@@ -78,28 +83,66 @@ function Textplanform(props) {
         this.hideDatePicker();
         
     };
+
+    const Addplan = () => {
+        
+        axios.post("http://172.30.1.56:9090/plans", {
+                    planTitle:planname,
+                    startDate : new Date(firstday),
+                    endDate:new Date(lastday),
+                    addressDetail:search.name,
+                    address:search.vicinity,
+                    planImage:search.photos?search.photos[0].photo_reference : "",
+                    locationX:search.geometry.location.lat,
+                    locationY:search.geometry.location.lng,
+                    email:user.email
+                    
+            })
+            .then(function (response) {
+                // response  
+            }).catch(function (error) {
+                // 오류발생시 실행
+            }).then(function() {
+                // 항상 실행
+            });
+            
+        // async await 함수를 사용할 때, 
+        
+    }
+    
     useEffect(() => {
+        if(props.route.params?.search){
+            setsearch(props.route.params?.search)
+        }
+    }, [props.route.params?.search]);
+    
+    useLayoutEffect (()=> {
         props.navigation.setOptions({ 
             // 
-          headerRight: () => (
-            <TouchableOpacity
-                onPress = {()=>{}}
+            
+            headerRight: () => (
+                <TouchableOpacity
+                onPress = {()=>
+                    Addplan()
+                    
+                
+                
+            }
                 disabled = {
-                    planname.length > 2 && firstday.length != 0 && search.name ? false : true }
-            >
-                <Text style={{color :planname.length > 2 && firstday.length != 0 && search.name ? 
+                    planname.length > 3 && firstday.length != 0 && search ? false : true }
+                    >
+                <Text style={{color :planname.length > 3 && firstday.length != 0 && search ? 
                          '#5585E8':'#000' }}>
                     저장
                 </Text>
             </TouchableOpacity>
           ),
-        });
-      }, [props.navigation,firstday,planlocation,planname,search]);
+        },[props.navigation,firstday,planlocation,planname,search,props.route.params?.search]);
 
-
+    })
     const close = () => {
         setisModalVisible(false)
-        setisModalmapVisible(false)       
+
 
     }
     const closeOutside = (selectday) => {
@@ -124,7 +167,7 @@ function Textplanform(props) {
                         justifyContent: 'space-between',
                         alignItems: 'center',
                         borderWidth : 2,
-                        borderColor : planname.length > 1 ? '#5585E8':'#C4C4C4',
+                        borderColor : planname.length > 3 ? '#5585E8':'#C4C4C4',
                         borderRadius : 4,
                         height : 36
                         
@@ -192,6 +235,7 @@ function Textplanform(props) {
             <View style={styles.containertwo}>
                 <Text style={styles.textname}>출발 위치 등록</Text>
                 <Pressable onPress={() => navigation.navigate('지도추가',{
+                    setOptions : {}
                 })}>
                     <View 
                     style ={{borderWidth : 2,
@@ -208,7 +252,8 @@ function Textplanform(props) {
                         <Input
                             editable={false} 
                             myPlanName="여행명"
-                            value={search? search.name + `(${search.vicinity})` : null }
+                            value={search? search.name + `(${search.vicinity ? search.vicinity : '정보가없습니다' })` : '' }
+                            // value={search.name}
                             autoCapitalize={'none'}
                             keyboardType={'email-address'}
                             style={styles.input}

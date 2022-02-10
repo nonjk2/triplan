@@ -11,7 +11,6 @@ import {
 
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-
 import PlanTabView from './components/PlanTab';
 import Carousel from './components/Carousel';
 import {dummydata} from './components/CaroucelData';
@@ -19,12 +18,14 @@ import { Header } from './components/header';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import Planlists from './components/PlanList';
 import { PlanData } from '../../../util/forms/data';
+import { useSelector } from 'react-redux';
 
-const DATA = PlanData
+import axios from 'axios';
+const DATA = []
 const TABBAR_HEIGHT = 55;
 function HomeScreen(props) {
+    const user= useSelector((state)=>state.user.auth)
     const [ headerHeight, setHeaderHeight ] = useState(0);
-    const [data,setdata]=useState(DATA)
     const [ tabRoutes, setTabRoutes ] = useState([
       { key: 'planlists', title: '전체' },
       { key: 'first', title: '다가올 여행' },
@@ -35,7 +36,9 @@ function HomeScreen(props) {
     const isListGlidingRef = useRef(false);
     const listArrRef = useRef([]);
     const listOffsetRef = useRef({});
-
+    
+    
+    
     const scrollY = useRef(new Animated.Value(0)).current;
     const headerTranslateY = scrollY.interpolate({
       inputRange: [0, headerHeight],  
@@ -46,8 +49,8 @@ function HomeScreen(props) {
     
     const tabBarTranslateY = scrollY.interpolate({
       inputRange: [0, headerHeight],
-      outputRange: [headerHeight, 30],
-      extrapolateRight: "clamp"
+      outputRange: [headerHeight, 40],
+      extrapolateRight: 'clamp'
     });
 
     useEffect(()=>{
@@ -125,7 +128,6 @@ function HomeScreen(props) {
     const isFocused = route.key === tabRoutes[tabIndex].key;
 
     return (
-      data.length != 0 ? 
       <Planlists 
         headerHeight={headerHeight} 
         tabBarHeight={TABBAR_HEIGHT} 
@@ -136,13 +138,8 @@ function HomeScreen(props) {
         tabRoute={route} 
         listArrRef={listArrRef} 
         isTabFocused={isFocused} 
-        data ={data}
         {...props} 
       />
-      : 
-      <View style={{flex:1 ,alignItems : 'center',justifyContent :'center',top :100 }}>
-        <Text>계획이 없습니다! 계획을 추가해주세요</Text>
-      </View>
     )
   }, [ headerHeight, tabIndex ]);
 
@@ -167,7 +164,7 @@ function HomeScreen(props) {
                               });
                       return (
                           <TouchableOpacity
-                              style={{flex :1 ,borderBottomWidth : 2,borderBottomColor : tabIndex === idx ? '#5585E8': '#fff'}}
+                              style={{flex :1 ,borderBottomWidth : 2,borderBottomColor : tabIndex === idx ? '#5585E8AA': '#fff'}}
                               key={idx}
                               onPress={()=>{ onTabPress(idx) }}
                           >
@@ -208,6 +205,7 @@ function HomeScreen(props) {
           null
         }  
         {/* <PlanTabView key={props.key} navigation = {props.navigation} /> */}
+        
         <Animated.View 
           onLayout={headerOnLayout}
           pointerEvents="box-none"

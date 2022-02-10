@@ -8,8 +8,6 @@ import { connect  } from 'react-redux';
 import { useSelector,useDispatch } from 'react-redux';
 function FirstOpen(props) {
   
-
-
 const user = useSelector((state)=>state.user.auth)
 const dispatch = useDispatch();
 const [USERDATA,setuser]=useState(user)

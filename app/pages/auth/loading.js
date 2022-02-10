@@ -30,37 +30,37 @@ class Loading extends Component{
 
 //////// auth 설정 /////////
 /////////////자동로그인/////////////////////////
-    // componentDidMount(){
-    //     getToken((value) =>{
-    //         if (value[1][1]===null) {
-    //             // console.log("1단계 실패")
-    //             this.setState({
-    //                 Signin : false
-    //             })
-    //             // Alert.alert("다시로그인을해주세요!")
-    //         }else{
-    //             this.props.autoSignIn(value[2][1]).then(()=>{
-    //                 if (!this.props.user.auth.token) {
-    //                     // Alert.alert("다시로그인을해주세요!")
-    //                     this.setState({Signin : false})    
-    //                 }else{
-    //                     // console.log("3단계성공")
-    //                     setToken(this.props.user.auth, ()=> {
-    //                         this.props.navigation.navigate("Firstopen")
-    //                     })
-    //                 }
-    //             })
-    //         }
-    //         // console.log("getToken:",value)
-    //     })
-    // }
+    componentDidMount(){
+        getToken((value) =>{
+            if (value[1][1]===null) {
+                console.log("1단계 실패")
+                this.setState({
+                    Signin : false
+                })
+                // Alert.alert("다시로그인을해주세요!")
+            }else{
+                this.props.autoSignIn(value[2][1]).then(()=>{
+                    if (!this.props.user.auth.accessToken) {
+                        Alert.alert("다시로그인을해주세요!")
+                        this.setState({Signin : false})    
+                    }else{
+                        console.log("3단계성공")
+                        setToken(this.props.user.auth, ()=> {
+                            this.props.navigation.navigate("Firstopen")
+                        })
+                    }
+                })
+            }
+            // console.log("getToken:",value)
+        })
+    }
 ///////////////자동로그인/////////////////////////
     onComplete = () =>{
         const Signin = this.state.Signin
         if (Signin == true) {
             this.props.navigation.navigate("Firstopen")    
         }else{
-            this.props.navigation.navigate("Loading")
+            this.props.navigation.navigate("Firstopen")
             // 자동로그인 활성화시 주석제거
 
         }
@@ -93,14 +93,14 @@ class Loading extends Component{
     ///서버 토큰 전달 ///
      logined = async (token) => {
         try {
-            await axios.post(`http://211.250.116.177:9090/social/login/kakao`,{
+            await axios.post(`http://172.30.1.56:9090/social/login/kakao`,{
             // await axios.post(`http://192.168.130.11:9090/social/login/kakao`,{
 
             accessToken : token,
                 },      
             )
-            .then((response)=>this.props.signIn(response.data.data))
-
+            .then((response)=> this.props.signIn(response.data.data))
+                
             .catch(err =>Alert.alert("서버 회원가입 및 로그인 실패 : " + err));
         } 
         catch (error) {
@@ -170,7 +170,9 @@ class Loading extends Component{
                 </View>
                 <View style = {{position : 'absolute', bottom : 100 , left : '10%', alignItems : 'center' ,justifyContent : 'center'}}>
                     <View>
-                        <TouchableOpacity onPress = {()=> this.kakaoSignIn()}>
+                        <TouchableOpacity 
+                            activeOpacity = {0.8}
+                            onPress = {()=> this.kakaoSignIn()}>
                             <Image source = {require('../../../src/assets/kakao_login_medium_wide.png')} style ={{}}/>
                         </TouchableOpacity>
                     </View>
@@ -190,6 +192,7 @@ class Loading extends Component{
                         </TouchableOpacity>
                         : 
                         <TouchableOpacity 
+                            activeOpacity = {0.8}
                             // onPress = {() => this.props.navigation.navigate("TRIPIAN")}
                             style={{width: '100%', height : '100%'}}
                             onPress = {() => {

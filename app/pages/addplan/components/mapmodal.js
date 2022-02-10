@@ -16,8 +16,9 @@ const MYAPI_KEY="AIzaSyC5mj6-thVYoHzisGzIQbzlighfD04N0q0";
 const PHOTO = "Aap_uEDDBUinRq6fSh0bTh3WIfIRzmpwl3dBb1KMoAPfCeMebYIVeSt81qwpfExYE841KnWhXMnYIp2qooJcFkmprMgSWQF19s1n9zrHSP9eXQWLrcvQF0IG-cm_GLLR7R_5N_sY53QxfpE9g5-5k1vCmfKBS-qP__TbOqG46N9cmYynMegp"
 
 function MapModal(params) {
+
     const [toggleon,settoggleon]=useState(false)
-    const [search,setsearch]=useState({})
+    const [search,setsearch]=useState()
     const mapView = useRef(null)
     const [currentLocation, setCurrentLocation] = useState(P0);
     const [enableLayerGroup, setEnableLayerGroup] = useState(false);
@@ -27,7 +28,6 @@ function MapModal(params) {
     
 
   useEffect(() => {
-      console.log(ref)
     requestLocationPermission()
     // setCurrentLocation({longitude : searchdata.geometry.location.lng , latitude : searchdata.geometry.location.lat})
     
@@ -75,9 +75,13 @@ function MapModal(params) {
                     style={{bottom : 0,width :WIDTH , height : 320 , backgroundColor : '#FFF'  ,shadowOpacity : .5}}
 
                 >
+                    {searchdata.photos ? 
                     <Image source={{uri :`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${searchdata.photos[0].photo_reference}&key=${MYAPI_KEY}`}}
                         style ={{width: WIDTH -10, height : 190 , borderRadius : 15 ,marginHorizontal : 10, marginTop : 10 , alignSelf : 'center' , shadowOpacity : .5 , shadowOffset : {width : 0 , height :2}}}
                     />
+                    :<View style={{width: WIDTH -10, height : 190 , borderRadius : 15 ,marginHorizontal : 10, marginTop : 10 , alignSelf : 'center' , shadowOpacity : .5 , shadowOffset : {width : 0 , height :2},alignItems : 'center', justifyContent : 'center'}}>
+                        <Text>이미지가 없습니다</Text>    
+                    </View>}
                     <View style = {{flexDirection : 'row', borderBottomWidth : .5 , borderColor : '#c4c4c4'}}>
                         <View
                             style={{backgroundColor : '#fff' ,alignItems :'center' , flex : 7}}
@@ -92,7 +96,11 @@ function MapModal(params) {
                         </View>
                         <View style = {{flex : 3 , justifyContent :'center' , alignItems :'center'}}>
                             <TouchableOpacity 
-                                onPress = {()=>{setsearch(searchdata) ,setisModalmapVisible(false)}}
+                                onPress = {()=>params.navigation.navigate({
+                                    name : "여행 추가",
+                                    params : {search : searchdata},
+                                    merge : true
+                                })}
                                 style = {{backgroundColor : '#5585E8', width : 100,height :30 , borderRadius : 15 , alignItems : 'center', justifyContent :'center'}}>
                                 <Text style = {{color : '#fff'}}>출발위치등록</Text>
                             </TouchableOpacity>
@@ -124,7 +132,7 @@ function MapModal(params) {
                 duration = {500}
                 delay = {200}
                 >
-                    {[ref.current?.getAddressText() ? null :  <Text style = {{color : '#C4C4C4'}}>위치를 검색해주세요</Text>  ]}
+                    {ref.current?.isFocused() ? null :  <Text style = {{color : '#C4C4C4'}}>위치를 검색해주세요</Text>  }
                 
             </Animatable.View> : null
             
@@ -148,35 +156,36 @@ function MapModal(params) {
                 {toggleon ?
 
                 <GooglePlacesAutocomplete
+                    
                     suppressDefaultStyles={true}
                     onNotFound={()=>setStateText(true)}
                     isRowScrollable={false} 
-                    fetchDetails={true}
-                    returnKeyType={'done'} 
+                    fetchDetails={true} 
                     enablePoweredByContainer={false}
                     // listViewDisplayed={false}
                     disableScroll={true}
                     autoFocus={false}
                     ref={ref}
                     textInputHide={false}
+                    
                     placeholder='관광지 혹은 장소를 검색해주세요'
                     onPress={( data , details ) => {
                         // 'details' is provided when fetchDetails = true
                         setsearchdata(details)
                         settoggleon(false)
                         setCurrentLocation({longitude : details.geometry.location.lng , latitude : details.geometry.location.lat})
-                        alert(details.name)
+                        console.log(details)
                     }}
-                    requestUrl={{
-                        url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api",
-                        useOnPlatform: "web",
-                    }}
+                    // requestUrl={{
+                    //     url: "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api",
+                    //     useOnPlatform: "web",
+                    // }}
                     // listViewDisplayed="auto"
-                    renderRightButton={()=><Button title ={'aa'} color ={'#fff'}/>}
-                    textInputProps={{
-                        InputComp: SearchInput,
-                        errorStyle: { color: 'red' },
-                      }}
+                    // renderRightButton={()=><Button title ={'aa'} color ={'#fff'}/>}
+                    // textInputProps={{
+                    //     InputComp: SearchInput,
+                    //     errorStyle: { color: 'red' },
+                    //   }}
                     query={{
                         key: 'AIzaSyC5mj6-thVYoHzisGzIQbzlighfD04N0q0',
                         language: 'ko',
@@ -185,9 +194,9 @@ function MapModal(params) {
                     // currentLocation={true}
                     // currentLocationLabel='Current location'
                     
-                    renderDescription={(description)=>description.structured_formatting.main_text}
+                    // renderDescription={(description)=>description.structured_formatting.main_text}
                     renderRow={(data,index)=>
-                    <View>
+                    <View style = {{ borderBottomWidth : 1,borderBottomColor : '#f5f5f5', paddingVertical : 10, backgroundColor : '#fff', shadowOpacity : .25 ,shadowOffset : {width : 0 , height :2}}}>
                         <Highlighter
                             style={{
                                 fontSize : 16 , 
@@ -204,18 +213,13 @@ function MapModal(params) {
                             searchWords={[ref.current?.getAddressText()]}
                             textToHighlight={data.structured_formatting.main_text}
                         />
-                        <Highlighter 
-                            
-                            highlightStyle={{
-                                fontSize : 16 , 
+                        <Text 
+                            style={{
+                                fontSize : 14 , 
                                 fontWeight :'200', 
-                                lineHeight : 20, 
-                                letterSpacing : 1 ,
-                                color : '#5585E8'
+                                // letterSpacing : 1 ,
                             }}
-                            searchWords={['']}
-                            textToHighlight={data.structured_formatting.secondary_text}
-                        />
+                        >{data.structured_formatting.secondary_text}</Text>
                         
                     </View>
                     
@@ -225,50 +229,47 @@ function MapModal(params) {
                 debounce={300}
                 styles={{
                     container:{
-                        flex :1,
-                        justifyContent : 'center'
                         
                     },
                     textInputContainer: {
-                        backgroundColor : 'green',
-                        position : 'absolute',
+                        backgroundColor : '#fff',
+                        width : '95%',
                         height : '100%',
-                        width : '85%',
-                        borderRadius: 5,
-                        marginHorizontal : 10,
+                        borderRadius : 15,
+                        paddingHorizontal : 15,
+                        // paddingRight : 10,
+                        marginRight : 12,
+
+                        
+                        // position : 'absolute',
+                        // height : '100%',
+                        // width : '85%',
+                        // borderRadius: 5,
+                        // marginHorizontal : 10,
+                        
                         
                         // paddingVertical: 5,
                         // paddingHorizontal: 10,
                     },
-                    // powered: {right : 10},
-                    // poweredContainer: {
-                    //     justifyContent: 'flex-end',
-                    //     alignItems: 'center',
-                    //     borderBottomRightRadius: 5,
-                    //     borderBottomLeftRadius: 5,
-                    //     borderColor: '#c8c7cc',
-                    //     borderTopWidth: 0.5,
-                    //     marginRight : 30
-                    // },
+                    
                     textInput: {
-                        alignSelf : 'center',
+                        // alignSelf : 'center',
                         // bottom : 3,
+                        width : '100%',
                         backgroundColor : '#fff',
                         fontSize: 16,
-                        // borderWidth : 1,
-                        
-                        
+                        top :3,                        
                     },
-                    predefinedPlacesDescription: {
-                      color: '#1faadb',
-                    },
+                    // predefinedPlacesDescription: {
+                    //   color: '#1faadb',
+                    // },
                     listView:{
-                        // backgroundColor : 'green',
-                        zIndex : 100,
+                        
+                        // width : WIDTH,
+                        // zIndex : 100,
                         position : 'absolute',
-                        alignSelf : 'center',
                         top : 50,
-                        borderWidth : 1,
+                        // borderWidth : 1,
                         
                     }
                   }}
@@ -332,6 +333,7 @@ const styles = StyleSheet.create({
         color: 'rgba(255, 255, 255, 1)',
         },
     toggledOn: {
+    justifyContent : 'center',
     // position : 'absolute',
     // zIndex : 1,
     backgroundColor : '#fff',

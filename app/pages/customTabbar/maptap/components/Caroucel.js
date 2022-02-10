@@ -60,13 +60,14 @@ export default function ImageCarousel(props) {
         data={data}
         renderItem={renderItem}
         itemWidth={0.65 * windowWidth}
-        inActiveOpacity={0.5}
+        inActiveOpacity={0.2}
         containerWidth={windowWidth}
         onScrollEnd={handleCarouselScrollEnd}
         ref={carouselRef}
         minScrollDistance = {10}
         inActiveScale = {0.8}
         initialIndex = {2}
+        
       
         
       />
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
   },
   item: {
     width : 0.65 * windowWidth,
-    height : 100,
+    height : 300,
     paddingHorizontal : 4
 
     

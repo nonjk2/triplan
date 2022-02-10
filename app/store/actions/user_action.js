@@ -9,7 +9,7 @@ export const autoSignIn = (refToken) =>{
     
     const request = axios({
         method:'post',
-        url:`http://211.250.116.177:9090/social/autologin/kakao`,
+        url:`http://172.30.1.56:9090/social/autologin/kakao`,
         data :{
             refreshToken : refToken
         }
@@ -42,6 +42,7 @@ export function signIn(data){
             nickname:data.nickname || false,
             aboutMe:data.aboutMe || false,
             nametag:data.nametag || false,
+            // memberId:action.payload.memberId || false
         }
     }
 }

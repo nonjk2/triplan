@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Animated, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { Animated, View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import ScheduleList from './scheduleList';
 import { Scheduledata } from '../../../../../util/forms/data';
@@ -113,7 +113,9 @@ export default class ScheduleTap extends Component {
   };
 
   render() {
+    const {planday}=this.state;
     return (
+      planday != 1 ? 
       <TabView
         scrollEnabled={false}
         swipeEnabled={false}
@@ -122,6 +124,9 @@ export default class ScheduleTap extends Component {
         renderTabBar={this._renderTabBar}
         onIndexChange={this._handleIndexChange}
       />
+        : <ScheduleList navigation={this.props.navigation} startDate ={new Date(this.props.startDate).getDate()}/> 
+        //<View style = {{flex : 1, justifyContent : 'center' , alignItems : 'center'}}><Text style = {{fontSize : 15 , color : '#c4c4c4'}}>일정이 없습니다 일정을 추가해주세요</Text></View>
+    
     );
   }
 }

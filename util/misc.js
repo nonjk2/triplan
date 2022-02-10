@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 export const setToken = async (value , callback) => {
     const firstPair = ["@triplan_app@email", value.email]
-    const secondPair = ["@triplan_app@token", value.token]
+    const secondPair = ["@triplan_app@token", value.accessToken]
     const thirdPair = ["@triplan_app@refToken", value.refreshToken]
     
     try {
@@ -15,7 +15,7 @@ export const setToken = async (value , callback) => {
       //save error
     }
   
-    console.log("Done.",thirdPair)
+    console.log("Done.",firstPair,secondPair,thirdPair)
   }
   
 
