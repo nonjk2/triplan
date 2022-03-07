@@ -21,14 +21,13 @@ const plusanimate1 = {0 : {scale : .5, translateY : 0}, 1: {scale : 1.7, transla
 const plusanimate2 = {0 : {scale : .5, translateY : -10}, 1: {scale : 1.7, translateY : 0}}
 const circle = {0 : {scale : 1}, 0.3: {scale : .5}, 0.5: {scale : .7}, 0.8: {scale : .9}, 1: {scale : 1}}
 const circle2 = {0 : {scale : 1} ,1: {scale : 1}}
-
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
   const Tap = createBottomTabNavigator();
 
 
 const Plantabs = ({route},props) => {
-  const {planday,startDate , name,navigation} = route.params
+  const {planday,startDate , name,navigation } = route.params
   return (
     <Stack.Navigator screenOptions = {{headerShown : true }}>
         <Stack.Screen name={name} component={Plantap} options = {{headerShadowVisible : false , headerShown : false }} initialParams = {{planday : planday, startDate : startDate}}/> 
@@ -125,7 +124,7 @@ const Taparr = [
   
   
   export default function Tapmynavigation({route,navigation}){
-    const {planday,startDate,name,source,endDate} = route.params
+    const {planday,startDate,name,source,endDate,plan_id} = route.params
     const viewRef = useRef(null)
     
     return (
@@ -162,7 +161,7 @@ const Taparr = [
                   key = {index}
                   name = {item.route}
                   component = {item.component}
-                  initialParams = {{planday : planday, startDate : startDate, name : name , DATA:DATA,endDate: endDate  , source : source}}
+                  initialParams = {{planday : planday, startDate : startDate, name : name , DATA:DATA,endDate: endDate  , source : source, plan_id : plan_id}}
                   options = {{
                     headerTintColor : 'black',
                     headerLeft : (prors) => <Button title = {'메인'} onPress = {()=>{navigation.navigate("TRIPIAN")}}/>,

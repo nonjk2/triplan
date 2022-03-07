@@ -1,21 +1,15 @@
 import axios from 'axios';
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {StyleSheet, View, Text, Button, SafeAreaView, TouchableOpacity, Image} from 'react-native';
 import ScheduleTap from './components/scheduleTap';
 
-class Plantap extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      isLoading : true ,
-      location : [],
-      value : ''
-      
-    }
-  }
+function Plantap(props) {
+  const [isLoading,setisLoading]=useState(true)
+  const {params} = props.route
+  const [location,setlocation] =useState([])
+  const [value, setvalue] = useState('')
 
-  render() {
-    const {params} = this.props.route
+    
     return (
       <SafeAreaView 
         style={{
@@ -25,14 +19,18 @@ class Plantap extends Component {
         
         }}>
         
-        <ScheduleTap 
+        <ScheduleTap
+          plan_id = {params.plan_id} 
           planday = {params.planday}
-          navigation={this.props.navigation}
+          navigation={props.navigation}
           startDate = {params.startDate} />
         <TouchableOpacity
           onPress={() => {
-            this.props.navigation.navigate('일정 추가');
-          }}
+            props.navigation.navigate('일정추가',
+            {
+              plan_id : params.plan_id,
+          });
+        }}
           style={{
             width: 60,
             height: 60,
@@ -48,7 +46,7 @@ class Plantap extends Component {
       </SafeAreaView>
     );
   }
-}
+
 
 const styles = StyleSheet.create({});
 

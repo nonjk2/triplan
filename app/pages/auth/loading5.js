@@ -1,86 +1,79 @@
 import axios from 'axios';
-import React, {Component} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import { Animated , View , Image, Dimensions, TouchableOpacity, Linking, Alert, Text, StyleSheet } from 'react-native';
 import kakaoLogin, { getAccessToken, login, logout } from '@react-native-seoul/kakao-login';
-import { connect, useDispatch } from 'react-redux';
-import { signIn,signUp,autoSignIn } from '../../store/actions/user_action';
-import { bindActionCreators } from 'redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { setToken , getToken} from '../../../util/misc';
 import * as Animatable from 'react-native-animatable';
 import Input from '../../../util/forms/input';
 import { ServerURL } from '../../../util/misc';
+import { autoSignIn } from '../../store/actions/user_action';
 const WIDTH = Dimensions.get("window").width
 const HEIGHT_MODAL = Dimensions.get("window").height
 
-class Loading extends Component{
-    constructor(props){
-        super(props);
-        this.state ={
-            xVaule : new Animated.Value(60),
-            opacity : new Animated.Value(0),
-            data : [],
-            isKakaoLogging: false,
-            toggleon : false,
-            Signin : true,
-            name: '',
-            email: '',
-
-        }
-    }
+export default function Loading(props) {
+    const {navigation} = props;
+    const [xVaule,setxValue] =useState(new Animated.Value(60))
+    const [opacity,setopacity] =useState(new Animated.Value(0))
+    const [isKakaoLogging ,setisKakaoLogging] = useState(false)
+    const [toggleon , settoggleon ] = useState (false)
+    const [Signin , setSignin] = useState(true)
+    const [name , setname] =useState('')
+    const [email , setemail] = useState('')
+    const dispatch = useDispatch();
+    const accessToken = useSelector((state)=>state.user.auth?.accessToken)
+    const {auth} = useSelector((state)=>state.user)
+    const regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 
 //////// auth 설정 /////////
 /////////////자동로그인/////////////////////////
-    componentDidMount(){
+    useEffect(()=>{
         getToken((value) =>{
             if (value[1][1]===null) {
                 console.log("1단계 실패")
-                this.setState({
-                    Signin : false
-                })
+                setSignin(true)
                 // Alert.alert("다시로그인을해주세요!")
             }else{
-                this.props.autoSignIn(value[2][1]).then(()=>{
-                    if (!this.props.user.auth.accessToken) {
+                dispatch(autoSignIn(value[2][1])).then(()=>{
+                    if (!accessToken) {
                         Alert.alert("다시로그인을해주세요!")
-                        this.setState({Signin : false})    
+                        setSignin(false)
                     }else{
                         console.log("3단계성공")
-                        setToken(this.props.user.auth, ()=> {
-                            this.props.navigation.navigate("Firstopen")
+                        setToken(auth, ()=> {
+                            navigation.navigate("Firstopen")
                         })
                     }
                 })
             }
             // console.log("getToken:",value)
         })
-    }
+    },[])
 ///////////////자동로그인/////////////////////////
-    onComplete = () =>{
-        const Signin = this.state.Signin
+    const onComplete = () =>{
         if (Signin == true) {
-            this.props.navigation.navigate("Firstopen")    
+            navigation.navigate("Firstopen")    
         }else{
-            this.props.navigation.navigate("Firstopen")
+            navigation.navigate("Firstopen")
             // 자동로그인 활성화시 주석제거
-
         }
     }
 
-    manageAcceess = () => {
-        if (!this.props.user.auth.email) {
+    const manageAcceess = () => {
+        if (!auth.email) {
             Alert.alert("실패")
         }else{
             // console.log("asdfasdfasdf")
-            setToken(this.props.user.auth, ()=>{
-                this.props.navigation.navigate("Firstopen")    
+            setToken(auth, ()=>{
+                navigation.navigate("Firstopen")    
             })
         }
     }
     // 카카오 로그인 ///
-    kakaoSignIn = () => {
+    const kakaoSignIn = () => {
         login()
         .then((result)=> {
-            this.logined(result.accessToken).then(()=> this.manageAcceess())
+            logined(result.accessToken).then(()=> manageAcceess())
             // console.log(result)
         })
         .catch(err => {
@@ -91,11 +84,9 @@ class Loading extends Component{
     /// 네이버 로그인 ///
 
     ///서버 토큰 전달 ///
-     logined = async (token) => {
+     const logined = async (token) => {
         try {
             await axios.post(`${ServerURL}/social/login/kakao`,{
-            // await axios.post(`http://192.168.130.11:9090/social/login/kakao`,{
-
             accessToken : token,
                 },      
             )
@@ -109,7 +100,7 @@ class Loading extends Component{
         }
     
     
-      kakaoLogout() {
+      const kakaoLogout = () => {
         console.log('   kakaoLogout   ');
         logout((err, result) => {
           if (err) {
@@ -121,8 +112,8 @@ class Loading extends Component{
       }
     
 
-    onLoad = () =>{
-        Animated.timing(this.state.opacity,{
+    const onLoad = () =>{
+        Animated.timing(opacity,{
             toValue:1,
             duration : 1000,
             useNativeDriver: false
@@ -131,20 +122,19 @@ class Loading extends Component{
         })
     }
 
-    nope = () =>{
+    const nope = () =>{
         const data = {
             token:"data.accessToken",
             refreshToken:"data.refreshToken",
-            email:this.state.email,
-            nickname:this.state.name,
+            email:email,
+            nickname:name,
             aboutme:false,
             nametag:"5555"}
         this.props.signIn(data)
-        this.props.navigation.navigate("Firstopen")
+        navigation.navigate("Firstopen")
     }
 
-    render(){
-        var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+
         return(
             <View style = {{flex :1}}>
 
@@ -158,13 +148,13 @@ class Loading extends Component{
                         style ={{
 
 
-                                opacity : this.state.opacity,
-                                left: this.state.opacity.interpolate({
+                                opacity : opacity,
+                                left: opacity.interpolate({
                                     inputRange: [0,1],
                                     outputRange : [60,0]
                                 })
                             }}
-                        onLoad = {this.onLoad}    
+                        onLoad = {onLoad}    
                         >
                     </Animated.Image>
                 </View>
@@ -172,21 +162,21 @@ class Loading extends Component{
                     <View>
                         <TouchableOpacity 
                             activeOpacity = {0.8}
-                            onPress = {()=> this.kakaoSignIn()}>
+                            onPress = {()=> kakaoSignIn()}>
                             <Image source = {require('../../../src/assets/kakao_login_medium_wide.png')} style ={{}}/>
                         </TouchableOpacity>
                     </View>
                     <Animatable.View 
-                        style = {[styles.toggle ,this.state.toggleon && styles.toggledOn ]}
+                        style = {[styles.toggle ,toggleon && styles.toggledOn ]}
                         transition={['backgroundColor', 'fontSize','width','height']}
                     >   
-                        {this.state.toggleon ? 
+                        {toggleon ? 
                         <TouchableOpacity 
                             // onPress = {() => this.props.navigation.navigate("TRIPIAN")}
-                            onPress = {() => this.nope()}
+                            onPress = {() => nope()}
                             style = {{top : 10}}
                         >
-                            <View style ={{width : WIDTH * 0.78 , height : 47 , backgroundColor : this.state.name.length >2 && regEmail.test((this.state.email)) ? '#5585E8' : '#c4c4c4' , borderRadius : 8 , alignItems : 'center' , justifyContent : 'center'}}>
+                            <View style ={{width : WIDTH * 0.78 , height : 47 , backgroundColor : name.length >2 && regEmail.test((email)) ? '#5585E8' : '#c4c4c4' , borderRadius : 8 , alignItems : 'center' , justifyContent : 'center'}}>
                                 <Text style = {{fontWeight : 'bold',color : '#fff'}}>가입하기</Text>
                             </View>
                         </TouchableOpacity>
@@ -196,7 +186,7 @@ class Loading extends Component{
                             // onPress = {() => this.props.navigation.navigate("TRIPIAN")}
                             style={{width: '100%', height : '100%'}}
                             onPress = {() => {
-                                this.setState({toggleon: true})
+                                settoggleon(!toggleon)
                             }}
                         >
                             <View style ={{alignSelf : 'center', width : WIDTH * 0.78 , height : 47 , backgroundColor : '#5585E8' , borderRadius : 8 ,alignItems : 'center' , justifyContent : 'center'}}>
@@ -204,7 +194,7 @@ class Loading extends Component{
                             </View>
                         </TouchableOpacity>
                         }
-                        {this.state.toggleon ?
+                        {toggleon ?
                         <View style = {{width : '100%' , height : '100%' , alignItems : 'center'}}> 
                             <View
                                 style={{
@@ -215,7 +205,7 @@ class Loading extends Component{
                                 justifyContent: 'space-between',
                                 alignItems: 'center',
                                 borderWidth : 2,
-                                borderColor : this.state.name.length > 2 ? '#5585E8':'#C4C4C4',
+                                borderColor : name.length > 2 ? '#5585E8':'#C4C4C4',
                                 borderRadius : 4,
                                 height : 36
                                 
@@ -223,23 +213,23 @@ class Loading extends Component{
                             }}>
                                 <Input
                                     myPlanName="이름"
-                                    value={this.state.name}
+                                    value={name}
                                     autoCapitalize={'none'}
                                     keyboardType={'email-address'}
-                                    style={[this.state.toggleon&&styles.input]}
+                                    style={[toggleon&&styles.input]}
                                     fontSize={14}
                                     placeholder="이름"
                                     placeholderTextColor='#767676'
                                     marginLeft={10}
                                     maxLength = {10}
-                                    onChangeText={value => this.setState({ name : value})}></Input>
+                                    onChangeText={value => setname(value)}></Input>
                                 <Text style={{
                                     alignItems: 'flex-end',
                                     fontSize: 15,
                                     justifyContent: 'center',
-                                    color: this.state.name.length > 2 ? '#5585E8' : 'gray'  ,
+                                    color: name.length > 2 ? '#5585E8' : 'gray'  ,
                                     paddingRight : 2,
-                                }}>{this.state.name.length}/10</Text>
+                                }}>{name.length}/10</Text>
                             </View>
                             <View
                                 style={{
@@ -250,7 +240,7 @@ class Loading extends Component{
                                 justifyContent: 'space-between',
                                 alignItems: 'center',
                                 borderWidth : 2,
-                                borderColor : regEmail.test((this.state.email)) ? '#5585E8':'#C4C4C4',
+                                borderColor : regEmail.test((email)) ? '#5585E8':'#C4C4C4',
                                 borderRadius : 4,
                                 height : 36
                                 
@@ -258,23 +248,23 @@ class Loading extends Component{
                             }}>
                                 <Input
                                     myPlanName="이메일"
-                                    value={this.state.email}
+                                    value={email}
                                     autoCapitalize={'none'}
                                     keyboardType={'email-address'}
-                                    style={[this.state.toggleon&&styles.input]}
+                                    style={[toggleon&&styles.input]}
                                     fontSize={14}
                                     placeholder="이메일"
                                     placeholderTextColor='#767676'
                                     marginLeft={10}
                                     maxLength = {20}
-                                    onChangeText={value => this.setState({ email : value})}></Input>
+                                    onChangeText={value => setemail(value)}></Input>
                                 <Text style={{
                                     alignItems: 'flex-end',
                                     fontSize: 15,
                                     justifyContent: 'center',
-                                    color: regEmail.test((this.state.email)) ? '#5585E8' : 'gray' ,
+                                    color: regEmail.test((email)) ? '#5585E8' : 'gray' ,
                                     paddingRight : 2,
-                                }}>{this.state.email.length}/30</Text>
+                                }}>{email.length}/30</Text>
                             </View>
                         </View>
                     : null }
@@ -292,7 +282,7 @@ class Loading extends Component{
             </View>
         )
     }
-}
+
 const styles = StyleSheet.create({
     toggle: {
         marginTop: 16,
@@ -329,13 +319,4 @@ const styles = StyleSheet.create({
         borderWidth : 2,
     },
 });
-function mapStateToProps(state){
-    return{
-        user : state.user
-    }
-}
-function mapDispatchToProps(dispatch){
-    return bindActionCreators({signIn,signUp,autoSignIn},dispatch);
-}
 
-export default connect(mapStateToProps,mapDispatchToProps)(Loading);

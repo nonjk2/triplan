@@ -20,8 +20,8 @@ const WIDTH = Dimensions.get("window").width
 const HEIGHT_MODAL = Dimensions.get("window").height
 function Endtimemodal(props) {
 
-    const [endTimeProp,setendTimeProp]=useState(props.endDatetime)    
-    const [startTimeProp,setstartTimeProp]=useState(props.startDatetime)
+    const [endTimeProp,setendTimeProp]=useState(props.endDatetime===''? new Date() : props.endDatetime)    
+    const [startTimeProp,setstartTimeProp]=useState(props.startDatetime === '' ? new Date() : props.startDatetime)
     const {setenddate,setisendModalvisible}=props;    
     const onChange = (event, selectedDate) => {
         
@@ -50,6 +50,7 @@ function Endtimemodal(props) {
                                 is24Hour={true}
                                 display={'spinner'}
                                 onChange= {onChange}
+                                locale={'kr'}
                             />
                         </View>
                     </View>

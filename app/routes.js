@@ -14,6 +14,7 @@ import ScheduleSetting from './pages/schedulesetting';
 import backbutton from '../src/icons/back.png';
 import MapModal from './pages/addplan/components/mapmodal';
 import SearchScreen from './pages/customTabbar/maptap/components/pinsearch';
+import AddplanSetting from './pages/addplandetail';
 
 
 // import MyMap from './pages/map';
@@ -36,6 +37,7 @@ export const AppNavigation = () => {
       <AuthStack.Screen name="지도추가" component={MapModal} options={{headerShown : false ,animation : 'fade'}}/>
       <AuthStack.Screen name="문의하기" component={ComplainScreen} options = {{headerShadowVisible : true,headerBackTitleVisible : false, headerTintColor : 'black'}}/>
       <AuthStack.Screen name="지도핀검색" component={SearchScreen} options={{headerShown : false }}/>
+      <AuthStack.Screen name="일정추가" component={AddplanSetting}/>
       {/* <AuthStack.Screen name="지도" component={MyMap} options = {{headerShown : false }}/> */}{}
     </AuthStack.Navigator>
 

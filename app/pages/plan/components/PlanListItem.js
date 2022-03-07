@@ -1,9 +1,12 @@
 import React, {Component, useEffect, useRef, useState} from 'react';
-import {StyleSheet, View, Text, Button, FlatList, TouchableOpacity, Image, TouchableWithoutFeedback} from 'react-native';
+import {StyleSheet, View, Text, Button, FlatList, Alert,TouchableOpacity, Image, TouchableWithoutFeedback} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import NaverMapView, { Align, Marker, Path, Polyline } from '../../map';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import { MYAPI_KEY } from '../../../../util/forms/data';
+import axios from 'axios';
+import { ServerURL } from '../../../../util/misc';
+import { useSelector } from 'react-redux';
 
 
 const P0 = {latitude: 37.59229660205149,longitude: 126.97558048678314, index: 0}; const P1 = {latitude: 37.821181701506276,longitude: 127.54229189686288,index: 1};
@@ -36,10 +39,10 @@ const formatDate = (date) => {
 function PlanListItems(props) {
     const futureDate = new Date(props.startDatetime);
     const [toggleon,settoggleon]=useState(false)
-    const { state, navigation } = props;
+    const { state, navigation ,source,plan_id} = props;
     const mapView=useRef()
     const [currentLocation, setCurrentLocation] = useState(P0);
-
+    const accessToken = useSelector((state)=> state.user.auth?.accessToken)
     const [diff, setDiff] = useState({});
     useEffect(() => {
         const timer = setInterval(() => {
@@ -48,66 +51,11 @@ function PlanListItems(props) {
         return () => clearInterval(timer);
     }, []);
     
-
-    // const getDDay = (type) => {
-    //     // D-Day 날짜 지정
-    //     const setDate = new Date(props.startDatetime);
-    //     // D-day 날짜의 연,월,일 구하기
-    //     const setDateYear = setDate.getFullYear();
-    //     // getMonth 메서드는 0부터 세기 때문에 +1 해준다.
-    //     const setDateMonth = setDate.getMonth() + 1;
-    //     const setDateDay = setDate.getDate();
-      
-    //     // 현재 날짜를 new 연산자를 사용해서 Date 객체를 생성
-    //     const now = new Date();
-      
-    //     // D-Day 날짜에서 현재 날짜의 차이를 getTime 메서드를 사용해서 밀리초의 값으로 가져온다. 
-    //     const distance = setDate.getTime() - now.getTime();
-        
-    //     // Math.floor 함수를 이용해서 근접한 정수값을 가져온다.
-    //     // 밀리초 값이기 때문에 1000을 곱한다. 
-    //     // 1000*60 => 60초(1분)*60 => 60분(1시간)*24 = 24시간(하루)
-    //     // 나머지 연산자(%)를 이용해서 시/분/초를 구한다.
-    //     const day = Math.floor(distance/(1000*60*60*24));
-    //     const hours = Math.floor((distance % (1000*60*60*24))/(1000*60*60));
-    //     const minutes = Math.floor((distance % (1000*60*60))/(1000*60));
-    //     const seconds = Math.floor((distance % (1000*60))/1000);
-      
-    //     // D-Day 날짜를 가져오고,
-    //     // 삼항 연산자를 사용해서 값이 10보다 작을 경우에 대해 조건부 렌더링을 해준다.
-    //     if (type==="on") {
-    //         return( 
-         
-    //             `D- ${day}일 `)    
-    //     }else if(type==="off"){
-    //         return( 
-    //             `${setDateYear}년 ${setDateMonth}월 ${setDateDay}일까지 
-    //             ${day}일 ${hours < 10 ? `0${hours}` : hours}시간 ${minutes < 10 ? `0${minutes}` : minutes}분 ${seconds < 10 ? `0${seconds}` : seconds}초 
-    //              남았습니다.`)
-    //     }
-        
-    //     }
-      
-      
-    //   const init = (type) => {
-    //     // init 함수 생성해서 getDDay함수 호출하고,
-    //     getDDay(type);
-    //     // setInterval 메서드에서 getDDay함수를 1초(1000밀리초)마다 호출한다.
-    //     setInterval(getDDay, 1000);
-    //   }
-      
-
-
-
-
-
-
     const planday = () =>{
       const start = new Date(props.startDatetime)
       const end = new Date(props.endDatetime)
       const startday = new Date(start.getFullYear(),start.getMonth()+1,start.getDate())
       const endday = new Date(end.getFullYear(),end.getMonth()+1,end.getDate())
-
       const btMs = endday.getTime() - startday.getTime()
       const btDay = btMs / (1000*60*60*24);
       return (btDay+1);
@@ -170,12 +118,26 @@ function PlanListItems(props) {
                     justifyContent : 'center',
                 }}>
                 {`${formatDate(futureDate)} 까지
-                ${diff.month} 월 ${diff.day} 일 ${diff.hour} 시 ${diff.minute} 분 ${diff.second} `}초
+                ${diff.month} 월 ${diff.day} 일 ${diff.hour} 시 ${diff.minute} 분 ${diff.second}`}초
                 </Text>}
             </View>
         );
     }
-
+    
+    
+    const DeletePlan = async() =>{
+        await axios.delete(
+            `${ServerURL}/plans/${plan_id}`,
+            {
+                headers : {
+                    "X-AUTH-TOKEN" : accessToken
+            }}
+        ).then((res)=>{
+            console.log(res)
+            alert("완료")
+            
+        }).catch((e)=>console.log(e))
+    }
     return (
         <View style = {{marginBottom : 8,
             marginLeft : 5,}}>
@@ -185,7 +147,19 @@ function PlanListItems(props) {
             backgroundColor : toggleon ? '#f5f5f5': null
         }}
         
-        onPress = {()=> settoggleon(!toggleon)}
+        onPress = {()=> 
+            settoggleon(!toggleon)
+        }
+        onLongPress = {()=> Alert.alert("","삭제하시겠습니까?",[
+            {text : '확인' , onPress : ()=> 
+                DeletePlan()
+            },
+            {text : '취소', onPress : ()=>{
+                console.log("취소")
+            }}
+        ],
+        { cancelable: false } 
+        )}
         >
             <Animatable.View 
             style ={[styles.listbutton ,toggleon && styles.listbuttonOn ]}
@@ -193,8 +167,6 @@ function PlanListItems(props) {
             disabled={true}
             >
             {toggleon ? 
-                
-            // <View style = {{backgroundColor : '#000' , zIndex : 100 ,position : 'absolute' ,width : '100%',height : '83%',top : 50 , borderRadius : 10}}>
                 <NaverMapView 
                     ref={mapView}
                     style={{position : 'absolute',width: '100%', height: '100%' ,borderRadius : 30 , flex : 1,top : 0}}
@@ -255,10 +227,11 @@ function PlanListItems(props) {
                             } */}
                         
                 </NaverMapView>
-                
-            // </View> :
-            : 
+            :
+            source ? 
             <Image source = {{uri :`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${props.source}&key=${MYAPI_KEY}`}} style = {styles.planlistimage}/>
+            :
+            <View style = {{...styles.planlistimage ,backgroundColor : '#c4c4c4',justifyContent : 'center' ,alignItems : 'center'}}><Text> 이미지 없음 </Text></View>
             }
             <Animatable.View 
                 style = {[styles.plancontain , toggleon && styles.plancontainOn]}   
@@ -294,6 +267,7 @@ function PlanListItems(props) {
                         endDate : props.endDatetime,
                         name : props.title,
                         source : props.source,
+                        plan_id : plan_id,
                     });
                     }}
                 style ={{backgroundColor : '#fff', width : 30 , height : 30, borderRadius : 15 , position : 'absolute' , right : 10 , alignItems : 'center' , justifyContent : 'center' , top : 50,shadowOpacity : .25, shadowOffset : {width : 0 , height : 5}}}>

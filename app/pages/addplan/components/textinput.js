@@ -24,6 +24,9 @@ import * as Animatable from 'react-native-animatable';
 import MapModal from './mapmodal';
 import { panGestureHandlerCustomNativeProps, panGestureHandlerProps } from 'react-native-gesture-handler/lib/typescript/handlers/PanGestureHandler';
 import axios from 'axios';
+import { ServerURL } from '../../../../util/misc';
+import { planToggleAction } from '../../../store/actions/plan_action';
+
 
 
 
@@ -65,6 +68,7 @@ function Textplanform(props) {
     const [toggleon,settoggleon]=useState(false)
     
     const [search,setsearch]=useState(false)
+    const [endsearch,setendsearch]=useState(false)
     const [isDatePickerVisible,setisDatePickerVisible]=useState(false)
     const [isModalVisible,setisModalVisible]=useState(false)
     // const [isModalmapVisible,setisModalmapVisible]=useState(false)
@@ -75,46 +79,57 @@ function Textplanform(props) {
         value : [],
         date : ''
     })
-    const [planlocation,setplanlocation]=useState('')    
-
-    const handleConfirm = (date) => {        
-        planday.date = date.format('yyyy/MM/dd')
-        console.warn("A date has been picked: ", planday.date);
-        this.hideDatePicker();
-        
-    };
+    const [planlocation,setplanlocation]=useState('')
+    const accessToken = useSelector((state)=>state.user.auth?.accessToken)
+    const dispatch = useDispatch();  
 
     const Addplan = () => {
-        
-        axios.post("http://172.30.1.56:9090/plans", {
+        dispatch(planToggleAction(true))
+        axios.post(`${ServerURL}/plans`, {
                     planTitle:planname,
                     startDate : new Date(firstday),
                     endDate:new Date(lastday),
-                    addressDetail:search.name,
-                    address:search.vicinity,
-                    planImage:search.photos?search.photos[0].photo_reference : "",
-                    locationX:search.geometry.location.lat,
-                    locationY:search.geometry.location.lng,
-                    email:user.email
+                    map :[
+                        {
+                        addressDetail:search.name,
+                        address:search.vicinity,
+                        planImage:search.photos?search.photos[0].photo_reference : "",
+                        locationX:search.geometry.location.lat,
+                        locationY:search.geometry.location.lng,
+                    },
+                    {
+                        addressDetail:endsearch.name,
+                        address:endsearch.vicinity,
+                        planImage:endsearch.photos?endsearch.photos[0].photo_reference : "",
+                        locationX:endsearch.geometry.location.lat,
+                        locationY:endsearch.geometry.location.lng,
+
+                    },
+                ]
                     
-            })
+            },
+            {
+                headers : {
+                    "X-AUTH-TOKEN" : accessToken
+            }})
             .then(function (response) {
-                // response  
+                alert("보내기완료")
             }).catch(function (error) {
-                // 오류발생시 실행
-            }).then(function() {
-                // 항상 실행
-            });
-            
+                alert("보내기실패")
+                console.log(error)
+            })
+            navigation.navigate("TRIPIAN")
         // async await 함수를 사용할 때, 
-        
     }
     
     useEffect(() => {
         if(props.route.params?.search){
             setsearch(props.route.params?.search)
         }
-    }, [props.route.params?.search]);
+        if (props.route.params?.endsearch) {
+            setendsearch(props.route.params?.endsearch)
+        }
+    }, [props.route.params?.search,props.route.params?.endsearch]);
     
     useLayoutEffect (()=> {
         props.navigation.setOptions({ 
@@ -124,9 +139,6 @@ function Textplanform(props) {
                 <TouchableOpacity
                 onPress = {()=>
                     Addplan()
-                    
-                
-                
             }
                 disabled = {
                     planname.length > 3 && firstday.length != 0 && search ? false : true }
@@ -235,7 +247,7 @@ function Textplanform(props) {
             <View style={styles.containertwo}>
                 <Text style={styles.textname}>출발 위치 등록</Text>
                 <Pressable onPress={() => navigation.navigate('지도추가',{
-                    setOptions : {}
+                    type : "start"
                 })}>
                     <View 
                     style ={{borderWidth : 2,
@@ -269,23 +281,44 @@ function Textplanform(props) {
                     </View>
                 </Pressable>
             </View>
+            <View style={styles.containertwo}>
+                <Text style={styles.textname}>도착 위치 등록</Text>
+                <Pressable onPress={() => navigation.navigate('지도추가',{
+                    type : "end"
+                })}>
+                    <View 
+                    style ={{borderWidth : 2,
+                        borderColor : endsearch ? '#5585E8' : '#C4C4C4',
+                        borderRadius : 4,
+                        height : 36,
+                        justifyContent : 'space-between',
+                        flexDirection : 'row',
+                        alignItems :'center',
+                        
+                        
+                    }}
+                    pointerEvents ="none">
+                        <Input
+                            editable={false} 
+                            myPlanName="여행명"
+                            value={endsearch? endsearch.name + `(${endsearch.vicinity ? endsearch.vicinity : '정보가없습니다' })` : '' }
+                            // value={search.name}
+                            autoCapitalize={'none'}
+                            keyboardType={'email-address'}
+                            style={styles.input}
+                            placeholder="여행을 시작하는 위치를 등록해주세요"
+                            placeholderTextColor='#767676'
+                            fontSize={14}
+                            marginLeft={10}
+
+                                
+                        />
+                            
+                        <IonIcon name="location-outline" size={18} style={{  marginRight : 10,color: search ? '#5585E8' : 'gray' ,fontWeight : '400'}}/>
+                    </View>
+                </Pressable>
+            </View>
             
-            {/* <Modal
-                style = {styles.modalmap}
-                isVisible={isModalmapVisible}
-                backdropColor={'#000000CC'}
-                backdropOpacity={0.5}
-                onBackdropPress={close}
-                
-                    >
-                <MapModal
-                    toggleon={toggleon}
-                    settoggleon={settoggleon}
-                    search={search}
-                    setsearch={setsearch}
-                    setisModalmapVisible={setisModalmapVisible}
-                />
-            </Modal> */}
             <Modal
                 style = {styles.modal}
                 isVisible={isModalVisible}
@@ -349,7 +382,7 @@ const styles = StyleSheet.create({
     },
 
     containertwo: {
-        marginBottom: 48,
+        marginBottom: 24,
         justifyContent: 'space-between'
     },
 

@@ -11,9 +11,9 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		634879A34262C37197000687 /* libPods-triplan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26FC3DF497DEF2F401BE7184 /* libPods-triplan.a */; };
+		68FBF3B7973D77D99D04855B /* libPods-triplan-triplanTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 562C80AD79E84AD39116B523 /* libPods-triplan-triplanTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		9F4787F8CDB3E7F96248A69D /* libPods-triplan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 822E33DE1A673FFDFE056ED7 /* libPods-triplan.a */; };
-		E1C5AB6C2AB2BEB76173316D /* libPods-triplan-triplanTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9231F8DCAEA1982C5A061D1 /* libPods-triplan-triplanTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,15 +36,15 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = triplan/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = triplan/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = triplan/main.m; sourceTree = "<group>"; };
-		35CCFFA566F5D6318E37ACED /* Pods-triplan-triplanTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-triplan-triplanTests.debug.xcconfig"; path = "Target Support Files/Pods-triplan-triplanTests/Pods-triplan-triplanTests.debug.xcconfig"; sourceTree = "<group>"; };
+		1D6FD00E5115506FC4AF6C20 /* Pods-triplan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-triplan.release.xcconfig"; path = "Target Support Files/Pods-triplan/Pods-triplan.release.xcconfig"; sourceTree = "<group>"; };
+		26FC3DF497DEF2F401BE7184 /* libPods-triplan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-triplan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3531332E9755584C5FC4AEDD /* Pods-triplan-triplanTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-triplan-triplanTests.debug.xcconfig"; path = "Target Support Files/Pods-triplan-triplanTests/Pods-triplan-triplanTests.debug.xcconfig"; sourceTree = "<group>"; };
+		562C80AD79E84AD39116B523 /* libPods-triplan-triplanTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-triplan-triplanTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F0C1C5EB19FF31200BCE043 /* Pods-triplan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-triplan.debug.xcconfig"; path = "Target Support Files/Pods-triplan/Pods-triplan.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = triplan/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		822E33DE1A673FFDFE056ED7 /* libPods-triplan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-triplan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8C082A44E50532E541A218B3 /* Pods-triplan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-triplan.debug.xcconfig"; path = "Target Support Files/Pods-triplan/Pods-triplan.debug.xcconfig"; sourceTree = "<group>"; };
-		A9231F8DCAEA1982C5A061D1 /* libPods-triplan-triplanTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-triplan-triplanTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B24E96CB27705FBC00B6164F /* triplan-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "triplan-Bridging-Header.h"; sourceTree = "<group>"; };
 		B27CCE6627613D7700D14CF2 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
-		B2AC4C30304DCC5EAB019ADC /* Pods-triplan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-triplan.release.xcconfig"; path = "Target Support Files/Pods-triplan/Pods-triplan.release.xcconfig"; sourceTree = "<group>"; };
-		DED21C768D5AFD604030732D /* Pods-triplan-triplanTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-triplan-triplanTests.release.xcconfig"; path = "Target Support Files/Pods-triplan-triplanTests/Pods-triplan-triplanTests.release.xcconfig"; sourceTree = "<group>"; };
+		CD04E7B6E958C683A88C2591 /* Pods-triplan-triplanTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-triplan-triplanTests.release.xcconfig"; path = "Target Support Files/Pods-triplan-triplanTests/Pods-triplan-triplanTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -53,7 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1C5AB6C2AB2BEB76173316D /* libPods-triplan-triplanTests.a in Frameworks */,
+				68FBF3B7973D77D99D04855B /* libPods-triplan-triplanTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,7 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F4787F8CDB3E7F96248A69D /* libPods-triplan.a in Frameworks */,
+				634879A34262C37197000687 /* libPods-triplan.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,8 +104,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				822E33DE1A673FFDFE056ED7 /* libPods-triplan.a */,
-				A9231F8DCAEA1982C5A061D1 /* libPods-triplan-triplanTests.a */,
+				26FC3DF497DEF2F401BE7184 /* libPods-triplan.a */,
+				562C80AD79E84AD39116B523 /* libPods-triplan-triplanTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -152,10 +152,10 @@
 		FE671C78FE749709C1A5EE99 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				8C082A44E50532E541A218B3 /* Pods-triplan.debug.xcconfig */,
-				B2AC4C30304DCC5EAB019ADC /* Pods-triplan.release.xcconfig */,
-				35CCFFA566F5D6318E37ACED /* Pods-triplan-triplanTests.debug.xcconfig */,
-				DED21C768D5AFD604030732D /* Pods-triplan-triplanTests.release.xcconfig */,
+				7F0C1C5EB19FF31200BCE043 /* Pods-triplan.debug.xcconfig */,
+				1D6FD00E5115506FC4AF6C20 /* Pods-triplan.release.xcconfig */,
+				3531332E9755584C5FC4AEDD /* Pods-triplan-triplanTests.debug.xcconfig */,
+				CD04E7B6E958C683A88C2591 /* Pods-triplan-triplanTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -167,12 +167,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "triplanTests" */;
 			buildPhases = (
-				A31782B7CB1A1C536A02A822 /* [CP] Check Pods Manifest.lock */,
+				45BA028550F1C2C21AE09951 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				1658A96BAE1CEBBF3F872EA9 /* [CP] Embed Pods Frameworks */,
-				2EB9D46A7D6336AE951A6A65 /* [CP] Copy Pods Resources */,
+				AF598E3DA9766A2D2A613B7E /* [CP] Embed Pods Frameworks */,
+				6D5B671A93F2CAF41AD1CEA8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -188,14 +188,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "triplan" */;
 			buildPhases = (
-				BABA5AF4AD56761D8E3D0D32 /* [CP] Check Pods Manifest.lock */,
+				46FDD46D7A6A3D3051174DC7 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				7C1129409646A655CF27BDA4 /* [CP] Embed Pods Frameworks */,
-				9F563DDDFC4753FA066B70F1 /* [CP] Copy Pods Resources */,
+				E286DA027712D6E1B03F4DB6 /* [CP] Embed Pods Frameworks */,
+				BD6ED15F7A7BF80D65575156 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -276,75 +276,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		1658A96BAE1CEBBF3F872EA9 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-triplan-triplanTests/Pods-triplan-triplanTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-triplan-triplanTests/Pods-triplan-triplanTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-triplan-triplanTests/Pods-triplan-triplanTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2EB9D46A7D6336AE951A6A65 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-triplan-triplanTests/Pods-triplan-triplanTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-triplan-triplanTests/Pods-triplan-triplanTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-triplan-triplanTests/Pods-triplan-triplanTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7C1129409646A655CF27BDA4 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-triplan/Pods-triplan-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-triplan/Pods-triplan-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-triplan/Pods-triplan-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9F563DDDFC4753FA066B70F1 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-triplan/Pods-triplan-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-triplan/Pods-triplan-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-triplan/Pods-triplan-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A31782B7CB1A1C536A02A822 /* [CP] Check Pods Manifest.lock */ = {
+		45BA028550F1C2C21AE09951 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -366,7 +298,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BABA5AF4AD56761D8E3D0D32 /* [CP] Check Pods Manifest.lock */ = {
+		46FDD46D7A6A3D3051174DC7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -386,6 +318,74 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6D5B671A93F2CAF41AD1CEA8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-triplan-triplanTests/Pods-triplan-triplanTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-triplan-triplanTests/Pods-triplan-triplanTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-triplan-triplanTests/Pods-triplan-triplanTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AF598E3DA9766A2D2A613B7E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-triplan-triplanTests/Pods-triplan-triplanTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-triplan-triplanTests/Pods-triplan-triplanTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-triplan-triplanTests/Pods-triplan-triplanTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BD6ED15F7A7BF80D65575156 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-triplan/Pods-triplan-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-triplan/Pods-triplan-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-triplan/Pods-triplan-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E286DA027712D6E1B03F4DB6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-triplan/Pods-triplan-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-triplan/Pods-triplan-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-triplan/Pods-triplan-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -440,7 +440,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 35CCFFA566F5D6318E37ACED /* Pods-triplan-triplanTests.debug.xcconfig */;
+			baseConfigurationReference = 3531332E9755584C5FC4AEDD /* Pods-triplan-triplanTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -470,7 +470,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DED21C768D5AFD604030732D /* Pods-triplan-triplanTests.release.xcconfig */;
+			baseConfigurationReference = CD04E7B6E958C683A88C2591 /* Pods-triplan-triplanTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -497,7 +497,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8C082A44E50532E541A218B3 /* Pods-triplan.debug.xcconfig */;
+			baseConfigurationReference = 7F0C1C5EB19FF31200BCE043 /* Pods-triplan.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -530,7 +530,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B2AC4C30304DCC5EAB019ADC /* Pods-triplan.release.xcconfig */;
+			baseConfigurationReference = 1D6FD00E5115506FC4AF6C20 /* Pods-triplan.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

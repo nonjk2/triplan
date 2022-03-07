@@ -3,43 +3,53 @@ import React, {Component, useCallback, useEffect, useState} from 'react';
 import {StyleSheet, View, Text, Button, FlatList, Animated, Dimensions} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import PlanListItems from './PlanListItem';
-
+import { ServerURL } from '../../../../util/misc';
+import { useDispatch, useSelector } from 'react-redux';
+import { planToggleAction } from '../../../store/actions/plan_action';
+import { useIsFocused } from '@react-navigation/native';
 const window = Dimensions.get("window");
 function Planlists(props) {
   const { headerHeight, tabBarHeight, tabRoute, listArrRef, isTabFocused } = props;
   const [data,setdata]=useState(null)
   const [loading, setLoading] = useState(null);
-
-
-    const fetchData = async () => {
+  const {accessToken} = useSelector((state) => state.user.auth)
+  const dispatch = useDispatch();
+  const isFocused = useIsFocused();
+   const fetchData = async () => {
       setLoading(true);
+      dispatch(planToggleAction(false))
       await axios.get(
-        "http://172.30.1.56:9090/plans"
-      ).then((res)=>setdata(res.data.list))
-      .catch((e)=> console.log(e))
-      setLoading(false)
+        `${ServerURL}/plans/my`,
+        {
+          headers : {
+              "X-AUTH-TOKEN" : accessToken
+        }}
+      ).then((res)=>{setdata(res.data.list)})
+      .catch()
+      setLoading(false)      
     };
-
     useEffect(() => {
       fetchData();
-    }, []);
+    }, [isFocused]);
    
 
-  const renderPlan = ({item}) => {
+  const renderPlan = useCallback(({item}) => {
 
     return (
       <PlanListItems
         {...props}
+        loading = {loading}
+        setLoading = {setLoading}
         plan_id = {item.planId}
         source={item.planImage}
         title={item.planTitle}
-        startDatetime={item.startDateTime}
-        endDatetime={item.endDateTime}
+        startDatetime={item.startDate}
+        endDatetime={item.endDate}
         dday={item.dday}
         navigation= {props.navigation}
       />
     );
-  };
+  },[]);
 
   const planlist = plans => {
     return plans.map(plan => {

@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useEffect, useRef, useState} from 'react';
 import {
     StyleSheet,
     View,
@@ -17,9 +17,9 @@ import Inputtwo from '../../../../util/forms/input';
 const WIDTH = Dimensions.get("window").width
 const HEIGHT_MODAL = Dimensions.get("window").height
 function NameModal(props) {
-    const {setplanname,setisNameModalvisible}=props;
+    const {setplanname,setisNameModalvisible,type}=props;
     const [plantitle,setplantitle]=useState(props.planname)
-       
+    
     return (
         <View style = {{width: 343,height: 184, borderRadius :10, shadowOffset:{ width :2, height : 4,} , shadowOpacity : 0.10 , shadowColor : '#000'}}>
             <View style = {{width: 343,height: 122, borderRadius : 10,backgroundColor : '#fff' , shadowOffset:{ width :2, height : 4,} , shadowOpacity : 0.10 , shadowColor : '#000'}}>
@@ -32,13 +32,15 @@ function NameModal(props) {
                 </View>
                 <View style = {{alignItems : 'center', justifyContent :'center' ,flex: 1 }}>
                     <Inputtwo
+
                         myPlanName="여행명"
                         value={plantitle}
                         autoCapitalize={'none'}
                         keyboardType={'email-address'}
+                        placeholder="여행 제목"
                         style={{}}
                         fontSize={24}
-                        placeholderTextColor='#767676'
+                        placeholderTextColor='#c4c4c4'
                         marginLeft={10}
                         numberOfLines={4}
                         onChangeText={value => setplantitle(value)}

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect} from 'react';
 import {StyleSheet, View, Text, Button, FlatList, TouchableOpacity, Image, Dimensions,Animated} from 'react-native';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 
@@ -6,6 +6,10 @@ import IonIcon from 'react-native-vector-icons/Ionicons';
 export const HiddenItemWithAction = props => {
 
     const {onClose} = props;
+
+    useEffect(()=>{
+
+    },[])
 
     return (
       <Animated.View style = {{alignItems: 'flex-end' , marginRight : 16,
@@ -22,7 +26,15 @@ export const HiddenItemWithAction = props => {
          ] }}>
         <TouchableOpacity 
             // onPress={onClose}
-            onPress={() => console.log(props)}
+            onPress={() => {
+                props.navigation.navigate('일정 편집',{
+                    title : props.title,
+                    memo : props.memo,
+                    price : props.price,
+                    startDatetime : props.startDatetime,
+                    endDatetime : props.endDatetime,
+                } );
+            }}
             style ={{backgroundColor : '#FF275B',width : 84 , height :84,borderRadius : 10, alignItems :'center', justifyContent :'center'}}>
             <IonIcon name="remove-outline" size={35} color = {'white'}/>
 

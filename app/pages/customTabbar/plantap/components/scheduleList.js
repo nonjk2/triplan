@@ -1,3 +1,5 @@
+import { useIsFocused } from '@react-navigation/native';
+import axios from 'axios';
 import React, { useState, useRef, useEffect } from 'react';
 import {
     StyleSheet,
@@ -9,20 +11,39 @@ import {
 
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { Scheduledata } from '../../../../../util/forms/data';
+import { ServerURL } from '../../../../../util/misc';
 import ScheduleListitems from './scheduleListitem'; 
 import { HiddenItemWithAction } from './scheduleSwipe';
 
+    const DATA=Scheduledata
 
-const DATA = Scheduledata
 export default function ScheduleList(props) {
-    
-    const {startDate,navigation} = props
-    const [listData] = useState(
-      DATA
-      .map((_, i) => ({...DATA[i],key: `${i}`}))
-      .filter(e => new Date(e.startDatetime).getDate() == startDate)
+    const [loading , setloading] = useState(null)
+    const {startDate,navigation,plan_id} = props
+    const [listData,setlistData] = useState(
 
-    );
+        //   DATA
+    //   .map((_, i) => ({...DATA[i],key: `${i}`}))
+    //   .filter(e => new Date(e.startDatetime).getDate() == startDate)
+
+    //
+    []);
+    const isFocused = useIsFocused();
+    const GetPlanSchduleList = async () =>{
+        setloading(true)
+        await axios.get(`${ServerURL}/schedules/${plan_id}`,
+        )
+        .then(function (response) {
+            setlistData(response.data.list)
+        }).catch(function (error) { 
+            alert("실패")})
+        setloading(false)
+    // async await 함수를 사용할 때, 
+      }
+    
+      useEffect(()=>{
+        GetPlanSchduleList();
+      },[isFocused])
     const openRowRef = useRef(null);
     const onRowDidOpen = (rowKey, rowMap) => {
         openRowRef.current = rowMap[rowKey];
@@ -38,12 +59,11 @@ export default function ScheduleList(props) {
     const renderItem = ({item}) => (
 
         <ScheduleListitems
-          data={item}
-          schedule_id={item.schedule_id}
-          title={item.schedule_title}
+          schedule_id={item.scheduleId}
+          title={item.scheduleTitle}
           price={item.price}
-          startDatetime={item.startDatetime}
-          endDatetime={item.endDatetime}
+          startDatetime={new Date(`${item.startDateTime}`)}
+          endDatetime={item.endDateTime}
           memo={item.memo}
           navigation= {navigation}
         />
@@ -53,6 +73,7 @@ export default function ScheduleList(props) {
         <HiddenItemWithAction
         data={data}
         rowMap={rowMap}
+        navigation= {navigation}
         onClose={()=>this.closeRow(rowMap, data.item.schedule_id)}
         onDelete = {()=> deleterow(rowMap, data.schedule_id )}
         // onLeftAction = {()=>this.onLeftAction(rowMap)}
@@ -62,7 +83,8 @@ export default function ScheduleList(props) {
     );
 
     return (
-        listData.length != 0 ? 
+        loading ? <></> : 
+        listData ? 
         <View style={styles.container}>
             <SwipeListView
                 data={listData}
@@ -70,7 +92,6 @@ export default function ScheduleList(props) {
                 renderHiddenItem={renderHiddenItem}
                 leftOpenValue={75}
                 rightOpenValue={-92}
-
                 previewRowKey={'0'}
                 previewOpenValue={-40}
                 previewOpenDelay={3000}

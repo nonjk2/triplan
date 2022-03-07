@@ -11,7 +11,7 @@ import {
 
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import PlanTabView from './components/PlanTab';
+
 import Carousel from './components/Carousel';
 import {dummydata} from './components/CaroucelData';
 import { Header } from './components/header';

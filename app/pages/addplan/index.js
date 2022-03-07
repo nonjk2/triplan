@@ -24,12 +24,12 @@ function AddplanScreen(props) {
                     flex: 1,
 
                 }}>
-                <ScrollView style={styles.container}>
+                <View style={styles.container}>
                     <Textplanform
                         {...props}
                         myTextInput={myTextInput}
                     />
-                </ScrollView>
+                </View>
                 <View style ={styles.invitelist}>
                     <InviteList data = {data}/>
                 </View>
@@ -40,11 +40,11 @@ function AddplanScreen(props) {
 
 const styles = StyleSheet.create({
     invitelist: {
-        flex: 1,
+        flex: 2.5,
         backgroundColor: '#fff'
     },
     container: {
-        flex: 1,
+        flex: 3,
         backgroundColor: '#fff',
         paddingTop: 60,
         paddingLeft: 16,

@@ -18,7 +18,6 @@ const PHOTO = "Aap_uEDDBUinRq6fSh0bTh3WIfIRzmpwl3dBb1KMoAPfCeMebYIVeSt81qwpfExYE
 function MapModal(params) {
 
     const [toggleon,settoggleon]=useState(false)
-    const [search,setsearch]=useState()
     const mapView = useRef(null)
     const [currentLocation, setCurrentLocation] = useState(P0);
     const [enableLayerGroup, setEnableLayerGroup] = useState(false);
@@ -29,16 +28,9 @@ function MapModal(params) {
 
   useEffect(() => {
     requestLocationPermission()
-    // setCurrentLocation({longitude : searchdata.geometry.location.lng , latitude : searchdata.geometry.location.lat})
-    
-    // ref.current?.setAddressText('Some Text');
   },[]);
 
-    // const redersearch = ({item}) =>{
-    //     return(
 
-    //     )
-    // }
     return(
         <View style ={{height :HEIGHT, width : WIDTH, borderRadius : 15 ,justifyContent :'flex-start'}}>
             
@@ -98,11 +90,14 @@ function MapModal(params) {
                             <TouchableOpacity 
                                 onPress = {()=>params.navigation.navigate({
                                     name : "여행 추가",
-                                    params : {search : searchdata},
+                                    params : params.route.params.type === "start" ? {search : searchdata} : {endsearch : searchdata},
                                     merge : true
                                 })}
                                 style = {{backgroundColor : '#5585E8', width : 100,height :30 , borderRadius : 15 , alignItems : 'center', justifyContent :'center'}}>
-                                <Text style = {{color : '#fff'}}>출발위치등록</Text>
+                                {params.route.params.type === "start" ? <Text style = {{color : '#fff'}}>출발위치등록</Text>
+                                :   <Text style = {{color : '#fff'}}>도착위치등록</Text>
+                            }
+                                
                             </TouchableOpacity>
                         </View>
                     </View>

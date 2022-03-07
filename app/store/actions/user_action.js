@@ -4,12 +4,12 @@ import {
     SIGN_IN,
     AUTO_SIGN_IN
 } from '../types';
-
+import { ServerURL } from '../../../util/misc';
 export const autoSignIn = (refToken) =>{
     
     const request = axios({
         method:'post',
-        url:`http://172.30.1.56:9090/social/autologin/kakao`,
+        url:`${ServerURL}/social/autologin/kakao`,
         data :{
             refreshToken : refToken
         }

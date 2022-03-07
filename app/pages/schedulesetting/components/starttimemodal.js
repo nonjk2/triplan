@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useCallback, useState} from 'react';
 import {
     StyleSheet,
     View,
@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import DateTimePicker from '@react-native-community/datetimepicker';
-
+import { TimeUTC } from '../../../../util/forms/time';
 
 
 
@@ -20,15 +20,15 @@ const WIDTH = Dimensions.get("window").width
 const HEIGHT_MODAL = Dimensions.get("window").height
 function Starttimemodal(props) {
 
-    const [endTimeProp,setendTimeProp]=useState(props.endDatetime)    
-    const [startTimeProp,setstartTimeProp]=useState(props.startDatetime)
+    const [endTimeProp,setendTimeProp]=useState(props.endDatetime===''? new Date() : props.endDatetime)    
+    const [startTimeProp,setstartTimeProp]=useState(props.startDatetime === '' ? new Date() : props.startDatetime)
     const {setstartdate,setisstartModalvisible}=props;    
-    const onChange = (event, selectedDate) => {
+    const onChange = useCallback((event, selectedDate) => {
         
         const currentDate = new Date(selectedDate).getTime()
-        console.log(currentDate)
+        console.log(new Date(selectedDate).toISOString())
         setstartTimeProp(selectedDate)
-      };
+      },[]);
 
             const starttime = new Date(startTimeProp).getTime()
             const plantext = starttime
@@ -44,7 +44,7 @@ function Starttimemodal(props) {
                         </View>
                         <View style = {{flex: 1  , justifyContent : 'center'}}>
                             <DateTimePicker
-                                maximumDate = {endTimeProp}
+                                maximumDate ={endTimeProp}
                                 value={startTimeProp}
                                 mode={'time'}
                                 is24Hour={true}

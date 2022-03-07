@@ -32,20 +32,6 @@ export default function Maptap(props) {
   const [currentLocation, setCurrentLocation] = useState(MyArray[index]);
   const [enableLayerGroup, setEnableLayerGroup] = useState(false);
   const [myMarker,setmyMarker]=useState(MarkerDATA)
-
-  // const locationHandler = (e) => { 
-  //     Alert.alert( "", "Marker?", [ 
-  //             { text: 'Cancel'},
-  //             { text: 'OK', onPress: () =>
-  //             {console.log('onMapClick', e)} 
-  //             // { setCurrentLocation(e);  }
-  //         }
-  //             // console.log('onMapClick', JSON.stringify(e));
-  //         ],
-  //         { cancelable: false } 
-  //     ); 
-  // };
-
   const setDay =(index) =>{
       setdayindex(index)
       setmyMarker(DATA.filter(e=>new Date(e.startDatetime).getDate()===new Date(startDate).getDate()+index))
@@ -58,13 +44,6 @@ export default function Maptap(props) {
         justifyContent: 'center',
       }}>
         <NaverMapView
-          // caroucelIndex={index}
-          // dayindex = {dayindex}
-          // startDate = {startDate}
-          // DATA = {DATA}
-          // setdayindex ={setdayindex}
-          // planday={planday}
-
           ref={mapView}
           style={{width: '100%', height: '100%'}}
           showsMyLocationButton={false}

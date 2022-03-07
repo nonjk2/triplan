@@ -68,3 +68,4 @@ package.json
 ios/triplan/AppDelegate.m
 ios/triplan/Info.plist
 util/forms/data.js
+util/misc.js

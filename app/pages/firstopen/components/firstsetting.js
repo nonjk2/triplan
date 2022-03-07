@@ -1,7 +1,7 @@
 import React, {Component, useCallback, useEffect, useState} from 'react';
 import {StyleSheet, View, Text, Button, TouchableOpacity} from 'react-native';
 import Input from '../../../../util/forms/input';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import Modal from "react-native-modal";
@@ -9,21 +9,28 @@ import CheckModal from '../../../../util/forms/checkProccess';
 import { FirstSetting } from '../../../../util/misc';
 import { signIn } from '../../../store/actions/user_action';
 import axios from 'axios';
+import { ServerURL } from '../../../../util/misc';
 function SettingContents(props) {
     const {dispatch,navigation}=props;
     const [nickname,setnickname]=useState(props.user.nickname)
     const [introduce,setintroduce]=useState(props.user.aboutme)
     const [isAccessAleatOpen,setisAccessAleatOpen]=useState(false)
-
+    const {accessToken} = useSelector((state) => state.user.auth)
+    
     const introduceUpdate = () => {
-            axios.put("http://172.30.1.56:9090/members", {
+            axios.put(`${ServerURL}/members`,
+                {    
                     nickname : nickname,
                     aboutMe : introduce,
                     email : props.user.email
-                })
+                },
+                {
+                    headers : {
+                        "X-AUTH-TOKEN" : accessToken
+                }})
                 .then(function (response) {
                     compleate()
-                }).catch(function (error) {
+                }).catch(function (error) { 
                     // 오류발생시 실행
                 }).then(function() {
                     // 항상 실행
