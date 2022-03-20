@@ -23,6 +23,9 @@
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
     "@react-navigation/stack": "^6.0.11",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^17.0.21",
+    "@types/react-dom": "^17.0.14",
     "axios": "^0.24.0",
     "lottie-ios": "3.2.3",
     "lottie-react-native": "^5.0.1",
@@ -38,7 +41,7 @@
     "react-native-highlight-words": "^1.0.1",
     "react-native-image-crop-picker": "^0.37.2",
     "react-native-mail": "^6.1.1",
-    "react-native-modal": "^13.0.0",
+    "react-native-modal": "^13.0.1",
     "react-native-nmap": "^0.0.66",
     "react-native-pager-view": "^5.4.9",
     "react-native-paper": "^4.11.1",
@@ -58,11 +61,16 @@
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",
+    "@types/react": "^17.0.41",
+    "@types/react-native": "^0.67.3",
+    "@types/react-native-highlight-words": "^1.0.2",
+    "@types/react-native-vector-icons": "^6.4.10",
     "babel-jest": "^26.6.3",
     "eslint": "7.14.0",
     "jest": "^26.6.3",
     "metro-react-native-babel-preset": "^0.66.2",
-    "react-test-renderer": "17.0.2"
+    "react-test-renderer": "17.0.2",
+    "typescript": "^4.6.2"
   },
   "jest": {
     "preset": "react-native"

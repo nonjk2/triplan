@@ -1,104 +1,58 @@
-/* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
   Text,
   Dimensions,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   FlatList,
   Image,
 } from 'react-native';
 import SearchInput from '../../../../util/forms/input';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import CheckBox from '@react-native-community/checkbox';
-import {connect} from 'react-redux';
-import {inviteInsert, inviteDelete} from '../../../store/actions/invite_action';
-import {bindActionCreators} from 'redux';
+import Highlighter from 'react-native-highlight-words';
 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT_MODAL = Dimensions.get('window').height;
-class InviteModal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      borderColor: '#fff',
-      isModalVisible: this.props,
-      data: this.props.data,
-      data2: this.props.data,
-      search: '',
-    };
-  }
-
-  checkboxtruefalse = () => {
-    const modalchecked = this.props.invite;
-    const {data} = this.state;
-    for (let i = 0; i < modalchecked.length; i++) {
-      for (let j = 0; j < data.length; j++) {
-        if (modalchecked[i].freinds_id === data[j].freinds_id) {
-          const dataSelctturetwo = modalchecked[i].isSelected;
-          this.setState({
-            dataSelctture: dataSelctturetwo,
-          });
-        }
-      }
-    }
-  };
+function InviteModal(props: any) {
+  const [search, setsearch] = useState('');
+  const [data, setdata] = useState(props.data);
 
   //검색창 입니다 ///
-  searchFirends = text => {
-    const {data} = this.state;
+  const searchFirends = (text: any) => {
     if (text) {
-      const newData = data.filter(item => {
+      const newData = data.filter((item: any) => {
         const itemData = item.nickname
           ? item.nickname.toUpperCase()
           : ''.toUpperCase();
         const TextData = text.toUpperCase();
         return itemData.indexOf(TextData) > -1;
       });
-      this.setState({
-        data2: newData,
-      });
-      this.setState({
-        search: text,
-      });
+      if (newData[0]) {
+        setdata(props.data);
+        setdata(newData);
+        setsearch(text);
+        console.log(search);
+      } else {
+        setsearch(text);
+        console.log(search);
+      }
     } else {
-      this.setState({
-        data: data,
-      });
-      this.setState({
-        search: text,
-      });
+      setdata(props.data);
+      setsearch(text);
+      console.log(search);
     }
   };
-
-  renderOutsideTouchable(onTouch) {
-    const view = (
-      <View onAnimationType="fade" style={{flex: 1, width: '100%'}} />
-    );
-
-    if (!onTouch) {
-      return view;
-    }
-    return (
-      <TouchableWithoutFeedback
-        onPress={onTouch}
-        style={{flex: 1, width: '100%'}}>
-        {view}
-      </TouchableWithoutFeedback>
-    );
-  }
-
-  renderTitle = () => {
+  const renderTitle = () => {
     return (
       <View style={styles.modalTitle}>
         <View style={styles.modalTitleinside}>
           <IonIcon name="search" size={20} style={styles.modalIconLeft} />
           <View style={{flex: 1}}>
             <SearchInput
-              value={this.state.search}
-              onChangeText={text => this.searchFirends(text)}
+              value={search}
+              onChangeText={(text: any) => searchFirends(text)}
               placeholder="친구이름#아이디번호"
               backgroundColor="#000"
               placeholderTextColor="#fff"
@@ -108,20 +62,20 @@ class InviteModal extends React.Component {
             />
           </View>
           <Text style={styles.modalIconRight}>
-            +{this.state.data.filter(e => e.isSelected === true).length}
+            +{data.filter((e: any) => e.isSelected === true).length}
           </Text>
         </View>
       </View>
     );
   };
-  renderContent = (item, index) => {
+  const renderContent = () => {
     return (
       <View style={{marginTop: 10}}>
         <FlatList
-          data={this.state.data2}
-          renderItem={this.renderInviteModal}
+          data={data}
+          renderItem={renderInviteModal}
           showsVerticalScrollIndicator={true}
-          keyExtractor={i => `key-${i.freinds_id}`}
+          keyExtractor={item => `key-${item.freinds_id}`}
           style={{
             width: '100%',
             height: 510,
@@ -135,7 +89,7 @@ class InviteModal extends React.Component {
               alignItems: 'center',
               justifyContent: 'center',
               backgroundColor:
-                this.state.data.filter(e => e.isSelected === true).length === 0
+                data.filter((e: any) => e.isSelected === true).length === 0
                   ? '#767676'
                   : '#5585E8',
               width: WIDTH - 32,
@@ -143,7 +97,7 @@ class InviteModal extends React.Component {
               borderRadius: 10,
               zIndex: 6,
             }}
-            onPress={this.onClickInvite}>
+            onPress={onClickInvite}>
             <Text style={styles.compleatText}>완료</Text>
           </TouchableOpacity>
           <View
@@ -164,9 +118,8 @@ class InviteModal extends React.Component {
     );
   };
 
-  checked = (item, index) => {
-    const {data} = this.state;
-    const newData = data.map(e => {
+  const checked = (item: any, _index: any) => {
+    const newData = data.map((e: any) => {
       if (e.nickname === item.nickname) {
         return {
           ...e,
@@ -179,13 +132,9 @@ class InviteModal extends React.Component {
       };
     });
 
-    this.setState({
-      data: newData,
-    });
-    console.log(this.state.data);
+    setdata(newData);
   };
-
-  renderInviteModal = ({item, index}) => {
+  const renderInviteModal = ({item, index}: any) => {
     return (
       <View
         style={{
@@ -216,18 +165,28 @@ class InviteModal extends React.Component {
               }}
             />
             <View style={styles.invitecontain}>
-              <View style={styles.inviteView}>
-                <Text style={styles.friendsnamestyle}>
-                  {item.nickname}#{item.id}
-                </Text>
-                <Text style={styles.friendsIntro}>{item.introduce}</Text>
+              <View>
+                <Highlighter
+                  autoEscape={true}
+                  highlightStyle={{
+                    fontSize: 15,
+                    fontWeight: '400',
+                    lineHeight: 20,
+                    letterSpacing: 1,
+                    color: '#5585E8',
+                  }}
+                  searchWords={[search]}
+                  textToHighlight={item.nickname}
+                />
+                {/* <Text style={{fontSize : 15 , fontWeight :'400', lineHeight : 20, letterSpacing : 1 , }}>{item.nickname}#{item.id}</Text> */}
+                <Text>{item.introduce}</Text>
               </View>
             </View>
           </View>
           <CheckBox
             style={styles.checkbox}
             value={item.isSelected}
-            onValueChange={() => this.checked(item, index)}
+            onValueChange={() => checked(item, index)}
             animationDuration={0.2}
             lineWidth={2}
             onCheckColor="#fff"
@@ -242,37 +201,31 @@ class InviteModal extends React.Component {
     );
   };
 
-  onClickInvite = () => {
-    const {data} = this.state;
-    const {close} = this.props;
-    const listSelected = data.filter(e => e.isSelected === true);
-    this.props.inviteDelete();
+  const onClickInvite = () => {
+    const {close} = props;
+    const listSelected = data.filter((e: any) => e.isSelected === true);
+    props.inviteDelete();
     for (let key in listSelected) {
-      this.props.inviteInsert(listSelected[key]);
+      props.inviteInsert(listSelected[key]);
     }
     close(data);
   };
-
-  render() {
-    const {onTouchOutside} = this.props;
-    return (
-      <View
-        style={{
-          width: WIDTH,
-          height: 568,
-          borderRadius: 10,
-        }}>
-        {this.renderOutsideTouchable(onTouchOutside)}
-        <View style={styles.modalView}>
-          <View style={{alignItems: 'center', height: 30}}>
-            <IonIcon name="remove-sharp" size={30} style={{color: '#000'}} />
-          </View>
-          {this.renderTitle()}
-          {this.renderContent()}
+  return (
+    <View
+      style={{
+        width: WIDTH,
+        height: 568,
+        borderRadius: 10,
+      }}>
+      <View style={styles.modalView}>
+        <View style={{alignItems: 'center', height: 30}}>
+          <IonIcon name="remove-sharp" size={30} style={{color: '#000'}} />
         </View>
+        {renderTitle()}
+        {renderContent()}
       </View>
-    );
-  }
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -359,13 +312,5 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
-function mapStateToProps(state) {
-  return {
-    invite: state.invite,
-  };
-}
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({inviteInsert, inviteDelete}, dispatch);
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(InviteModal);
+export default InviteModal;
