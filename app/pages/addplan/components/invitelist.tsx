@@ -11,12 +11,14 @@ import Modal from 'react-native-modal';
 import InviteListItems from './invitelistitem';
 import InviteModal from './invitemodal';
 import IonIcon from 'react-native-vector-icons/Ionicons';
+import {useSelector} from 'react-redux';
 
 const WIDTH = Dimensions.get('window').width;
 
 function InviteList(props: any) {
   const [data, setdata] = useState(props.data);
   const [isModalVisible, setisModalVisible] = useState(false);
+  const invite = useSelector((state: any) => state.invite);
 
   useEffect(() => {
     getModaldataItem();
@@ -83,7 +85,7 @@ function InviteList(props: any) {
                 fontSize: 12,
                 fontWeight: '400',
               }}>
-              {props.invite.length}/8
+              {invite.length}/8
             </Text>
           </View>
         </View>
@@ -99,7 +101,7 @@ function InviteList(props: any) {
         </TouchableWithoutFeedback>
       </View>
       <FlatList
-        data={props.invite}
+        data={invite}
         renderItem={renderInvite}
         numColumns={4}
         style={{

@@ -90,7 +90,7 @@ class Loading extends Component {
     login()
       .then(result => {
         this.logined(result.accessToken).then(() => this.manageAcceess());
-        // console.log(result)
+        // console.log(result);
       })
       .catch(err => {
         Alert.alert('카카오 로그인 실패' + err);
@@ -105,11 +105,9 @@ class Loading extends Component {
       await axios
         .post(`${ServerURL}/social/login/kakao`, {
           // await axios.post(`http://192.168.130.11:9090/social/login/kakao`,{
-
           accessToken: token,
         })
         .then(response => this.props.signIn(response.data.data))
-
         .catch(err => Alert.alert('서버 회원가입 및 로그인 실패 : ' + err));
     } catch (error) {
       console.log(error);

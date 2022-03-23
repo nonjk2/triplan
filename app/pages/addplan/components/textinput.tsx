@@ -263,6 +263,8 @@ function Textplanform(props: any) {
               style={styles.input}
               placeholder="여행 기간 및 날짜를 입력하세요"
               placeholderTextColor="#767676"
+              returnKeyTpye="next"
+              autoComplete="email"
               fontSize={14}
               marginLeft={10}
               onChangeText={(value: any) => setplanday(value)}

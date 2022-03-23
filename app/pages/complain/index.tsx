@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -20,26 +20,10 @@ function ComplainScreen({navigation}: any) {
   const [complainName, setcomplainName] = useState('');
   const [complain, setcomplain] = useState('');
   const accessToken = useSelector((state: any) => state.user.auth?.accessToken);
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity onPress={() => close()}>
-          <Text
-            style={{
-              color:
-                complainName.length > 0 && complain.length > 0
-                  ? '#5585E8'
-                  : '#000000',
-            }}>
-            저장
-          </Text>
-        </TouchableOpacity>
-      ),
-    });
-  }, [navigation, complain, complainName]);
 
-  const close = useCallback(() => {
-    axios
+  const SendComplain = async () => {
+    setisAccessAleatOpen(true);
+    await axios
       .post(
         `${ServerURL}/questions`,
         {
@@ -53,20 +37,22 @@ function ComplainScreen({navigation}: any) {
           },
         },
       )
-      .then(function (response) {
-        console.log(response);
+      .then(function () {
+        compleate();
       })
       .catch(function (error) {
         // 오류발생시 실행
         console.log(error);
       })
-      .then(function () {
-        // 항상 실행
-      });
-  }, []);
-
-  const sendComplete = () => {
+      .then(function () {});
+  };
+  const close = () => {
+    setisAccessAleatOpen(false);
+  };
+  const compleate = () => {
     setisAccessAleatOpen(true);
+    setTimeout(setisAccessAleatOpen, 1500, false);
+    navigation.navigate('TRIPIAN');
   };
 
   return (
@@ -87,7 +73,7 @@ function ComplainScreen({navigation}: any) {
       <View style={{alignItems: 'center', marginBottom: 30}}>
         <TouchableOpacity
           onPress={() => {
-            sendComplete();
+            SendComplain();
           }}
           disabled={
             complainName.length > 0 && complain.length > 0 ? false : true

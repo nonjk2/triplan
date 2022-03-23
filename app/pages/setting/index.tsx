@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, SafeAreaView, TouchableOpacity} from 'react-native';
 import Profile from './components/profile';
 import Textsetting from './components/textinput';
@@ -48,8 +48,8 @@ function SettingScreen(props: any) {
       : '';
   }, [props.navigation, nickname, aboutMe]);
 
-  const ProfileUpdate = useCallback(() => {
-    axios
+  const ProfileUpdate = async () => {
+    await axios
       .put(
         `${ServerURL}/members`,
         {
@@ -63,17 +63,17 @@ function SettingScreen(props: any) {
         },
       )
       .then(function () {
-        alert('완료');
+        props.navigation.navigate('TRIPIAN');
       })
       .catch(function (_error) {
-        // 오류발생시 실행
+        // 오류발생시 실행aag
       })
       .then(function () {
         // 항상 실행
       });
 
     // async await 함수를 사용할 때,
-  }, []);
+  };
 
   return nickname ? (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>

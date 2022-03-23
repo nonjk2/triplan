@@ -8,7 +8,8 @@ import {planToggleAction} from '../../../store/actions/plan_action';
 import {useIsFocused} from '@react-navigation/native';
 const window = Dimensions.get('window');
 function Planlists(props: any) {
-  const {headerHeight, tabBarHeight, tabRoute, listArrRef} = props;
+  const {headerHeight, tabBarHeight, tabRoute, listArrRef, isTabFocused} =
+    props;
   const [data, setdata] = useState(null);
   const [loading, setLoading] = useState(null) as any;
   const {accessToken} = useSelector((state: any) => state.user.auth);
@@ -85,14 +86,14 @@ function Planlists(props: any) {
             minHeight: window.height + headerHeight - tabBarHeight,
           }}
           scrollEventThrottle={16}
-          // onScroll={
-          //   isTabFocused
-          //     ? Animated.event(
-          //         [{nativeEvent: {contentOffset: {y: props.scrollY}}}],
-          //         {useNativeDriver: true},
-          //       )
-          //     : null
-          // }
+          onScroll={
+            isTabFocused
+              ? Animated.event(
+                  [{nativeEvent: {contentOffset: {y: props.scrollY}}}],
+                  {useNativeDriver: true},
+                )
+              : null
+          }
           onMomentumScrollBegin={props.onMomentumScrollBegin}
           onMomentumScrollEnd={props.onMomentumScrollEnd}
           onScrollEndDrag={props.onScrollEndDrag}

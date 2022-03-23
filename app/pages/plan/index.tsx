@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
   StyleSheet,
@@ -12,14 +13,14 @@ import {dummydata} from './components/CaroucelData';
 import {Header} from './components/header';
 import {TabView} from 'react-native-tab-view';
 import Planlists from './components/PlanList';
-import {useSelector} from 'react-redux';
+// import {useSelector} from 'react-redux';
 
-const DATA = [];
+// const DATA = [];
 const TABBAR_HEIGHT = 55;
-function HomeScreen(props) {
-  const user = useSelector(state => state.user.auth);
+function HomeScreen(props: any) {
+  // const user = useSelector((state: any) => state.user.auth);
   const [headerHeight, setHeaderHeight] = useState(0);
-  const [tabRoutes, setTabRoutes] = useState([
+  const [tabRoutes] = useState([
     {key: 'planlists', title: '전체'},
     {key: 'first', title: '다가올 여행'},
     {key: 'second', title: '다녀온 여행'},
@@ -28,9 +29,9 @@ function HomeScreen(props) {
   const [tabIndex, setTabIndex] = useState(0);
   const isListGlidingRef = useRef(false);
   const listArrRef = useRef([]);
-  const listOffsetRef = useRef({});
+  const listOffsetRef: any = useRef({});
 
-  const scrollY = useRef(new Animated.Value(0)).current;
+  const scrollY: any = useRef(new Animated.Value(0)).current;
   const headerTranslateY = scrollY.interpolate({
     inputRange: [0, headerHeight],
     outputRange: [0, -headerHeight],
@@ -71,7 +72,7 @@ function HomeScreen(props) {
   const syncScrollOffset = () => {
     const focusedTabKey = tabRoutes[tabIndexRef.current].key;
 
-    listArrRef.current.forEach(item => {
+    listArrRef.current.forEach((item: any) => {
       if (item.key !== focusedTabKey) {
         if (scrollY._value < headerHeight && scrollY._value >= 0) {
           if (item.value) {
@@ -137,8 +138,10 @@ function HomeScreen(props) {
   );
 
   const renderTabBar = useCallback(
-    props => {
-      const inputRange = props.navigationState.routes.map((x, i) => i);
+    (props: any) => {
+      const inputRange = props.navigationState.routes.map(
+        (x: any, i: any) => i,
+      );
       return (
         <Animated.View
           style={[
@@ -153,10 +156,10 @@ function HomeScreen(props) {
             },
             {transform: [{translateY: tabBarTranslateY}]},
           ]}>
-          {props.navigationState.routes.map((route, idx) => {
+          {props.navigationState.routes.map((route: any, idx: any) => {
             const opacity = props.position.interpolate({
               inputRange,
-              outputRange: inputRange.map(inputIndex =>
+              outputRange: inputRange.map((inputIndex: any) =>
                 inputIndex === idx ? 1 : 0.7,
               ),
             });
@@ -207,7 +210,7 @@ function HomeScreen(props) {
             onIndexChange={onTabIndexChange}
           />
         ) : null}
-        {/* <PlanTabView key={props.key} navigation = {props.navigation} /> */}
+        {/* <PlanTabView key={props.key} navigation={props.navigation} /> */}
 
         <Animated.View
           onLayout={headerOnLayout}

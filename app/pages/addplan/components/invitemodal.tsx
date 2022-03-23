@@ -12,13 +12,15 @@ import SearchInput from '../../../../util/forms/input';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import CheckBox from '@react-native-community/checkbox';
 import Highlighter from 'react-native-highlight-words';
+import {useDispatch} from 'react-redux';
+import {inviteDelete, inviteInsert} from '../../../store/actions/invite_action';
 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT_MODAL = Dimensions.get('window').height;
 function InviteModal(props: any) {
   const [search, setsearch] = useState('');
   const [data, setdata] = useState(props.data);
-
+  const dispatch = useDispatch();
   //검색창 입니다 ///
   const searchFirends = (text: any) => {
     if (text) {
@@ -204,9 +206,9 @@ function InviteModal(props: any) {
   const onClickInvite = () => {
     const {close} = props;
     const listSelected = data.filter((e: any) => e.isSelected === true);
-    props.inviteDelete();
+    dispatch(inviteDelete());
     for (let key in listSelected) {
-      props.inviteInsert(listSelected[key]);
+      dispatch(inviteInsert(listSelected[key]));
     }
     close(data);
   };

@@ -10,6 +10,7 @@ target 'triplan' do
   pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
   pod 'NMapsMap','3.10.1'
+  pod 'KakaoOpenSDK', '~> 1.21.0'
 
   use_react_native!(
     :path => config[:reactNativePath],
