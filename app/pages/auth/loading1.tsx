@@ -1,5 +1,7 @@
-import axios from 'axios';
-import React, {useEffect, useState} from 'react';
+/* eslint-disable no-alert */
+/* eslint-disable react-native/no-inline-styles */
+import axios, {AxiosError} from 'axios';
+import React, {Component, useEffect, useState} from 'react';
 import {
   Animated,
   View,
@@ -11,71 +13,95 @@ import {
   StyleSheet,
 } from 'react-native';
 import {login, logout} from '@react-native-seoul/kakao-login';
-import {useDispatch, useSelector} from 'react-redux';
+import {connect, useDispatch, useSelector} from 'react-redux';
+import {signIn, signUp, autoSignIn} from '../../store/actions/user_action';
+import {bindActionCreators} from 'redux';
 import {setToken, getToken} from '../../../util/misc';
 import * as Animatable from 'react-native-animatable';
 import Input from '../../../util/forms/input';
 import {ServerURL} from '../../../util/misc';
-import {autoSignIn} from '../../store/actions/user_action';
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT_MODAL = Dimensions.get('window').height;
 
-export default function Loading(props) {
-  const {navigation} = props;
-  const [xVaule, setxValue] = useState(new Animated.Value(60));
-  const [opacity, setopacity] = useState(new Animated.Value(0));
-  const [isKakaoLogging, setisKakaoLogging] = useState(false);
-  const [toggleon, settoggleon] = useState(false);
+function Loading(props) {
+  const dispatch = useDispatch();
+  const xVaule = new Animated.Value(60);
+  const opacity = new Animated.Value(0);
+  const [data] = useState([]);
+  const [isKakaoLogging] = useState(false);
+  const [toggleon, settogglon] = useState(false);
   const [Signin, setSignin] = useState(true);
   const [name, setname] = useState('');
   const [email, setemail] = useState('');
-  const dispatch = useDispatch();
-  const accessToken = useSelector(state => state.user.auth?.accessToken);
-  const {auth} = useSelector(state => state.user);
-  const regEmail =
-    /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-
+  const user = useSelector(state => state.user);
   //////// auth 설정 /////////
   /////////////자동로그인/////////////////////////
   useEffect(() => {
-    getToken(value => {
-      if (value[1][1] === null) {
-        console.log('1단계 실패');
-        setSignin(true);
-        // Alert.alert("다시로그인을해주세요!")
-      } else {
-        dispatch(autoSignIn(value[2][1])).then(() => {
-          if (!accessToken) {
-            Alert.alert('다시로그인을해주세요!');
-            setSignin(false);
-          } else {
-            console.log('3단계성공');
-            setToken(auth, () => {
-              navigation.navigate('Firstopen');
-            });
-          }
-        });
+    const getTokenRefresh = async () => {
+      try {
+        const token = await getToken((value: any) => value[2][1]);
+        if (!token) {
+          return;
+        } else if (token) {
+          dispatch(autoSignIn(token)).then(() => {
+            if (!user.auth.accessToken) {
+              Alert.alert('다시로그인을해주세요!');
+              setSignin(false);
+            } else {
+              console.log('3단계성공');
+              setToken(user.auth, () => {
+                props.navigation.navigate('Firstopen');
+              });
+            }
+          });
+        }
+      } catch (error) {
+        console.error(error);
+        if ((error as AxiosError).response?.data.code === 'expired') {
+          Alert.alert('알림', '다시 로그인 해주세요.');
+        }
       }
-      // console.log("getToken:",value)
-    });
+    };
+    getTokenRefresh();
+    // getToken(value => {
+    //   if (value[1][1] === null) {
+    //     console.log('1단계 실패');
+    //     setSignin(false);
+    //     // Alert.alert("다시로그인을해주세요!")
+    //   } else {
+    //     dispatch(autoSignIn(value[2][1])).then(() => {
+    //       if (!user.auth.accessToken) {
+    //         Alert.alert('다시로그인을해주세요!');
+    //         setSignin(false);
+    //       } else {
+    //         console.log('3단계성공');
+    //         setToken(user.auth, () => {
+    //           props.navigation.navigate('Firstopen');
+    //         });
+    //       }
+    //     });
+    //   }
+    //   // console.log("getToken:",value)
+
+    // });
   }, []);
   ///////////////자동로그인/////////////////////////
-  const onComplete = () => {
-    if (Signin == true) {
-      navigation.navigate('Firstopen');
-    } else {
-      navigation.navigate('Firstopen');
-      // 자동로그인 활성화시 주석제거
-    }
-  };
+  // const onComplete = () => {
+  //   if (Signin === true) {
+  //     this.props.navigation.navigate('Firstopen');
+  //   } else {
+  //     this.props.navigation.navigate('Firstopen');
+  //     // 자동로그인 활성화시 주석제거
+  //   }
+  // };
 
   const manageAcceess = () => {
-    if (!auth.email) {
+    if (!user.auth.email) {
       Alert.alert('실패');
     } else {
       // console.log("asdfasdfasdf")
-      setToken(auth, () => {
-        navigation.navigate('Firstopen');
+      setToken(user.auth, () => {
+        props.navigation.navigate('Firstopen');
       });
     }
   };
@@ -84,7 +110,7 @@ export default function Loading(props) {
     login()
       .then(result => {
         logined(result.accessToken).then(() => manageAcceess());
-        // console.log(result)
+        // console.log(result);
       })
       .catch(err => {
         Alert.alert('카카오 로그인 실패' + err);
@@ -94,30 +120,30 @@ export default function Loading(props) {
   /// 네이버 로그인 ///
 
   ///서버 토큰 전달 ///
-  const logined = async token => {
+  const logined = async (token: any) => {
     try {
       await axios
         .post(`${ServerURL}/social/login/kakao`, {
           accessToken: token,
         })
-        .then(response => this.props.signIn(response.data.data))
-
-        .catch(err => Alert.alert('서버 회원가입 및 로그인 실패 : ' + err));
+        .then(response => dispatch(signIn(response.data.data)))
+        .catch(err => Alert.alert('서버 회원가입 및 로그인 실패 : ' + err))
+        .finally(() => console.log('완료'));
     } catch (error) {
       console.log(error);
     }
   };
 
-  const kakaoLogout = () => {
-    console.log('   kakaoLogout   ');
-    logout((err, result) => {
-      if (err) {
-        console.log('ㅁㅁㅁㅁㅁㅁ', err.toString());
-        return;
-      }
-      alert('result', result);
-    });
-  };
+  // const kakaoLogout = () => {
+  //   console.log('   kakaoLogout   ');
+  //   logout((err, result) => {
+  //     if (err) {
+  //       console.log('ㅁㅁㅁㅁㅁㅁ', err.toString());
+  //       return;
+  //     }
+  //     alert('result', result);
+  //   });
+  // }
 
   const onLoad = () => {
     Animated.timing(opacity, {
@@ -128,26 +154,28 @@ export default function Loading(props) {
   };
 
   const nope = () => {
-    const data = {
+    const dummydata = {
       token: 'data.accessToken',
       refreshToken: 'data.refreshToken',
-      email: email,
-      nickname: name,
+      email: '',
+      nickname: 'this.state.name',
       aboutme: false,
       nametag: '5555',
     };
-    this.props.signIn(data);
-    navigation.navigate('Firstopen');
+    dispatch(signIn(dummydata));
+    props.navigation.navigate('Firstopen');
   };
 
+  var regEmail =
+    /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
   return (
     <View style={{flex: 1}}>
       <Image
         source={require('../../../src/assets/loading.png')}
         style={{height: HEIGHT_MODAL, width: WIDTH}}
       />
+
       <View style={{position: 'absolute', top: 94, left: 20}}>
-        {/* <Image source = {require('../../../src/assets/jenny.jpg')}/> */}
         <Animated.Image
           source={require('../../../src/assets/triplan.png')}
           style={{
@@ -207,7 +235,7 @@ export default function Loading(props) {
               // onPress = {() => this.props.navigation.navigate("TRIPIAN")}
               style={{width: '100%', height: '100%'}}
               onPress={() => {
-                settoggleon(!toggleon);
+                settogglon(true);
               }}>
               <View
                 style={{
@@ -258,7 +286,7 @@ export default function Loading(props) {
                     alignItems: 'flex-end',
                     fontSize: 15,
                     justifyContent: 'center',
-                    color: name.length > 2 ? '#5585E8' : 'gray',
+                    color: this.state.name.length > 2 ? '#5585E8' : 'gray',
                     paddingRight: 2,
                   }}>
                   {name.length}/10
@@ -275,7 +303,6 @@ export default function Loading(props) {
                   borderWidth: 2,
                   borderColor: regEmail.test(email) ? '#5585E8' : '#C4C4C4',
                   borderRadius: 4,
-                  height: 36,
                 }}>
                 <Input
                   myPlanName="이메일"
@@ -353,3 +380,5 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
 });
+
+export default Loading;

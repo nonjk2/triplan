@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-no-duplicate-props */
 import axios from 'axios';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
+
 import {
   StyleSheet,
   View,
@@ -19,7 +20,7 @@ import Starttimemodal from '../schedulesetting/components/starttimemodal';
 import Endtimemodal from '../schedulesetting/components/endtimemodal';
 import NameModal from '../schedulesetting/components/namemodal';
 import {ServerURL} from '../../../util/misc';
-import DissmissKeyboardView from '../../../util/forms/DismissKeyboardView';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 const WIDTH = Dimensions.get('window').width;
 function AddplanSetting(props: any) {
   const [isNameModalvisible, setisNameModalvisible] = useState(false);
@@ -99,243 +100,198 @@ function AddplanSetting(props: any) {
   }, []);
 
   return (
-    <SafeAreaView
+    <KeyboardAwareScrollView
       style={{
         flex: 1,
         backgroundColor: '#fff',
       }}>
-      <DissmissKeyboardView behavior="position">
-        <View
-          style={{
-            width: WIDTH,
-            height: 60,
-            backgroundColor: '#FAFAFA',
-            marginTop: 48,
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'row',
-          }}>
-          <Input
-            pointerEvents="none"
-            value={planname}
-            autoCapitalize={'none'}
-            keyboardType={'email-address'}
-            style={{}}
-            returnKeyType="next"
-            placeholder="여행 제목 입력"
-            placeholderTextColor="#c4c4c4"
-            maxLength={15}
-          />
-          <TouchableOpacity onPress={() => setisNameModalvisible(true)}>
-            <Text style={{color: '#5585E8'}}>편집</Text>
-          </TouchableOpacity>
-        </View>
-        <Modal
-          style={styles.modal}
-          isVisible={isNameModalvisible}
-          backdropColor={'#000000CC'}
-          backdropOpacity={0.5}
-          onBackdropPress={close}>
-          <NameModal
-            type="addplandetail"
-            setisNameModalvisible={setisNameModalvisible}
-            planname={planname}
-            setplanname={setplanname}
-          />
-        </Modal>
-        <View style={{marginHorizontal: 16, marginTop: 24}}>
-          {/* 출발시간 */}
-          {/* 출발시간 */}
-          {/* 출발시간 */}
-          {/* 출발시간 */}
-          {/* 출발시간 */}
-          <View style={styles.containertwo}>
-            <Text style={styles.textname}>출발 시간</Text>
-            <Pressable
-              onPress={() => {
-                setisstartModalvisible(!isstartModalvisible);
-              }}>
-              <View
-                style={{
-                  borderWidth: 2,
-                  borderColor: !startdate ? '#C4C4C4' : '#5585E8',
-                  borderRadius: 4,
-                  height: 50,
-                  justifyContent: 'space-between',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}
-                pointerEvents="none">
-                <Input
-                  editable={false}
-                  pointerEvents="none"
-                  myPlanName="출발 시간"
-                  value={startdate === '' ? '' : `${planstart}`}
-                  autoCapitalize={'none'}
-                  keyboardType={'email-address'}
-                  style={styles.input}
-                  placeholder="시간 일정을 등록해주세요"
-                  placeholderTextColor="#767676"
-                  fontSize={16}
-                  marginLeft={10}
-                />
-              </View>
-            </Pressable>
-            <Modal
-              style={styles.modal}
-              isVisible={isstartModalvisible}
-              backdropColor={'#000000CC'}
-              backdropOpacity={0.5}
-              onBackdropPress={close}>
-              <Starttimemodal
-                endDatetime={enddate}
-                startDatetime={startdate}
-                close={close}
-                setstartdate={setstartdate}
-                setisstartModalvisible={setisstartModalvisible}
-              />
-            </Modal>
-          </View>
-          {/* 도착시간 */}
-          {/* 도착시간 */}
-          {/* 도착시간 */}
-          {/* 도착시간 */}
-          {/* 도착시간 */}
-          {/* 도착시간 */}
-          <View style={styles.containertwo}>
-            <Text style={styles.textname}>도착 시간</Text>
-            <Pressable
-              onPress={() => {
-                setisendModalvisible(!isendModalvisible);
-              }}>
-              <View
-                style={{
-                  borderWidth: 2,
-                  borderColor: !enddate ? '#C4C4C4' : '#5585E8',
-                  borderRadius: 4,
-                  height: 50,
-                  justifyContent: 'space-between',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}>
-                <Input
-                  editable={false}
-                  pointerEvents="none"
-                  myPlanName="도착시간"
-                  value={enddate === '' ? '' : `${planend}`}
-                  autoCapitalize={'none'}
-                  keyboardType={'email-address'}
-                  style={styles.input}
-                  placeholder="시간 일정을 등록해주세요"
-                  placeholderTextColor="#6d6d6d"
-                  fontSize={16}
-                  marginLeft={10}
-                />
-              </View>
-            </Pressable>
-            <Modal
-              style={styles.modal}
-              isVisible={isendModalvisible}
-              backdropColor={'#000000CC'}
-              backdropOpacity={0.5}
-              onBackdropPress={close}>
-              <Endtimemodal
-                startDatetime={startdate}
-                endDatetime={enddate}
-                close={close}
-                setenddate={setenddate}
-                setisendModalvisible={setisendModalvisible}
-              />
-            </Modal>
-          </View>
-          {/* 메모 */}
-          {/* 메모 */}
-          {/* 메모 */}
-          {/* 메모 */}
-          {/* 메모 */}
-          {/* 메모 */}
-          {/* 메모 */}
-          {/* 메모 */}
-          <View style={styles.containertwo}>
-            <Text style={styles.textname}>메모</Text>
-            <Pressable
-              onPress={() => {
-                setshow(true);
-              }}>
-              <View
-                style={{
-                  borderWidth: 2,
-                  borderColor: !memo ? '#C4C4C4' : '#5585E8',
-                  borderRadius: 4,
-                  height: 50,
-                  // justifyContent : 'space-between',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}>
-                <TextInput
-                  ref={memoref}
-                  maxLength={20}
-                  numberOfLines={4}
-                  onSubmitEditing={() => {
-                    priceref.current?.focus();
-                  }}
-                  blurOnSubmit={false}
-                  value={`${memo}`}
-                  returnKeyType={'next'}
-                  autoCapitalize={'none'}
-                  keyboardType={'email-address'}
-                  style={styles.input}
-                  placeholder="메모를 작성해주세요"
-                  placeholderTextColor="#595959"
-                  onChangeText={onChangememo}
-                />
-                <TouchableOpacity
-                  onPress={() => setmemo('')}
-                  // onPress={() => priceref.current?.focus()}
-                  style={{position: 'absolute', right: 5}}>
-                  <IonIcon
-                    name="close-circle-outline"
-                    size={18}
-                    style={{color: 'gray', fontWeight: '400'}}
-                  />
-                </TouchableOpacity>
-              </View>
-            </Pressable>
-          </View>
-          {/* 가격책정 */}
-          {/* 가격책정 */}
-          {/* 가격책정 */}
-          {/* 가격책정 */}
-          {/* 가격책정 */}
-          {/* 가격책정 */}
-          <View style={styles.containertwo}>
-            <Text style={styles.textname}>가격책정</Text>
+      <View
+        style={{
+          width: WIDTH,
+          height: 60,
+          backgroundColor: '#FAFAFA',
+          marginTop: 48,
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'row',
+        }}>
+        <Input
+          pointerEvents="none"
+          value={planname}
+          autoCapitalize={'none'}
+          keyboardType={'email-address'}
+          style={{}}
+          returnKeyType="next"
+          placeholder="여행 제목 입력"
+          placeholderTextColor="#c4c4c4"
+          maxLength={15}
+        />
+        <TouchableOpacity onPress={() => setisNameModalvisible(true)}>
+          <Text style={{color: '#5585E8'}}>편집</Text>
+        </TouchableOpacity>
+      </View>
+      <Modal
+        style={styles.modal}
+        isVisible={isNameModalvisible}
+        backdropColor={'#000000CC'}
+        backdropOpacity={0.5}
+        onBackdropPress={close}>
+        <NameModal
+          type="addplandetail"
+          setisNameModalvisible={setisNameModalvisible}
+          planname={planname}
+          setplanname={setplanname}
+        />
+      </Modal>
+      <View style={{marginHorizontal: 16, marginTop: 24}}>
+        {/* 출발시간 */}
+        {/* 출발시간 */}
+        {/* 출발시간 */}
+        {/* 출발시간 */}
+        {/* 출발시간 */}
+        <View style={styles.containertwo}>
+          <Text style={styles.textname}>출발 시간</Text>
+          <Pressable
+            onPress={() => {
+              setisstartModalvisible(!isstartModalvisible);
+            }}>
             <View
               style={{
                 borderWidth: 2,
-                borderColor: !price ? '#C4C4C4' : '#5585E8',
+                borderColor: !startdate ? '#C4C4C4' : '#5585E8',
+                borderRadius: 4,
+                height: 50,
+                justifyContent: 'space-between',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
+              pointerEvents="none">
+              <Input
+                editable={false}
+                pointerEvents="none"
+                myPlanName="출발 시간"
+                value={startdate === '' ? '' : `${planstart}`}
+                autoCapitalize={'none'}
+                keyboardType={'email-address'}
+                style={styles.input}
+                placeholder="시간 일정을 등록해주세요"
+                placeholderTextColor="#767676"
+                fontSize={16}
+                marginLeft={10}
+              />
+            </View>
+          </Pressable>
+          <Modal
+            style={styles.modal}
+            isVisible={isstartModalvisible}
+            backdropColor={'#000000CC'}
+            backdropOpacity={0.5}
+            onBackdropPress={close}>
+            <Starttimemodal
+              endDatetime={enddate}
+              startDatetime={startdate}
+              close={close}
+              setstartdate={setstartdate}
+              setisstartModalvisible={setisstartModalvisible}
+            />
+          </Modal>
+        </View>
+        {/* 도착시간 */}
+        {/* 도착시간 */}
+        {/* 도착시간 */}
+        {/* 도착시간 */}
+        {/* 도착시간 */}
+        {/* 도착시간 */}
+        <View style={styles.containertwo}>
+          <Text style={styles.textname}>도착 시간</Text>
+          <Pressable
+            onPress={() => {
+              setisendModalvisible(!isendModalvisible);
+            }}>
+            <View
+              style={{
+                borderWidth: 2,
+                borderColor: !enddate ? '#C4C4C4' : '#5585E8',
                 borderRadius: 4,
                 height: 50,
                 justifyContent: 'space-between',
                 flexDirection: 'row',
                 alignItems: 'center',
               }}>
-              <TextInput
-                value={`${price}`}
-                onSubmitEditing={() => {
-                  memoref.current?.focus();
-                }}
-                blurOnSubmit={false}
-                ref={priceref}
+              <Input
+                editable={false}
+                pointerEvents="none"
+                myPlanName="도착시간"
+                value={enddate === '' ? '' : `${planend}`}
                 autoCapitalize={'none'}
-                keyboardType={'number-pad'}
+                keyboardType={'email-address'}
                 style={styles.input}
                 placeholder="시간 일정을 등록해주세요"
-                placeholderTextColor="#767676"
-                onChangeText={onChangeprice}
+                placeholderTextColor="#6d6d6d"
+                fontSize={16}
+                marginLeft={10}
+              />
+            </View>
+          </Pressable>
+          <Modal
+            style={styles.modal}
+            isVisible={isendModalvisible}
+            backdropColor={'#000000CC'}
+            backdropOpacity={0.5}
+            onBackdropPress={close}>
+            <Endtimemodal
+              startDatetime={startdate}
+              endDatetime={enddate}
+              close={close}
+              setenddate={setenddate}
+              setisendModalvisible={setisendModalvisible}
+            />
+          </Modal>
+        </View>
+        {/* 메모 */}
+        {/* 메모 */}
+        {/* 메모 */}
+        {/* 메모 */}
+        {/* 메모 */}
+        {/* 메모 */}
+        {/* 메모 */}
+        {/* 메모 */}
+        <View style={styles.containertwo}>
+          <Text style={styles.textname}>메모</Text>
+          <Pressable
+            onPress={() => {
+              setshow(true);
+            }}>
+            <View
+              style={{
+                borderWidth: 2,
+                borderColor: !memo ? '#C4C4C4' : '#5585E8',
+                borderRadius: 4,
+                height: 50,
+                // justifyContent : 'space-between',
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <TextInput
+                ref={memoref}
+                maxLength={20}
+                numberOfLines={4}
+                onSubmitEditing={() => {
+                  priceref.current?.focus();
+                }}
+                blurOnSubmit={false}
+                value={`${memo}`}
+                returnKeyType={'next'}
+                autoCapitalize={'none'}
+                keyboardType={'email-address'}
+                style={styles.input}
+                placeholder="메모를 작성해주세요"
+                placeholderTextColor="#595959"
+                onChangeText={onChangememo}
               />
               <TouchableOpacity
-                onPress={() => setprice('')}
+                onPress={() => setmemo('')}
+                // onPress={() => priceref.current?.focus()}
                 style={{position: 'absolute', right: 5}}>
                 <IonIcon
                   name="close-circle-outline"
@@ -344,10 +300,53 @@ function AddplanSetting(props: any) {
                 />
               </TouchableOpacity>
             </View>
+          </Pressable>
+        </View>
+        {/* 가격책정 */}
+        {/* 가격책정 */}
+        {/* 가격책정 */}
+        {/* 가격책정 */}
+        {/* 가격책정 */}
+        {/* 가격책정 */}
+        <View style={styles.containertwo}>
+          <Text style={styles.textname}>가격책정</Text>
+          <View
+            style={{
+              borderWidth: 2,
+              borderColor: !price ? '#C4C4C4' : '#5585E8',
+              borderRadius: 4,
+              height: 50,
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            <TextInput
+              value={`${price}`}
+              onSubmitEditing={() => {
+                memoref.current?.focus();
+              }}
+              blurOnSubmit={false}
+              ref={priceref}
+              autoCapitalize={'none'}
+              keyboardType={'number-pad'}
+              style={styles.input}
+              placeholder="시간 일정을 등록해주세요"
+              placeholderTextColor="#767676"
+              onChangeText={onChangeprice}
+            />
+            <TouchableOpacity
+              onPress={() => setprice('')}
+              style={{position: 'absolute', right: 5}}>
+              <IonIcon
+                name="close-circle-outline"
+                size={18}
+                style={{color: 'gray', fontWeight: '400'}}
+              />
+            </TouchableOpacity>
           </View>
         </View>
-      </DissmissKeyboardView>
-    </SafeAreaView>
+      </View>
+    </KeyboardAwareScrollView>
   );
 }
 

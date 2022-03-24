@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {SIGN_UP, SIGN_IN, AUTO_SIGN_IN} from '../types';
 import {ServerURL} from '../../../util/misc';
+
 export const autoSignIn = (refToken: any): any => {
   const request = axios({
     method: 'post',
@@ -17,7 +18,6 @@ export const autoSignIn = (refToken: any): any => {
       console.log(err);
       return false;
     });
-  console.log(request);
   return {
     type: AUTO_SIGN_IN,
     payload: request,

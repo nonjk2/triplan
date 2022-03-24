@@ -124,6 +124,24 @@ function SettingContents(props: any) {
             </Text>
           </View>
         </TouchableOpacity>
+        <TouchableOpacity
+          // onPress = {()=> compleate()}
+          onPress={() => navigation.navigate('일정추가')}>
+          <View
+            style={{
+              width: 343,
+              height: 52,
+              backgroundColor: introduce.length > 1 ? '#5585E8' : '#c4c4c4',
+              borderRadius: 5,
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginBottom: 16,
+            }}>
+            <Text style={{fontSize: 14, fontWeight: '400', color: 'white'}}>
+              건너뛰기
+            </Text>
+          </View>
+        </TouchableOpacity>
       </View>
       <Modal
         style={styles.modal}
