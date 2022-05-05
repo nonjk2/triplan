@@ -10,7 +10,7 @@
 TeamTriplan
 PM : 김환
 FrontEnd : 최은석
-BackEnd : 박정현, 임태형
+BackEnd : 박정현
 UI/UX 디자이너 : 김종표
 
 ⚙ 기술 스택
@@ -33,6 +33,10 @@ FrontEnd : React-nativ , typescript
 🎮 Triplan 주요 기능
 
 👩‍🔧 프로젝트에서 맡은 역할
-OAuth2.0을 이용한 google, naver, kakao 로그인 구현
+ frontend
+-api 통신, 데이터 핸들링,ios 커밋(apple developer 베타테스트)
 
 💡 프로젝트를 통해 배운점
+
+-처음 react-native 프로젝트다보니 수정사항이 너무나도 많았지만 하나하나 배워가면서 적용시키면서 react-native 배워감
+-react-native 오류들이 상당히 많았지만 구글링,서칭으로 오류들을 차근차근해결함
