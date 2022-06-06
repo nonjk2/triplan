@@ -34,6 +34,11 @@ FrontEnd : React-nativ , typescript
 
 🎮 Triplan 주요 기능
 
+    1. 지도 검색 (네이버 맵)
+    2. 여행 계획 작성(날짜, 시간, 위치 등)
+    3. 계획을 한 눈으로 볼수 있게(가시적으로)지도에서 핀으로 경로를 알 수 있음.
+    4. 친구 초대를 통한 여행 계획 공유
+
 👩‍🔧 프로젝트에서 맡은 역할
  frontend
 -api 통신, 데이터 핸들링,ios 커밋(apple developer 베타테스트)
