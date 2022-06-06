@@ -10,14 +10,16 @@
 👨‍👨‍👦‍👦 프로젝트 기간 & 팀원
 
 기간 : 2021.11.08 ~ ing
-TeamTriplan
+TeamTriplan 
 PM : 김환
 FrontEnd : 최은석
 BackEnd : 박정현
 UI/UX 디자이너 : 김종표
 
+
 ⚙ 기술 스택
 FrontEnd : React-nativ , typescript
+
 
 💾 Triplan FE 진행
 
