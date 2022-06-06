@@ -28,6 +28,7 @@ FrontEnd : React-nativ , typescript
 
 - [ ] 기획 추가 하기 
 - [ ] 앱스토어 올리기
+- [ ] 
 
 
 🎮 Triplan 주요 기능
@@ -40,3 +41,6 @@ FrontEnd : React-nativ , typescript
 
 -처음 react-native 프로젝트다보니 수정사항이 너무나도 많았지만 하나하나 배워가면서 적용시키면서 react-native 배워감
 -react-native 오류들이 상당히 많았지만 구글링,서칭으로 오류들을 차근차근해결함
+
+<img width="808" alt="image" src="https://user-images.githubusercontent.com/85878391/172090334-a26b9ad0-6120-4a4e-b752-8469cbeb98b6.png">
+
